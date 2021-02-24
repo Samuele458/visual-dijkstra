@@ -7,7 +7,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QToolBar>
-
+#include "widgets/node.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -19,6 +19,8 @@ private:
     QToolBar* toolbar;
 
     QGraphicsView* editorView;
+    QGraphicsScene* scene;
+    Node* node;
 };
 
 #endif

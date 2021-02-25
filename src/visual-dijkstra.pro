@@ -11,6 +11,8 @@ CONFIG += c++11
 SOURCES += \
         dialogs/mainwindow.cpp \
         main.cpp \
+        widgets/edge.cpp \
+        widgets/graph.cpp \
         widgets/node.cpp
 
 # Default rules for deployment.
@@ -20,4 +22,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     dialogs/mainwindow.h \
+    widgets/edge.h \
+    widgets/graph.h \
     widgets/node.h

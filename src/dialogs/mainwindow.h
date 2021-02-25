@@ -8,6 +8,7 @@
 #include <QHBoxLayout>
 #include <QToolBar>
 #include "widgets/node.h"
+#include "widgets/graph.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -19,7 +20,8 @@ private:
     QToolBar* toolbar;
 
     QGraphicsView* editorView;
-    QGraphicsScene* scene;
+    //QGraphicsScene* scene;
+    Graph* graph;
     Node* node;
 };
 

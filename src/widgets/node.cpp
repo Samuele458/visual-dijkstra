@@ -1,8 +1,16 @@
 #include "node.h"
 
-Node::Node()
+Node::Node() : QGraphicsItem()
 {
+    this->setFlag(QGraphicsItem::ItemIsMovable,true);
 
+}
+
+Node::Node(QString name, qreal x, qreal y) : Node()
+{
+    this->name = name;
+    this->setX(x);
+    this->setY(y);
 }
 
 QRectF Node::boundingRect() const

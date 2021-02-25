@@ -3,10 +3,11 @@
 Node::Node(QString name, qreal x, qreal y, QGraphicsItem* parent ) : QGraphicsItem(parent)
 {
     this->name = name;
-    this->setFlag(QGraphicsItem::ItemIsMovable,true);
-    QBrush brush(Qt::red);
-    this->setPos( x, y );
 
+    this->setFlag(QGraphicsItem::ItemIsMovable,true);
+
+    //item position
+    this->setPos( x, y );
 }
 
 QRectF Node::boundingRect() const
@@ -17,10 +18,10 @@ QRectF Node::boundingRect() const
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    //area of the item
+    //item area
     QRectF bound = boundingRect();
 
-    //brush for background of the item
+    //brush for item background
     QBrush brush(Qt::red);
 
     //bruch for contours
@@ -42,12 +43,12 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
 void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-
+    //refreshing each edge
     QVectorIterator<Edge*> i(edges);
     while(i.hasNext())
         i.next()->update();
+
     QGraphicsItem::mouseMoveEvent( event );
-    update();
 }
 
 void Node::addEdge(Edge* edge)

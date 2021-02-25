@@ -25,7 +25,9 @@ private:
     Graph* graph;
     Node* node1;
     Node* node2;
+    Node* node3;
     Edge* edge1;
+    Edge* edge2;
 
 };
 

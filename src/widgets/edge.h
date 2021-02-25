@@ -1,7 +1,7 @@
 #ifndef EDGE_H
 #define EDGE_H
 #include <QGraphicsItem>
-
+#include <QStyle>
 #include "widgets/node.h"
 
 class Node;

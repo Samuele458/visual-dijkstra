@@ -68,5 +68,17 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
                       nodeB->x()+nodeB->boundingRect().width()/2,
                       nodeB->y()+nodeB->boundingRect().height()/2 );
 
+    QPointF textPoint;
+    QRectF bound = boundingRect();
+    textPoint.setX( bound.x() + bound.width()/2 + 10 );
+    textPoint.setY( bound.y() + bound.height()/2 + 10 );
+
+    QFont font = painter->font();
+    font.setPixelSize(15);
+    painter->setFont( font );
+
+
+    painter->drawText(textPoint,"45");
+
 };
 

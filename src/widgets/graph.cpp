@@ -5,7 +5,6 @@
 Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
 {
 
-
 }
 
 void Graph::addNode(Node* node)

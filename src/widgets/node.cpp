@@ -5,7 +5,7 @@ Node::Node(QString name, qreal x, qreal y, QGraphicsItem* parent ) : QGraphicsIt
     this->name = name;
 
     this->setFlag(QGraphicsItem::ItemIsMovable,true);
-
+    //this->setFlag(QGraphicsItem::ItemIsSelectable, true);
     //item position
     this->setPos( x, y );
 }

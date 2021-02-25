@@ -36,6 +36,8 @@ private:
 
     Graph* graph;
     Node* node1;
+    Node* node2;
+    Edge* edge1;
 
 
 };

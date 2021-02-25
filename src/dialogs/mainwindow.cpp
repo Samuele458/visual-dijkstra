@@ -3,27 +3,22 @@
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     toolbar = new QToolBar("Visual Dijkstra");
+    this->addToolBar( toolbar );
 
     editorView = new QGraphicsView;
     graph = new Graph( this );
-    //scene = new QGraphicsScene(this);
-    graph->addNode("test",0,0);
+
+    node1 = new Node("A",0,0);
+    node2 = new Node("B",100,0);
+    graph->addNode(node1);
+    graph->addNode(node2);
+
+    edge1 = new Edge(node1, node2, 3);
+    graph->addItem(edge1);
+
     editorView->setScene( graph );
-
-    //QGraphicsEllipseItem()
-    //node = new Node();
-    //scene->addItem( node );
-    //scene->addRect(-100,-30,50,50);
-    //scene->addLine(0,100,200,300);
-
-    //scene->addRect()
-
     this->setCentralWidget( editorView );
 
-    this->addToolBar( toolbar );
-
-    graph->addNode("test",300,300);
-
     editorView->setRenderHint(QPainter::Antialiasing, true );
-
+    editorView->setSceneRect(graph->sceneRect());
 }

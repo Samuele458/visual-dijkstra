@@ -1,11 +1,5 @@
 #include "node.h"
 
-Node::Node()
-{
-    this->setFlag(QGraphicsItem::ItemIsMovable,true);
-
-}
-
 Node::Node(QString name, qreal x, qreal y, QGraphicsItem* parent ) : QGraphicsItem(parent)
 {
     this->name = name;
@@ -23,20 +17,42 @@ QRectF Node::boundingRect() const
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    //QGraphicsItem::paint( painter, option, widget );
-    QRectF rect = boundingRect();
+    //area of the item
+    QRectF bound = boundingRect();
 
+    //brush for background of the item
     QBrush brush(Qt::red);
 
+    //bruch for contours
+    QBrush contourBrush(Qt::black);
+    QPen pen( contourBrush, 3 );
+
     painter->setBrush( brush );
-
-    QBrush penBrush(Qt::black);
-    QPen pen( penBrush, 3 );
-
     painter->setPen( pen );
+
+    QFont font = painter->font();
+    font.setPixelSize(20);
+    painter->setFont( font );
+
+
     //painter->drawRect(rect);
-    painter->drawEllipse(0,0,rect.width(),rect.height());
-    painter->drawText(0,0,50,50,0,"Ciao");
+    painter->drawEllipse(0,0,bound.width(),bound.height());
+    painter->drawText(0,0,bound.width(),bound.height(),Qt::AlignCenter,name);
+}
+
+void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+
+    QVectorIterator<Edge*> i(edges);
+    while(i.hasNext())
+        i.next()->update();
+    QGraphicsItem::mouseMoveEvent( event );
+    update();
+}
+
+void Node::addEdge(Edge* edge)
+{
+    edges.push_back(edge);
 }
 
 

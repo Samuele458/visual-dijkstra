@@ -3,6 +3,11 @@
 #include <QPainter>
 #include <QGraphicsItem>
 #include <QDebug>
+#include "widgets/edge.h"
+
+
+class Edge;
+
 
 class Node : public QGraphicsItem
 {
@@ -12,9 +17,12 @@ public:
 
     QRectF boundingRect() const;
     void paint( QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget );
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
+    void addEdge( Edge* edge );
 private:
     QString name;
+    QVector<Edge*> edges;
 };
 
 #endif // NODE_H

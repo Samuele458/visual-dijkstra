@@ -10,7 +10,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     graph->addNode("test",0,0);
     editorView->setScene( graph );
 
-
+    //QGraphicsEllipseItem()
     //node = new Node();
     //scene->addItem( node );
     //scene->addRect(-100,-30,50,50);
@@ -23,4 +23,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     this->addToolBar( toolbar );
 
     graph->addNode("test",300,300);
+
+    editorView->setRenderHint(QPainter::Antialiasing, true );
+
 }

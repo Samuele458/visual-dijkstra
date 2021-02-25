@@ -4,11 +4,11 @@
 #include <QGraphicsItem>
 #include <QDebug>
 
-class Node : public QGraphicsEllipseItem
+class Node : public QGraphicsItem
 {
 public:
     Node();
-    Node( QString name, qreal x, qreal y );
+    Node( QString name, qreal x = 0, qreal y = 0, QGraphicsItem* parent = nullptr );
 
     QRectF boundingRect() const;
     void paint( QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget );

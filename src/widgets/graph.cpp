@@ -76,7 +76,15 @@ bool Graph::load( QString filepath ) {
 }
 
 bool Graph::save( QString filepath ) {
+    QSettings save( filepath, QSettings::IniFormat );
+    QVectorIterator<Node*> node(nodes);
 
+    save.beginGroup( "nodes" );
+    while( node.hasNext() ) {
+        Node* hold = node.next();
+        save.setValue( hold->getName(), QString::number( hold->x() ) + " " +
+                                        QString::number( hold->y() ) + " " );
+    }
 }
 
 

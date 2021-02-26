@@ -66,3 +66,9 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     //maximize window
     this->showMaximized();
 }
+
+void MainWindow::createActions() {
+    exitAction = new QAction( "Exit", this );
+    exitAction->setShortcut( QKeySequence::Quit );
+
+}

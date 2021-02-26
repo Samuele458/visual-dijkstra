@@ -30,6 +30,7 @@
 #include <QToolBar>
 #include <QTableWidget>
 #include <QSplitter>
+#include <QAction>
 
 #include "widgets/node.h"
 #include "widgets/edge.h"
@@ -45,6 +46,18 @@ public:
 
 private:
 
+    //allocating and configuring actions
+    void createActions();
+
+    // ---- actions ----
+    QAction* exitAction;
+    QAction* loadAction;
+    QAction* saveAction;
+    QAction* saveAsAction;
+
+
+
+    // ---- widgets ----
     QToolBar* toolbar;
 
     QGraphicsView* editorView;

@@ -1,3 +1,24 @@
+/*          Visual Dijkstra
+ *    Copyright (C) 2021 Samuele Girgenti
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * 	     --  CONTACTS --
+ *   Email:      samuele.girgenti458@gmail.com
+ *   Github:     https://github.com/Samuele458
+ */
+
 #include "node.h"
 
 Node::Node(QString name, qreal x, qreal y, QGraphicsItem* parent ) : QGraphicsItem(parent)
@@ -63,9 +84,11 @@ void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void Node::addEdge(Edge* edge)
 {
+    //the edge must contain THIS node.
     if( edge->getNodeA() != this && edge->getNodeB() != this ) {
         throw NodeError( NodeError::PASSED_EDGE_DOES_NOT_CONTAIN_NODE, "Edge does not contain this node" );
     }
+
     edges.push_back(edge);
 }
 

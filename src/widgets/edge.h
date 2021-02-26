@@ -51,6 +51,7 @@ public:
 
     Node* getNodeA() const;
     Node* getNodeB() const;
+    int getWeight() const;
 
 protected:
     QRectF boundingRect() const override;

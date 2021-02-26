@@ -59,6 +59,10 @@ Node* Edge::getNodeB() const {
     return nodeB;
 }
 
+int Edge::getWeight() const {
+    return weight;
+}
+
 QRectF Edge::boundingRect() const {
 
     //nodeA coordinates

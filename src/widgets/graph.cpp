@@ -72,19 +72,62 @@ void Graph::addEdge( Edge* edge ) {
 }
 
 bool Graph::load( QString filepath ) {
+    QSettings load( filepath, QSettings::IniFormat );
 
+    //checking if file exists or not
+    if( filepath != "" && QFile::exists( filepath ) ) {
+
+        //todo: completare i controlli sugli item inseriti e rimossi
+        //removing all items
+        edges.clear();
+        nodes.clear();
+        QList<QGraphicsItem*> items = this->items();
+        QListIterator<QGraphicsItem*> items_i(items);
+        while( items_i.hasNext() ) {
+            this->removeItem( items_i.next() );
+        }
+
+        load.beginGroup( "nodes" );
+        QStringList nodes = load.allKeys();
+        QStringListIterator i(nodes);
+
+        while( i.hasNext() ) {
+            QString nodeName = i.next();
+            QStringList coordinates = load.value( nodeName ).toString().split(" ");
+            //todo: verificare che  le coordinate siano 2
+            this->addNode( nodeName,
+                           coordinates.at(0).toInt(),
+                           coordinates.at(1).toInt());
+        }
+        load.endGroup();
+
+        load.beginGroup( "egdes" );
+
+        load.endGroup();
+    }
 }
 
 bool Graph::save( QString filepath ) {
     QSettings save( filepath, QSettings::IniFormat );
     QVectorIterator<Node*> node(nodes);
+    QVectorIterator<Edge*> edge(edges);
 
     save.beginGroup( "nodes" );
     while( node.hasNext() ) {
         Node* hold = node.next();
         save.setValue( hold->getName(), QString::number( hold->x() ) + " " +
-                                        QString::number( hold->y() ) + " " );
+                                        QString::number( hold->y() ) );
     }
+    save.endGroup();
+
+    save.beginGroup( "edges" );
+    while( edge.hasNext() ) {
+        Edge* hold = edge.next();
+        save.setValue( hold->getNodeA()->getName() + "-" + hold->getNodeB()->getName(),
+                       hold->getWeight() );
+    }
+    save.endGroup();
+
 }
 
 

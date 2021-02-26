@@ -25,6 +25,7 @@
 #include <QVector>
 #include <QString>
 #include <QSettings>
+#include <QFile>
 
 #include "widgets/node.h"
 #include "common/error.h"

@@ -24,9 +24,16 @@
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
+    //creating actions
+    createActions();
+
     //window toolbar
     toolbar = new QToolBar("Visual Dijkstra");
     this->addToolBar( toolbar );
+    toolbar->addAction( exitAction );
+    toolbar->addAction( saveAction );
+    toolbar->addAction( saveAsAction );
+    toolbar->addAction( openAction );
 
     //setup UI
     editorView = new QGraphicsView;
@@ -70,5 +77,35 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 void MainWindow::createActions() {
     exitAction = new QAction( "Exit", this );
     exitAction->setShortcut( QKeySequence::Quit );
+    connect( exitAction, SIGNAL(triggered()), this, SLOT(exit_action_slot()) );
 
+    openAction = new QAction( "Open", this );
+    connect( openAction, SIGNAL(triggered()), this, SLOT(open_action_slot()) );
+
+    saveAction = new QAction( "Save", this );
+    connect( saveAction, SIGNAL(triggered()), this, SLOT(save_action_slot()) );
+
+    saveAsAction = new QAction( "Save as...", this );
+    connect( saveAsAction, SIGNAL(triggered()), this, SLOT(save_as_action_slot()) );
+
+}
+
+
+
+// ---- Actions ----
+
+void MainWindow::open_action_slot() {
+    qDebug() << "opening";
+}
+
+void MainWindow::exit_action_slot() {
+    qDebug() << "closing app";
+}
+
+void MainWindow::save_action_slot() {
+    qDebug() << "save";
+}
+
+void MainWindow::save_as_action_slot() {
+    graph->save( QFileDialog::getSaveFileName( this, "Save as...", "", "Config (*.ini);;Others (*.*)" ) );
 }

@@ -31,6 +31,7 @@
 #include <QTableWidget>
 #include <QSplitter>
 #include <QAction>
+#include <QFileDialog>
 
 #include "widgets/node.h"
 #include "widgets/edge.h"
@@ -43,6 +44,11 @@ public:
     MainWindow( QWidget* parent = nullptr );
     ~MainWindow() {};
 
+protected slots:
+    void open_action_slot();
+    void exit_action_slot();
+    void save_action_slot();
+    void save_as_action_slot();
 
 private:
 
@@ -51,7 +57,7 @@ private:
 
     // ---- actions ----
     QAction* exitAction;
-    QAction* loadAction;
+    QAction* openAction;
     QAction* saveAction;
     QAction* saveAsAction;
 

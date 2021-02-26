@@ -21,7 +21,6 @@ public:
     GraphError( id error_id = GENERIC, QString message = "" ) :
         Error( (Error::id)error_id, message ) { }
 
-
 };
 
 

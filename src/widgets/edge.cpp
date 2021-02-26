@@ -3,6 +3,11 @@
 Edge::Edge( Node* nodeA, Node* nodeB, int weight, QGraphicsItem* parent) :
     QGraphicsItem( parent )
 {
+    //nodes couldn't have the same names
+    if( nodeA == nodeB || nodeA->getName() == nodeB->getName() ) {
+        throw EdgeError( EdgeError::INVALID_NODES, "invalid nodes");
+    }
+
     this->nodeA = nodeA;
     this->nodeB = nodeB;
     this->weight = weight;
@@ -15,6 +20,23 @@ Edge::Edge( Node* nodeA, Node* nodeB, int weight, QGraphicsItem* parent) :
     this->setZValue( -1 );
 }
 
+//Equal operator. Comparison based on node name.
+bool Edge::operator==( Edge& other ) {
+    return ( this->nodeA == other.nodeA ) && ( this->nodeB == other.nodeB );
+}
+
+//opposite of Equal operator
+bool Edge::operator!=( Edge& other ) {
+    return !( operator==( other ) );
+}
+
+Node* Edge::getNodeA() const {
+
+}
+
+Node* Edge::getNodeB() const {
+
+}
 
 QRectF Edge::boundingRect() const {
 

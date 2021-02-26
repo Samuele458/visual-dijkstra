@@ -5,9 +5,19 @@ Node::Node(QString name, qreal x, qreal y, QGraphicsItem* parent ) : QGraphicsIt
     this->name = name;
 
     this->setFlag(QGraphicsItem::ItemIsMovable,true);
-    //this->setFlag(QGraphicsItem::ItemIsSelectable, true);
+
     //item position
     this->setPos( x, y );
+}
+
+//Equal operator. Comparison based on node name.
+bool Node::operator==( Node& other ) {
+    return ( this->name == other.name );
+}
+
+//opposite of Equal operator
+bool Node::operator!=( Node& other ) {
+    return !( operator==( other ) );
 }
 
 QRectF Node::boundingRect() const
@@ -53,6 +63,9 @@ void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void Node::addEdge(Edge* edge)
 {
+    if( edge->getNodeA() != this && edge->getNodeB() != this ) {
+        throw NodeError( NodeError::PASSED_EDGE_DOES_NOT_CONTAIN_NODE, "Edge does not contain this node" );
+    }
     edges.push_back(edge);
 }
 

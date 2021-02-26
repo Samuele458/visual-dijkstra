@@ -21,6 +21,14 @@ void Graph::addNode(QString name, qreal x, qreal y )
 
 }
 
+bool Graph::load( QString filepath ) {
+
+}
+
+bool Graph::save( QString filepath ) {
+
+}
+
 
 
 

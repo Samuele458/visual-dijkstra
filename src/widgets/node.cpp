@@ -56,4 +56,12 @@ void Node::addEdge(Edge* edge)
     edges.push_back(edge);
 }
 
+QString Node::getName() const {
+    return this->name;
+}
+
+void Node::setName( QString name ) {
+    this->name = name;
+}
+
 

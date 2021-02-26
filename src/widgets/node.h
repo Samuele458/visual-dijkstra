@@ -12,7 +12,6 @@ class Edge;
 class Node : public QGraphicsItem
 {
 public:
-    Node();
     Node( QString name, qreal x = 0, qreal y = 0, QGraphicsItem* parent = nullptr );
 
     QRectF boundingRect() const;
@@ -20,6 +19,10 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
     void addEdge( Edge* edge );
+
+    QString getName() const;
+    void setName( QString name );
+
 private:
     QString name;
     QVector<Edge*> edges;

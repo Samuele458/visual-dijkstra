@@ -50,8 +50,17 @@ void Graph::addNode(QString name, qreal x, qreal y )
 }
 
 void Graph::addEdge( QString nameA, QString nameB, int weight ) {
-    Node* nodeA = new Node( nameA );
-    Node* nodeB = new Node( nameB );
+    Node* nodeA = getNode( nameA );
+    Node* nodeB = getNode( nameB );
+
+    if( nodeA == nullptr ) {
+        throw GraphError( GraphError::UNKNOWN_NODE, "Unknown node" );
+    }
+
+    if( nodeB == nullptr ) {
+        throw GraphError( GraphError::UNKNOWN_NODE, "Unknown node" );
+    }
+
     addEdge( new Edge( nodeA, nodeB, weight ) );
 }
 
@@ -69,6 +78,19 @@ void Graph::addEdge( Edge* edge ) {
 
     edges.push_back( edge );
     this->addItem( edge );
+}
+
+Node* Graph::getNode( QString name ) const {
+    QVectorIterator<Node*> i(nodes);
+
+    while( i.hasNext() ) {
+        Node* node = i.next();
+        if( node->getName() == name ) {
+            return node;
+        }
+    }
+
+    return nullptr;
 }
 
 bool Graph::load( QString filepath ) {
@@ -90,6 +112,7 @@ bool Graph::load( QString filepath ) {
         load.beginGroup( "nodes" );
         QStringList nodes = load.allKeys();
         QStringListIterator i(nodes);
+        qDebug() << nodes;
 
         while( i.hasNext() ) {
             QString nodeName = i.next();
@@ -101,8 +124,17 @@ bool Graph::load( QString filepath ) {
         }
         load.endGroup();
 
-        load.beginGroup( "egdes" );
-
+        load.beginGroup( "edges" );
+        QStringList edges = load.childKeys();
+        qDebug() << edges;
+        QStringListIterator edges_i( edges );
+        while( edges_i.hasNext() ) {
+            QString current_edges = edges_i.next();
+            qDebug() << current_edges.split("-").at(0) << current_edges.split("-").at(1);
+            this->addEdge(current_edges.split("-").at(0),
+                          current_edges.split("-").at(1),
+                          load.value( current_edges ).toInt() );
+        }
         load.endGroup();
     }
 }

@@ -95,7 +95,7 @@ void MainWindow::createActions() {
 // ---- Actions ----
 
 void MainWindow::open_action_slot() {
-    qDebug() << "opening";
+    graph->load( QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr ));
 }
 
 void MainWindow::exit_action_slot() {

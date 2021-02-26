@@ -37,7 +37,8 @@ public:
         INVALID_ARGUMENT,
 
         DUPLICATED_NODE,
-        DUPLICATED_EDGE
+        DUPLICATED_EDGE,
+        UNKNOWN_NODE
     };
 
     GraphError( id error_id = GENERIC, QString message = "" ) :
@@ -59,6 +60,7 @@ public:
     void addEdge( Node* nodeA, Node* nodeB, int weight = 3 );
     void addEdge( Edge* edge );
 
+    Node* getNode( QString name ) const;
 
     bool load( QString filepath );
     bool save( QString filepath );

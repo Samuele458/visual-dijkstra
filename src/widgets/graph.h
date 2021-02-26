@@ -26,6 +26,7 @@
 #include <QString>
 #include <QSettings>
 #include <QFile>
+#include <QGraphicsSceneMouseEvent>
 
 #include "widgets/node.h"
 #include "common/error.h"
@@ -64,7 +65,12 @@ public:
 
     bool load( QString filepath );
     bool save( QString filepath );
-
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override {
+        QGraphicsScene::mousePressEvent( event );
+        //this->addNode("F", 100, 100);
+        QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
+        if( item ) item->setRotation(45);
+    }
 private:
     QVector<Node*> nodes;
     QVector<Edge*> edges;

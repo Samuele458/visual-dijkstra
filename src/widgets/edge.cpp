@@ -125,7 +125,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->setFont( font );
 
 
-    painter->drawText(textPoint,"45");
+    painter->drawText(textPoint,QString::number(this->weight));
 
 };
 

@@ -137,6 +137,7 @@ bool Graph::load( QString filepath ) {
         }
         load.endGroup();
     }
+    return true;
 }
 
 bool Graph::save( QString filepath ) {
@@ -159,7 +160,7 @@ bool Graph::save( QString filepath ) {
                        hold->getWeight() );
     }
     save.endGroup();
-
+    return true;
 }
 
 

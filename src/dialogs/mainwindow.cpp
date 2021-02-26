@@ -53,6 +53,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
     //creating test graph
     graph = new Graph( this );
+
     try {
         node1 = new Node("B",0,0);
         node2 = new Node("A",0,0);
@@ -69,6 +70,8 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     editorView->setScene( graph );
     editorView->setRenderHint(QPainter::Antialiasing, true );
     editorView->setSceneRect(graph->sceneRect());
+
+    editorView->viewport()->setCursor(Qt::CrossCursor);
 
     //maximize window
     this->showMaximized();
@@ -95,11 +98,15 @@ void MainWindow::createActions() {
 // ---- Actions ----
 
 void MainWindow::open_action_slot() {
-    graph->load( QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr ));
+    QString filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
+
+    if( filename != "" ) {
+        graph->load( filename );
+    }
 }
 
 void MainWindow::exit_action_slot() {
-    qDebug() << "closing app";
+    this->close();
 }
 
 void MainWindow::save_action_slot() {
@@ -107,5 +114,9 @@ void MainWindow::save_action_slot() {
 }
 
 void MainWindow::save_as_action_slot() {
-    graph->save( QFileDialog::getSaveFileName( this, "Save as...", "", "Config (*.ini);;Others (*.*)" ) );
+    QString filename = QFileDialog::getSaveFileName( this, "Save as...", "", "Config (*.ini);;Others (*.*)" );
+
+    if( filename != "" ) {
+        graph->save( filename );
+    }
 }

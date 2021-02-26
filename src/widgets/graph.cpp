@@ -9,6 +9,14 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
 
 void Graph::addNode(Node* node)
 {
+
+    QVectorIterator<Node*> i(nodes);
+    while( i.hasNext() ) {
+        if( i.next()->getName() == node->getName() ) {
+            throw GraphError( GraphError::DUPLICATED_NODE, "node duplicated" );
+        }
+    }
+
     nodes.push_back(node);
     this->addItem( node );
 }

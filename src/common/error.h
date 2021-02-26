@@ -11,7 +11,7 @@ public:
         INVALID_ARGUMENT,
     };
 
-    Error();
+    Error( id error_id = GENERIC, QString message = "" );
 
     id getId() const;
     void setId( id error_id );

@@ -49,6 +49,9 @@ protected slots:
     void exit_action_slot();
     void save_action_slot();
     void save_as_action_slot();
+    void remove_node_action_slot();
+    void create_node_action_slot();
+    void create_edge_action_slot();
 
 private:
 
@@ -60,6 +63,9 @@ private:
     QAction* openAction;
     QAction* saveAction;
     QAction* saveAsAction;
+    QAction* removeNodeAction;
+    QAction* createNodeAction;
+    QAction* createEdgeAction;
 
 
 

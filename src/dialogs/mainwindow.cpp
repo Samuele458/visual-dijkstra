@@ -34,6 +34,9 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     toolbar->addAction( saveAction );
     toolbar->addAction( saveAsAction );
     toolbar->addAction( openAction );
+    toolbar->addAction( createNodeAction );
+    toolbar->addAction( removeNodeAction );
+    toolbar->addAction( createEdgeAction );
 
     //setup UI
     editorView = new QGraphicsView;
@@ -91,6 +94,15 @@ void MainWindow::createActions() {
     saveAsAction = new QAction( "Save as...", this );
     connect( saveAsAction, SIGNAL(triggered()), this, SLOT(save_as_action_slot()) );
 
+    removeNodeAction = new QAction( "Remove node", this );
+    connect( removeNodeAction, SIGNAL(triggered()), this, SLOT(remove_node_action_slot()) );
+
+    createNodeAction = new QAction( "Create node", this );
+    connect( createNodeAction, SIGNAL(triggered()), this, SLOT(create_node_action_slot()) );
+
+    createEdgeAction = new QAction( "Create edge", this );
+    connect( createEdgeAction, SIGNAL(triggered()), this, SLOT(create_edge_action_slot()) );
+
 }
 
 
@@ -119,4 +131,16 @@ void MainWindow::save_as_action_slot() {
     if( filename != "" ) {
         graph->save( filename );
     }
+}
+
+void MainWindow::remove_node_action_slot() {
+    graph->requestUserAction( Graph::REMOVE_NODE );
+}
+
+void MainWindow::create_node_action_slot() {
+    graph->requestUserAction( Graph::CREATE_NODE );
+}
+
+void MainWindow::create_edge_action_slot() {
+    graph->requestUserAction( Graph::CREATE_EDGE );
 }

@@ -27,6 +27,8 @@
 #include <QSettings>
 #include <QFile>
 #include <QGraphicsSceneMouseEvent>
+#include <QInputDialog>
+#include <QDir>
 
 #include "widgets/node.h"
 #include "common/error.h"
@@ -52,6 +54,12 @@ class Graph : public QGraphicsScene
 {
 
 public:
+    enum Action {
+        REMOVE_NODE,
+        CREATE_NODE,
+        CREATE_EDGE
+    };
+
     Graph(QObject* parent = nullptr);
 
     void addNode( Node* node );
@@ -65,15 +73,19 @@ public:
 
     bool load( QString filepath );
     bool save( QString filepath );
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override {
-        QGraphicsScene::mousePressEvent( event );
-        //this->addNode("F", 100, 100);
-        QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
-        if( item ) item->setRotation(45);
-    }
+
+    void requestUserAction( Action action );
+
+
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 private:
     QVector<Node*> nodes;
     QVector<Edge*> edges;
+
+    bool nodeRemovalRequested;
+    bool nodeCreationRequested;
+    bool edgeCreationRequested;
+    Node* edgeCreationHold;
 
 };
 

@@ -25,6 +25,10 @@
 Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
 {
 
+    nodeRemovalRequested = false;
+    nodeCreationRequested = false;
+    edgeCreationRequested = false;
+    edgeCreationHold = nullptr;
 }
 
 void Graph::addNode(Node* node)
@@ -161,6 +165,40 @@ bool Graph::save( QString filepath ) {
     }
     save.endGroup();
     return true;
+}
+
+void Graph::requestUserAction( Action action ) {
+    switch (action) {
+        case CREATE_NODE:
+            nodeCreationRequested = true;
+            break;
+        case REMOVE_NODE:
+            break;
+        case CREATE_EDGE:
+            break;
+    }
+}
+
+void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    QGraphicsScene::mousePressEvent( event );
+    //this->addNode("F", 100, 100);
+
+    if( nodeCreationRequested ) {
+        bool ok;
+        QString nodeName = QInputDialog::getText(nullptr, "new node",
+                                                 "Node name:", QLineEdit::Normal,
+                                                 "", &ok );
+        if( ok ) {
+            this->addNode(nodeName,
+                          event->pos().x(),
+                          event->pos().y());
+        }
+
+
+        nodeCreationRequested = false;
+    }
+    //QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
+    //if( item ) item->setRotation(45);
 }
 
 

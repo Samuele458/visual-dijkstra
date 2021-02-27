@@ -44,6 +44,10 @@ class Node;
 class Edge : public QGraphicsItem
 {
 public:
+    //allow the use of qgraphicsitem_cast
+    enum { Type = UserType + 2 };
+    int type() const override { return Type; }
+
     Edge( Node* nodeA, Node* nodeB, int weight, QGraphicsItem* parent = nullptr );
 
     bool operator==( Edge& other );

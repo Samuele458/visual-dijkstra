@@ -154,7 +154,7 @@ void Graph::removeNode( QString name ) {
 void Graph::removeNode( Node* node ) {
     for( int i = 0; i < nodes.size(); ++i ) {
         if( node == nodes.at(i) ) {
-
+            //qDebug() << "Removing" << nodes.at(i)->getName();
             QVectorIterator<Edge*> edge_i( node->getEdges() );
             while( edge_i.hasNext() ) {
                 Edge* hold = edge_i.next();
@@ -247,9 +247,10 @@ void Graph::requestUserAction( Action action ) {
             nodeCreationRequested = true;
             break;
         case REMOVE_NODE:
-        nodeRemovalRequested = true;
+            nodeRemovalRequested = true;
             break;
         case CREATE_EDGE:
+            edgeCreationRequested = true;
             break;
     }
 }
@@ -259,12 +260,6 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     int x = event->buttonDownScenePos(Qt::LeftButton).x();
     int y = event->buttonDownScenePos(Qt::LeftButton).y();
-
-    qDebug() << event->lastPos();
-    qDebug() << x << y;
-    qDebug() << event->buttonDownScreenPos(Qt::LeftButton);
-    qDebug() << event->buttonDownPos(Qt::LeftButton);
-    qDebug() << event->buttonDownScenePos(Qt::LeftButton);
 
     if( nodeCreationRequested ) {
         bool ok;
@@ -286,14 +281,40 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
 
         Node* node = qgraphicsitem_cast<Node*>(item);
-        if( node != NULL ) item->hide();
-        qDebug() << node;
 
+        //checking if node was clicked
+        if( node != NULL ) {
+            removeNode( node );
+        }
+
+        //item->.className();
         nodeRemovalRequested = false;
     }
 
 
+    if( edgeCreationRequested ) {
 
+        QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
+        Node* node = qgraphicsitem_cast<Node*>(item);
+        if( node != NULL ) {
+            if( edgeCreationHold == nullptr ) {
+                edgeCreationHold = node;
+                qDebug() << "Primo nodo ricevuto";
+            } else {
+                this->addEdge( edgeCreationHold, node );
+                edgeCreationHold = nullptr;
+                edgeCreationRequested = false;
+                qDebug() << "Nodo creato con successo";
+            }
+        } else {
+            qDebug() << "procedura crazione terminata";
+            edgeCreationHold = nullptr;
+            edgeCreationRequested = false;
+        }
+    }
+
+    //primo click giusto secondo giusto
+    //primo click giusto secondo sbagliato
     //if( item ) item->setRotation(45);
 }
 

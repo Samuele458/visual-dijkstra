@@ -71,8 +71,13 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
 
     editorView->setScene( graph );
+    graph->setSceneRect( editorView->sceneRect() );
     editorView->setRenderHint(QPainter::Antialiasing, true );
-    editorView->setSceneRect(graph->sceneRect());
+    //editorView->setSceneRect(graph->sceneRect());
+    qDebug() << graph->width();
+    qDebug() << editorView->sceneRect();
+
+
 
     editorView->viewport()->setCursor(Qt::CrossCursor);
 

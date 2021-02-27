@@ -97,6 +97,80 @@ Node* Graph::getNode( QString name ) const {
     return nullptr;
 }
 
+
+void Graph::removeEdge( QString nameA, QString nameB ) {
+    QVectorIterator<Edge*> i(edges);
+
+    while( i.hasNext() ) {
+        Edge* hold = i.next();
+
+        if( ( hold->getNodeA()->getName() == nameA && hold->getNodeB()->getName() == nameB ) ||
+            ( hold->getNodeA()->getName() == nameB && hold->getNodeB()->getName() == nameA ) ) {
+            removeEdge( hold );
+        }
+    }
+}
+
+void Graph::removeEdge( Node* nodeA, Node* nodeB ) {
+    QVectorIterator<Edge*> i(edges);
+
+    while( i.hasNext() ) {
+        Edge* hold = i.next();
+
+        if( ( hold->getNodeA() == nodeA && hold->getNodeB() == nodeB ) ||
+            ( hold->getNodeA() == nodeB && hold->getNodeB() == nodeA ) ) {
+            removeEdge( hold );
+        }
+    }
+}
+
+void Graph::removeEdge( Edge* edge ) {
+    for( int i = 0; i < edges.size(); ++i ) {
+        if( edges.at(i) == edge ) {
+
+            edges.at(i)->getNodeA()->removeEdge( edge );
+            edges.at(i)->getNodeB()->removeEdge( edge );
+            removeItem( edge );
+            edges.removeAt( i );
+
+            delete edge;
+
+        }
+    }
+}
+
+void Graph::removeNode( QString name ) {
+    QVectorIterator<Node*> i(nodes);
+
+    while( i.hasNext() ) {
+        Node* hold = i.next();
+        if( hold->getName() == name ) {
+            removeNode( hold );
+            return;
+        }
+    }
+}
+
+void Graph::removeNode( Node* node ) {
+    for( int i = 0; i < nodes.size(); ++i ) {
+        if( node == nodes.at(i) ) {
+
+            QVectorIterator<Edge*> edge_i( node->getEdges() );
+            while( edge_i.hasNext() ) {
+                Edge* hold = edge_i.next();
+
+                removeEdge( hold );
+            }
+
+            removeItem( node );
+            nodes.removeAt(i);
+            delete node;
+
+        }
+    }
+}
+
+
 bool Graph::load( QString filepath ) {
     QSettings load( filepath, QSettings::IniFormat );
 
@@ -181,9 +255,34 @@ void Graph::requestUserAction( Action action ) {
 
 void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsScene::mousePressEvent( event );
-    //this->addNode("F", 100, 100);
+
+    int x = event->buttonDownScenePos(Qt::LeftButton).x();
+    int y = event->buttonDownScenePos(Qt::LeftButton).y();
+
+    qDebug() << event->lastPos();
+    qDebug() << x << y;
+    qDebug() << event->buttonDownScreenPos(Qt::LeftButton);
+    qDebug() << event->buttonDownPos(Qt::LeftButton);
+    qDebug() << event->buttonDownScenePos(Qt::LeftButton);
 
     if( nodeCreationRequested ) {
+        bool ok;
+        QString nodeName = QInputDialog::getText(nullptr, "new node",
+                                                 "Node name:", QLineEdit::Normal,
+                                                 "", &ok );
+        if( ok ) {
+            this->addNode(nodeName,
+                          x,
+                          y);
+        }
+
+
+
+        nodeCreationRequested = false;
+    }
+
+    /*
+    if( nodeRemovalRequested ) {
         bool ok;
         QString nodeName = QInputDialog::getText(nullptr, "new node",
                                                  "Node name:", QLineEdit::Normal,
@@ -195,8 +294,10 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         }
 
 
-        nodeCreationRequested = false;
-    }
+        nodeRemovalRequested = false;
+    }*/
+
+
     //QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
     //if( item ) item->setRotation(45);
 }

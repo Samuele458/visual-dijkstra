@@ -92,6 +92,18 @@ void Node::addEdge(Edge* edge)
     edges.push_back(edge);
 }
 
+void Node::removeEdge( Edge* edge ) {
+    for( int i = 0; i < edges.size(); ++i ) {
+        if( edges.at(i) == edge ) {
+            edges.removeAt( i );
+        }
+    }
+}
+
+QVector<Edge*> Node::getEdges() const {
+    return edges;
+}
+
 QString Node::getName() const {
     return this->name;
 }

@@ -56,6 +56,8 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
     void addEdge( Edge* edge );
+    void removeEdge( Edge* edge );
+    QVector<Edge*> getEdges() const;
 
     QString getName() const;
     void setName( QString name );

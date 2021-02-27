@@ -69,6 +69,14 @@ public:
     void addEdge( Node* nodeA, Node* nodeB, int weight = 3 );
     void addEdge( Edge* edge );
 
+    void removeEdge( QString nameA, QString nameB );
+    void removeEdge( Node* nodeA, Node* nodeB );
+    void removeEdge( Edge* edge );
+
+    void removeNode( QString name );
+    void removeNode( Node* node );
+
+
     Node* getNode( QString name ) const;
 
     bool load( QString filepath );

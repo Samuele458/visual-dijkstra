@@ -60,6 +60,8 @@ public:
     Node* getNodeB() const;
     int getWeight() const;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+
+    void setColor( QColor );
 protected:
     QPainterPath shape() const override;
     QRectF boundingRect() const override;
@@ -70,6 +72,8 @@ private:
     int weight;
     Node* nodeA;
     Node* nodeB;
+
+    QColor color;
 
 };
 

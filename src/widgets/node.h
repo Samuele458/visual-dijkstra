@@ -68,9 +68,15 @@ public:
     void setName( QString name );
 
     QPointF getCenter() const;
+
+    void setBackgroundColor( QColor color ) const;
+    void setBorderColor( QColor color ) const;
 private:
     QString name;
     QVector<Edge*> edges;
+
+    QColor borderColor;
+    QColor backgroundColor;
 };
 
 #endif // NODE_H

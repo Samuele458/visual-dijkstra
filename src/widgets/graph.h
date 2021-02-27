@@ -29,6 +29,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QInputDialog>
 #include <QDir>
+#include <QEvent>
+#include <QColor>
 
 #include "widgets/node.h"
 #include "common/error.h"
@@ -54,11 +56,25 @@ class Graph : public QGraphicsScene
 {
 
 public:
+
+    //action requested
     enum Action {
         REMOVE_NODE,
         CREATE_NODE,
         CREATE_EDGE
     };
+
+    //default color for lines, and nodes borders
+    static const QColor DEFAULT_LINE_COLOR;
+
+    //default background color for nodes
+    static const QColor DEFAULT_ITEM_COLOR;
+
+    //highlighted color for lines, and nodes borders
+    static const QColor HIGHLIGHT_LINE_COLOR;
+
+    //highlighted background color for nodes
+    static const QColor HIGHLIGHT_ITEM_COLOR;
 
     Graph(QObject* parent = nullptr);
 

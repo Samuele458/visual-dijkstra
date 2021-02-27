@@ -20,8 +20,20 @@
  */
 
 
-#include <QEvent>
 #include "graph.h"
+
+
+//default color for lines, and nodes borders
+const QColor DEFAULT_LINE_COLOR = Qt::black;
+
+//default background color for nodes
+const QColor DEFAULT_ITEM_COLOR = Qt::red;
+
+//highlighted color for lines, and nodes borders
+const QColor HIGHLIGHT_LINE_COLOR = Qt::blue;
+
+//highlighted background color for nodes
+const QColor HIGHLIGHT_ITEM_COLOR = Qt::green;
 
 
 Graph::Graph(QObject* parent ) : QGraphicsScene( parent )

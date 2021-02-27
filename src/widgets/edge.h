@@ -24,6 +24,7 @@
 #include <QGraphicsItem>
 #include <QStyle>
 #include <QGraphicsSceneMouseEvent>
+#include <QInputDialog>
 
 #include "widgets/node.h"
 #include "common/error.h"
@@ -58,9 +59,7 @@ public:
     Node* getNodeA() const;
     Node* getNodeB() const;
     int getWeight() const;
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override {
-        qDebug() << "Doppio click:" <<  event->pos();
-    }
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 protected:
     QPainterPath shape() const override;
     QRectF boundingRect() const override;

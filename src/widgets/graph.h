@@ -76,13 +76,17 @@ public:
     void removeNode( QString name );
     void removeNode( Node* node );
 
-
     Node* getNode( QString name ) const;
 
     bool load( QString filepath );
     bool save( QString filepath );
 
     void requestUserAction( Action action );
+
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override {
+        qDebug() << event->scenePos();
+        QGraphicsScene::mouseMoveEvent( event );
+    }
 
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

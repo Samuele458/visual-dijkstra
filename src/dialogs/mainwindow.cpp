@@ -74,6 +74,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     graph->setSceneRect( editorView->sceneRect() );
     editorView->setRenderHint(QPainter::Antialiasing, true );
     //editorView->setSceneRect(graph->sceneRect());
+    editorView->setMouseTracking( true );
     qDebug() << graph->width();
     qDebug() << editorView->sceneRect();
 

@@ -19,6 +19,8 @@
  *   Github:     https://github.com/Samuele458
  */
 
+
+#include <QEvent>
 #include "graph.h"
 
 
@@ -29,6 +31,7 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
     nodeCreationRequested = false;
     edgeCreationRequested = false;
     edgeCreationHold = nullptr;
+
 }
 
 void Graph::addNode(Node* node)

@@ -63,6 +63,34 @@ int Edge::getWeight() const {
     return weight;
 }
 
+QPainterPath Edge::shape() const {
+    return QGraphicsItem::shape();
+    /*
+    QRectF bound = boundingRect();
+    QPainterPath path;
+    QPolygon polygon;
+
+    // x1 > x2 && y1 > y2     ||  x1 < x2 && y1 > y2
+    if( ( nodeA->x() > nodeB->x() && nodeA->y() > nodeA->y() ) ||
+        ( nodeA->x() > nodeB->x() && nodeA->y() > nodeA->y() ) )
+    {
+        polygon << QPoint( bound.topRight().x()+15,bound.topRight().y() );
+        polygon << QPoint( bound.topRight().x(),bound.topRight().y()+15 );
+        polygon << QPoint( bound.bottomLeft().x()-15,bound.bottomLeft().y() );
+        polygon << QPoint( bound.bottomLeft().x(),bound.bottomLeft().y()+15 );
+    } else {
+        polygon << QPoint( bound.topLeft().x()-15,bound.topLeft().y() );
+        polygon << QPoint( bound.topLeft().x(),bound.topLeft().y()+15 );
+        polygon << QPoint( bound.bottomRight().x()+15,bound.bottomRight().y() );
+        polygon << QPoint( bound.bottomRight().x(),bound.bottomRight().y()-15 );
+    }
+
+    path.addPolygon( polygon );
+
+    return path;
+    */
+}
+
 QRectF Edge::boundingRect() const {
 
     //nodeA coordinates
@@ -127,5 +155,35 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
     painter->drawText(textPoint,QString::number(this->weight));
 
+    //painter->drawRect( bound );
+    QPainterPath path;
+    QPolygon polygon;
+
+    bound.setTopLeft(QPointF(bound.topLeft().x()+70, bound.topLeft().y()+70));
+    bound.setBottomRight(QPointF(bound.bottomRight().x()-70, bound.bottomRight().y()-70));
+
+    int padding = 10;
+    //painter->drawRect( bound );
+    // x1 > x2 && y1 > y2     ||  x1 < x2 && y1 > y2
+    if( ( nodeA->x() > nodeB->x() && nodeA->y() < nodeB->y() ) || ( nodeB->x() > nodeA->x() && nodeB->y() < nodeA->y() ) )
+    {
+        qDebug() << "/";
+
+        polygon << QPoint( nodeA->getCenter().x()+padding, nodeA->getCenter().y() );
+        polygon << QPoint( nodeA->getCenter().x(),nodeA->getCenter().y()-padding );
+        polygon << QPoint( nodeB->getCenter().x()-padding,nodeB->getCenter().y() );
+        polygon << QPoint( nodeB->getCenter().x(),nodeB->getCenter().y()+padding );
+        polygon << QPoint( nodeA->getCenter().x()+padding,nodeA->getCenter().y() );
+    } else {
+        qDebug() << "\\";
+        polygon << QPoint( nodeA->getCenter().x()-padding,nodeA->getCenter().y() );
+        polygon << QPoint( nodeA->getCenter().x(),nodeA->getCenter().y()-padding );
+        polygon << QPoint( nodeB->getCenter().x()+padding,nodeB->getCenter().y() );
+        polygon << QPoint( nodeB->getCenter().x(),nodeB->getCenter().y()+padding );
+        polygon << QPoint( nodeA->getCenter().x()-padding,nodeA->getCenter().y() );
+    }
+
+    path.addPolygon( polygon );
+    painter->drawPath( path );
 };
 

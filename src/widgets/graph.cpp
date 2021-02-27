@@ -261,11 +261,14 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     int x = event->buttonDownScenePos(Qt::LeftButton).x();
     int y = event->buttonDownScenePos(Qt::LeftButton).y();
 
+    qDebug() << event->buttonDownScenePos(Qt::LeftButton).x() << event->buttonDownScenePos(Qt::LeftButton).y();
+
+    qDebug() << itemAt(event->scenePos(), QTransform());
     if( nodeCreationRequested ) {
         bool ok;
         QString nodeName = QInputDialog::getText(nullptr, "new node",
                                                  "Node name:", QLineEdit::Normal,
-                                                 "", &ok );
+                                                 "", &ok, Qt::MSWindowsFixedSizeDialogHint );
         if( ok ) {
             this->addNode(nodeName,
                           x,

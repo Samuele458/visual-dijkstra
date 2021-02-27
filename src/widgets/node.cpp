@@ -112,4 +112,8 @@ void Node::setName( QString name ) {
     this->name = name;
 }
 
+QPointF Node::getCenter() const {
+    return QPointF( x()+boundingRect().width()/2, y()+boundingRect().height()/2 );
+}
+
 

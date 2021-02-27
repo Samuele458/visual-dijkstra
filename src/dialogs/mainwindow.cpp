@@ -83,6 +83,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
     //maximize window
     this->showMaximized();
+    this->setMinimumSize( 900, 600 );
 }
 
 void MainWindow::createActions() {

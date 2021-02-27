@@ -67,6 +67,7 @@ public:
     QString getName() const;
     void setName( QString name );
 
+    QPointF getCenter() const;
 private:
     QString name;
     QVector<Edge*> edges;

@@ -61,6 +61,10 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     //maximize window
     this->showMaximized();
     this->setMinimumSize( 900, 600 );
+
+    // ----
+    saved = false;
+    saveFile = "";
 }
 
 void MainWindow::createActions() {
@@ -105,14 +109,24 @@ void MainWindow::exit_action_slot() {
 }
 
 void MainWindow::save_action_slot() {
-    qDebug() << "save";
+    if( saveFile != "" ) {
+        if( !graph->save( saveFile ) ) {
+            QMessageBox::critical( nullptr, "Error", "Could not open file" );
+        }
+    } else {
+        save_as_action_slot();
+    }
 }
 
 void MainWindow::save_as_action_slot() {
     QString filename = QFileDialog::getSaveFileName( this, "Save as...", "", "Config (*.ini);;Others (*.*)" );
 
     if( filename != "" ) {
-        graph->save( filename );
+        if( !graph->save( filename ) ) {
+            QMessageBox::critical( nullptr, "Error", "Could not open file" );
+            saved = true;
+            saveFile = filename;
+        }
     }
 }
 

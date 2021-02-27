@@ -24,6 +24,8 @@
 #include <QPainter>
 #include <QGraphicsItem>
 #include <QDebug>
+#include <QRegularExpression>
+
 #include "widgets/edge.h"
 #include "common/error.h"
 
@@ -56,8 +58,8 @@ public:
     bool operator==( Node& other );
     bool operator!=( Node& other );
 
-    QRectF boundingRect() const;
-    void paint( QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget );
+    QRectF boundingRect() const override;
+    void paint( QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget ) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
     void addEdge( Edge* edge );
@@ -73,6 +75,8 @@ public:
     void setBorderColor( QColor color );
     QColor getBackgroundColor() const;
     QColor getBorderColor() const;
+
+    QString toString() const;
 private:
     QString name;
     QVector<Edge*> edges;

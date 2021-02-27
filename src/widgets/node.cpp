@@ -23,7 +23,7 @@
 
 Node::Node(QString name, qreal x, qreal y, QGraphicsItem* parent ) : QGraphicsItem(parent)
 {
-    this->name = name;
+    this->setName( name );
 
     this->setFlag(QGraphicsItem::ItemIsMovable,true);
 
@@ -115,7 +115,11 @@ QString Node::getName() const {
 }
 
 void Node::setName( QString name ) {
-    this->name = name;
+    QRegularExpression regex("^[a-zA-Z0-9_]*$");
+
+    if( name != ""  && regex.match( name ).hasMatch() )
+        this->name = name;
+    else throw NodeError( NodeError::INVALID_NODE_NAME, "Invalid node name" );
 }
 
 QPointF Node::getCenter() const {
@@ -136,6 +140,14 @@ QColor Node::getBackgroundColor() const {
 
 QColor Node::getBorderColor() const {
     return borderColor;
+}
+
+QString Node::toString() const {
+    QString string = 0;
+
+    string += "Node name: " + name;
+
+    return string;
 }
 
 

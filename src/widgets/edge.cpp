@@ -68,11 +68,21 @@ int Edge::getWeight() const {
 
 void Edge::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+    Q_UNUSED( event );
+
     bool ok;
-    int weight = QInputDialog::getText(nullptr, "Set weight",
+    QRegularExpression regex("^[0-9]*$");
+
+    QString text = QInputDialog::getText(nullptr, "Set weight",
                                              "Weight:", QLineEdit::Normal,
-                                             "", &ok, Qt::MSWindowsFixedSizeDialogHint ).toInt();
-    this->weight = weight;
+                                             "", &ok, Qt::MSWindowsFixedSizeDialogHint );
+    if( ok ) {
+        if( text != "" && regex.match(text).hasMatch() ) {
+            this->weight = text.toInt();
+        } else {
+            QMessageBox::warning( nullptr, "Warning", "Invalid weight value" );
+        }
+    }
 }
 
 QPainterPath Edge::shape() const {
@@ -175,5 +185,15 @@ void Edge::setColor( QColor color ) {
 
 QColor Edge::getColor() const {
     return this->color;
+}
+
+QString Edge::toString() const {
+    QString string = "";
+
+    string += "Edge: " + nodeA->getName() + " --> " + nodeB->getName() +
+              "    Weight: "+ QString::number(weight);
+
+
+    return string;
 }
 

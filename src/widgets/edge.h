@@ -25,6 +25,8 @@
 #include <QStyle>
 #include <QGraphicsSceneMouseEvent>
 #include <QInputDialog>
+#include <QRegularExpression>
+#include <QMessageBox>
 
 #include "widgets/node.h"
 #include "common/error.h"
@@ -35,7 +37,8 @@ public:
         GENERIC,
         INVALID_ARGUMENT,
 
-        INVALID_NODES
+        INVALID_NODES,
+        INVALID_WEIGHT
     };
 
     EdgeError( id error_id = GENERIC, QString message = "" ) :
@@ -63,6 +66,8 @@ public:
 
     void setColor( QColor color );
     QColor getColor() const;
+
+    QString toString() const;
 protected:
     QPainterPath shape() const override;
     QRectF boundingRect() const override;

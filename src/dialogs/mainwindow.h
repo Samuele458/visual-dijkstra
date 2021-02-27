@@ -82,6 +82,12 @@ private:
     Graph* graph;
 
 
+    // ----
+
+    bool saved;
+    QString saveFile;
+
+
 
 };
 

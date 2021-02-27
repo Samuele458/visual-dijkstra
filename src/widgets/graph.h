@@ -101,11 +101,13 @@ public:
     void requestUserAction( Action action );
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override {
-        qDebug() << event->scenePos();
+        //qDebug() << event->scenePos();
         QGraphicsScene::mouseMoveEvent( event );
     }
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+
+    QString toString();
 private:
     QVector<Node*> nodes;
     QVector<Edge*> edges;
@@ -116,5 +118,7 @@ private:
     Node* edgeCreationHold;
 
 };
+
+//QDebug operator<<(QDebug dbg, const Graph &c);
 
 #endif // GRAPH_H

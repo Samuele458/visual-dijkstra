@@ -48,7 +48,7 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
 
 void Graph::addNode(Node* node)
 {
-
+    qDebug().noquote() << this->toString();
     QVectorIterator<Node*> i(nodes);
     while( i.hasNext() ) {
         Node* hold = i.next();
@@ -206,12 +206,11 @@ bool Graph::load( QString filepath ) {
         load.beginGroup( "nodes" );
         QStringList nodes = load.allKeys();
         QStringListIterator i(nodes);
-        qDebug() << nodes;
 
         while( i.hasNext() ) {
             QString nodeName = i.next();
             QStringList coordinates = load.value( nodeName ).toString().split(" ");
-            //todo: verificare che  le coordinate siano 2
+            //todo: check coordinates
             this->addNode( nodeName,
                            coordinates.at(0).toInt(),
                            coordinates.at(1).toInt());
@@ -220,11 +219,9 @@ bool Graph::load( QString filepath ) {
 
         load.beginGroup( "edges" );
         QStringList edges = load.childKeys();
-        qDebug() << edges;
         QStringListIterator edges_i( edges );
         while( edges_i.hasNext() ) {
             QString current_edges = edges_i.next();
-            qDebug() << current_edges.split("-").at(0) << current_edges.split("-").at(1);
             this->addEdge(current_edges.split("-").at(0),
                           current_edges.split("-").at(1),
                           load.value( current_edges ).toInt() );
@@ -235,6 +232,14 @@ bool Graph::load( QString filepath ) {
 }
 
 bool Graph::save( QString filepath ) {
+
+    QFile file(filepath);
+    if(!file.open(QIODevice::ReadWrite|QIODevice::Truncate)) {
+        return false;
+    }
+    file.close();
+
+
     QSettings save( filepath, QSettings::IniFormat );
     QVectorIterator<Node*> node(nodes);
     QVectorIterator<Edge*> edge(edges);
@@ -258,6 +263,13 @@ bool Graph::save( QString filepath ) {
 }
 
 void Graph::requestUserAction( Action action ) {
+
+    //resetting all flags
+    nodeRemovalRequested = false;
+    nodeCreationRequested = false;
+    edgeCreationRequested = false;
+    edgeCreationHold = nullptr;
+
     switch (action) {
         case CREATE_NODE:
             nodeCreationRequested = true;
@@ -293,12 +305,8 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
                 //trying to add node
                 this->addNode(nodeName, x, y);
 
-            }  catch ( GraphError e ) {
-                if( (GraphError::id)e.getId() == GraphError::DUPLICATED_NODE ) {
-                    QMessageBox::warning( nullptr, "Warning", "Node already exists" );
-                } else {
-                    QMessageBox::warning( nullptr, "Error", e.getMessage() );
-                }
+            }  catch ( Error e ) {
+                QMessageBox::warning( nullptr, "Warning", e.getMessage() );
             }
         }
 
@@ -358,6 +366,34 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     }
 }
 
+QString Graph::toString() {
+    QString string = "";
+
+    string += "------------------\n";
+    string += "Nodes: " + QString::number(nodes.size()) + "\n";
+    string += "Edges: " + QString::number(nodes.size()) + "\n";
+    string += "Total items: " + QString::number(items().size()) + "\n";
+    string += "Nodes dump:\n";
+    for( int i = 0; i < nodes.size(); ++i ) {
+        string += "  - " + nodes.at(i)->toString() + "\n";
+    }
+    string += "Edges dump:\n";
+    for( int i = 0; i < edges.size(); ++i ) {
+        string += "  - " + edges.at(i)->toString() + "\n";
+    }
+
+    return string;
+}
+
+/*
+QDebug operator<<(QDebug dbg, const Graph &c)
+{
+    QDebugStateSaver saver(dbg);
+    dbg.nospace() << c.get
+
+    return dbg;
+}
+*/
 
 
 

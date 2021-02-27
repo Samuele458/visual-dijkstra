@@ -31,6 +31,7 @@
 #include <QDir>
 #include <QEvent>
 #include <QColor>
+#include <QMessageBox>
 
 #include "widgets/node.h"
 #include "common/error.h"
@@ -103,7 +104,6 @@ public:
         qDebug() << event->scenePos();
         QGraphicsScene::mouseMoveEvent( event );
     }
-
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 private:

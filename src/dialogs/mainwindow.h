@@ -74,16 +74,13 @@ private:
 
     QGraphicsView* editorView;
 
-    QWidget* mainWidget;
-    QHBoxLayout* mainLayout;
+
     QTableWidget* table;
     QSplitter* tableSplitter;
 
 
     Graph* graph;
-    Node* node1;
-    Node* node2;
-    Edge* edge1;
+
 
 
 };

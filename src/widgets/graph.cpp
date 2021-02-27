@@ -51,7 +51,8 @@ void Graph::addNode(Node* node)
 
     QVectorIterator<Node*> i(nodes);
     while( i.hasNext() ) {
-        if( i.next() == node ) {
+        Node* hold = i.next();
+        if( *hold == *node || hold == node  ) {
             throw GraphError( GraphError::DUPLICATED_NODE, "node duplicated" );
         }
     }
@@ -273,67 +274,88 @@ void Graph::requestUserAction( Action action ) {
 void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsScene::mousePressEvent( event );
 
+    //getting mouse coordinates
     int x = event->buttonDownScenePos(Qt::LeftButton).x();
     int y = event->buttonDownScenePos(Qt::LeftButton).y();
 
-    qDebug() << event->buttonDownScenePos(Qt::LeftButton).x() << event->buttonDownScenePos(Qt::LeftButton).y();
-
-    qDebug() << itemAt(event->scenePos(), QTransform());
+    //checking for Node Creation request
     if( nodeCreationRequested ) {
         bool ok;
+
+        //asking node name
         QString nodeName = QInputDialog::getText(nullptr, "new node",
                                                  "Node name:", QLineEdit::Normal,
                                                  "", &ok, Qt::MSWindowsFixedSizeDialogHint );
+        //if form was confirmed
         if( ok ) {
-            this->addNode(nodeName,
-                          x,
-                          y);
+            try {
+
+                //trying to add node
+                this->addNode(nodeName, x, y);
+
+            }  catch ( GraphError e ) {
+                if( (GraphError::id)e.getId() == GraphError::DUPLICATED_NODE ) {
+                    QMessageBox::warning( nullptr, "Warning", "Node already exists" );
+                } else {
+                    QMessageBox::warning( nullptr, "Error", e.getMessage() );
+                }
+            }
         }
 
+        //reset the request flag
         nodeCreationRequested = false;
     }
 
-
+    //checking for Node Remuval request
     if( nodeRemovalRequested ) {
 
+        //item selected by mouse
         QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
 
+        //casting into a node
         Node* node = qgraphicsitem_cast<Node*>(item);
 
-        //checking if node was clicked
+        //checking if item is a node or other item (like edge, etc)
+        //qgraphicsitem_cast return NULL if node isn't Node*
         if( node != NULL ) {
             removeNode( node );
         }
 
-        //item->.className();
+
+        //reset flag
         nodeRemovalRequested = false;
     }
 
 
+    //checking for Edge Creation request
     if( edgeCreationRequested ) {
+
+        //Edge Creation request allows user to create
+        //edges between two nodes by clicking them
 
         QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
         Node* node = qgraphicsitem_cast<Node*>(item);
         if( node != NULL ) {
+
+            //because of the nodes to be linked are two, the first one will
+            //be stored into edgeCreationHold. If it is equal to nullptr, it
+            //means that the first node has not been selected yet.
             if( edgeCreationHold == nullptr ) {
+                //storing first node
                 edgeCreationHold = node;
-                qDebug() << "Primo nodo ricevuto";
             } else {
+                //if edgeCreationHold != nullptr means that first node has already
+                //stored, so edge can be created
                 this->addEdge( edgeCreationHold, node );
                 edgeCreationHold = nullptr;
                 edgeCreationRequested = false;
-                qDebug() << "Nodo creato con successo";
             }
         } else {
-            qDebug() << "procedura crazione terminata";
+            //if item is not a Node*, procedure will be terminated
             edgeCreationHold = nullptr;
             edgeCreationRequested = false;
         }
     }
-
-    //primo click giusto secondo giusto
-    //primo click giusto secondo sbagliato
-    //if( item ) item->setRotation(45);
 }
 
 

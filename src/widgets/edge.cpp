@@ -39,6 +39,9 @@ Edge::Edge( Node* nodeA, Node* nodeB, int weight, QGraphicsItem* parent) :
 
     //the lines must be behind the nodes (default Z is 0)
     this->setZValue( -1 );
+
+    //setting default color
+    color = Qt::black;
 }
 
 //Equal operator. Comparison based on node name.
@@ -141,9 +144,11 @@ QRectF Edge::boundingRect() const {
 
 
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    Q_UNUSED( option );
+    Q_UNUSED( widget );
 
     //creating pen, in order to draw line.
-    painter->setPen(QPen(Qt::black, 3));
+    painter->setPen(QPen(color, 3));
 
     //drawing line. The center of each nodes is calculated
     painter->drawLine(nodeA->x()+nodeA->boundingRect().width()/2,
@@ -163,4 +168,12 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->drawText(textPoint,QString::number(this->weight));
 
 };
+
+void Edge::setColor( QColor color ) {
+    this->color = color;
+}
+
+QColor Edge::getColor() const {
+    return this->color;
+}
 

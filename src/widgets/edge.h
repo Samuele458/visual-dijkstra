@@ -61,7 +61,8 @@ public:
     int getWeight() const;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 
-    void setColor( QColor );
+    void setColor( QColor color );
+    QColor getColor() const;
 protected:
     QPainterPath shape() const override;
     QRectF boundingRect() const override;
@@ -73,6 +74,7 @@ private:
     Node* nodeA;
     Node* nodeB;
 
+    //Edge color
     QColor color;
 
 };

@@ -27,6 +27,9 @@ Node::Node(QString name, qreal x, qreal y, QGraphicsItem* parent ) : QGraphicsIt
 
     this->setFlag(QGraphicsItem::ItemIsMovable,true);
 
+    backgroundColor = Qt::white;
+    borderColor = Qt::black;
+
     //item position
     this->setPos( x, y );
 }
@@ -49,14 +52,17 @@ QRectF Node::boundingRect() const
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
     //item area
     QRectF bound = boundingRect();
 
     //brush for item background
-    QBrush brush(Qt::red);
+    QBrush brush(backgroundColor);
 
     //bruch for contours
-    QBrush contourBrush(Qt::black);
+    QBrush contourBrush(borderColor);
     QPen pen( contourBrush, 3 );
 
     painter->setBrush( brush );
@@ -114,6 +120,22 @@ void Node::setName( QString name ) {
 
 QPointF Node::getCenter() const {
     return QPointF( x()+boundingRect().width()/2, y()+boundingRect().height()/2 );
+}
+
+void Node::setBackgroundColor( QColor color ) {
+    backgroundColor = color;
+}
+
+void Node::setBorderColor( QColor color ) {
+    borderColor = color;
+}
+
+QColor Node::getBackgroundColor() const {
+    return backgroundColor;
+}
+
+QColor Node::getBorderColor() const {
+    return borderColor;
 }
 
 

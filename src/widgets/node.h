@@ -69,8 +69,10 @@ public:
 
     QPointF getCenter() const;
 
-    void setBackgroundColor( QColor color ) const;
-    void setBorderColor( QColor color ) const;
+    void setBackgroundColor( QColor color );
+    void setBorderColor( QColor color );
+    QColor getBackgroundColor() const;
+    QColor getBorderColor() const;
 private:
     QString name;
     QVector<Edge*> edges;

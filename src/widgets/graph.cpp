@@ -247,6 +247,7 @@ void Graph::requestUserAction( Action action ) {
             nodeCreationRequested = true;
             break;
         case REMOVE_NODE:
+        nodeRemovalRequested = true;
             break;
         case CREATE_EDGE:
             break;
@@ -276,29 +277,23 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
                           y);
         }
 
-
-
         nodeCreationRequested = false;
     }
 
-    /*
-    if( nodeRemovalRequested ) {
-        bool ok;
-        QString nodeName = QInputDialog::getText(nullptr, "new node",
-                                                 "Node name:", QLineEdit::Normal,
-                                                 "", &ok );
-        if( ok ) {
-            this->addNode(nodeName,
-                          event->pos().x(),
-                          event->pos().y());
-        }
 
+    if( nodeRemovalRequested ) {
+
+        QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
+
+        Node* node = qgraphicsitem_cast<Node*>(item);
+        if( node != NULL ) item->hide();
+        qDebug() << node;
 
         nodeRemovalRequested = false;
-    }*/
+    }
 
 
-    //QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
+
     //if( item ) item->setRotation(45);
 }
 

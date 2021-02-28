@@ -17,11 +17,6 @@ public:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
 
-    void mousePressEvent(QMouseEvent *event) override {
-
-        QGraphicsItem *item = itemAt(event->pos());
-        item->setRotation(45);
-    }
 
     Graph* getGraph() const;
     void setGraph( Graph* graph );

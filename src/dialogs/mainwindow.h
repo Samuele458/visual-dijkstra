@@ -73,6 +73,8 @@ private:
     QAction* createEdgeAction;
     QAction* licenseAction;
     QAction* aboutAction;
+    QAction* calculatePath;//here
+
 
 
     // ---- widgets ----

@@ -3,6 +3,7 @@
 
 #include <QGraphicsView>
 #include <QDebug>
+#include <QWheelEvent>
 
 #include "widgets/graph.h"
 
@@ -12,6 +13,9 @@ public:
     GraphView( Graph* graph, QWidget* parent = nullptr );
     GraphView( QWidget* parent = nullptr  );
 
+    void wheelEvent(QWheelEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
 
     Graph* getGraph() const;
     void setGraph( Graph* graph );

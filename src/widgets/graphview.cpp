@@ -6,8 +6,10 @@ GraphView::GraphView(Graph* graph, QWidget* parent ) :
     this->setScene( graph );
     this->setRenderHint(QPainter::Antialiasing, true );
     this->setMouseTracking( true );
-    this->viewport()->setCursor(Qt::CrossCursor);
 
+    //setDragMode(ScrollHandDrag);
+    //setDragMode(DragMode::)
+    this->viewport()->setCursor(Qt::CrossCursor);
 }
 
 
@@ -23,4 +25,32 @@ Graph* GraphView::getGraph() const {
 
 void GraphView::setGraph( Graph* graph ) {
     this->graph = graph;
+}
+
+void GraphView::wheelEvent(QWheelEvent *event) {
+    if( event->angleDelta().y() > 0 ) {
+        qDebug() << "zoomin";
+        this->scale( 1.1, 1.1 );
+    } else {
+        qDebug() << "zoomout";
+        this->scale( 0.9, 0.9 );
+    }
+
+    if( event->modifiers().testFlag(Qt::ControlModifier) ) {
+        qDebug() << "ctrl";
+    }
+}
+
+void GraphView::keyPressEvent(QKeyEvent *event) {
+    if( event->key() == Qt::Key_Space && !event->isAutoRepeat() ) {
+        qDebug() << "Space pressed";
+        setDragMode(DragMode::ScrollHandDrag);
+    }
+}
+
+void GraphView::keyReleaseEvent(QKeyEvent *event) {
+    if( event->key() == Qt::Key_Space && !event->isAutoRepeat() ) {
+        qDebug() << "Space unpressed";
+        setDragMode(DragMode::NoDrag);
+    }
 }

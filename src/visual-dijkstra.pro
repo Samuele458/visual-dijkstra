@@ -14,6 +14,7 @@ SOURCES += \
         main.cpp \
         widgets/edge.cpp \
         widgets/graph.cpp \
+        widgets/graphview.cpp \
         widgets/node.cpp
 
 # Default rules for deployment.
@@ -26,4 +27,5 @@ HEADERS += \
     dialogs/mainwindow.h \
     widgets/edge.h \
     widgets/graph.h \
+    widgets/graphview.h \
     widgets/node.h

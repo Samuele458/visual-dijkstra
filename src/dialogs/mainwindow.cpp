@@ -39,24 +39,26 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     toolbar->addAction( createEdgeAction );
 
     //setup UI
-    editorView = new QGraphicsView;
+    graphView = new GraphView;
     table = new QTableWidget;
     tableSplitter =  new QSplitter(Qt::Orientation::Horizontal);
 
-    tableSplitter->addWidget(editorView);
+    tableSplitter->addWidget(graphView);
     tableSplitter->addWidget( table );
 
     this->setCentralWidget( tableSplitter );
 
     //creating test graph
-    graph = new Graph( this );
-    editorView->setScene( graph );
+    //graph = new Graph( this );
+    //editorView->setScene( graph );
     //graph->setSceneRect( editorView->sceneRect() );
-    editorView->setSceneRect( graph->sceneRect() );
-    editorView->setRenderHint(QPainter::Antialiasing, true );
-    editorView->setMouseTracking( true );
-
-    editorView->viewport()->setCursor(Qt::CrossCursor);
+    //editorView->setSceneRect( graph->sceneRect() );
+    //editorView->setRenderHint(QPainter::Antialiasing, true );
+    //editorView->setMouseTracking( true );
+    //editorView->viewport()->setCursor(Qt::CrossCursor);
+    //editorView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //editorView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //editorView->ensureVisible()
 
     //maximize window
     this->showMaximized();
@@ -100,18 +102,18 @@ void MainWindow::open_action_slot() {
     QString filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
 
     if( filename != "" ) {
-        graph->load( filename );
+        graphView->getGraph()->load( filename );
     }
 }
 
 void MainWindow::exit_action_slot() {
     //this->close();
-    qDebug().noquote() << graph->toString();
+    //qDebug().noquote() << graph->toString();
 }
 
 void MainWindow::save_action_slot() {
     if( saveFile != "" ) {
-        if( !graph->save( saveFile ) ) {
+        if( !graphView->getGraph()->save( saveFile ) ) {
             QMessageBox::critical( nullptr, "Error", "Could not open file" );
         }
     } else {
@@ -123,7 +125,7 @@ void MainWindow::save_as_action_slot() {
     QString filename = QFileDialog::getSaveFileName( this, "Save as...", "", "Config (*.ini);;Others (*.*)" );
 
     if( filename != "" ) {
-        if( !graph->save( filename ) ) {
+        if( !graphView->getGraph()->save( filename ) ) {
             QMessageBox::critical( nullptr, "Error", "Could not open file" );
             saved = true;
             saveFile = filename;
@@ -132,13 +134,13 @@ void MainWindow::save_as_action_slot() {
 }
 
 void MainWindow::remove_node_action_slot() {
-    graph->requestUserAction( Graph::REMOVE_NODE );
+    graphView->getGraph()->requestUserAction( Graph::REMOVE_NODE );
 }
 
 void MainWindow::create_node_action_slot() {
-    graph->requestUserAction( Graph::CREATE_NODE );
+    graphView->getGraph()->requestUserAction( Graph::CREATE_NODE );
 }
 
 void MainWindow::create_edge_action_slot() {
-    graph->requestUserAction( Graph::CREATE_EDGE );
+    graphView->getGraph()->requestUserAction( Graph::CREATE_EDGE );
 }

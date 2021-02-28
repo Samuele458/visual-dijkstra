@@ -36,6 +36,7 @@
 #include "widgets/node.h"
 #include "widgets/edge.h"
 #include "widgets/graph.h"
+#include "widgets/graphview.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -69,17 +70,18 @@ private:
 
 
 
+
     // ---- widgets ----
     QToolBar* toolbar;
 
-    QGraphicsView* editorView;
+    GraphView* graphView;
 
 
     QTableWidget* table;
     QSplitter* tableSplitter;
 
 
-    Graph* graph;
+    //Graph* graph;
 
 
     // ----

@@ -44,6 +44,7 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
     edgeCreationRequested = false;
     edgeCreationHold = nullptr;
 
+    //item removing causing SIGSEGV bug solved
     this->setItemIndexMethod(QGraphicsScene::ItemIndexMethod::NoIndex);
 
 }

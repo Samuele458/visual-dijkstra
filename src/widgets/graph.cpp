@@ -44,11 +44,13 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
     edgeCreationRequested = false;
     edgeCreationHold = nullptr;
 
+    this->setItemIndexMethod(QGraphicsScene::ItemIndexMethod::NoIndex);
+
 }
 
 void Graph::addNode(Node* node)
 {
-    qDebug().noquote() << this->toString();
+
     QVectorIterator<Node*> i(nodes);
     while( i.hasNext() ) {
         Node* hold = i.next();
@@ -148,6 +150,7 @@ void Graph::removeEdge( Edge* edge ) {
             edges.at(i)->getNodeB()->removeEdge( edge );
             removeItem( edge );
             edges.removeAt( i );
+
 
             delete edge;
 
@@ -316,7 +319,7 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     //checking for Node Remuval request
     if( nodeRemovalRequested ) {
-
+        qDebug().noquote() << this->toString();
         //item selected by mouse
         QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
 
@@ -328,7 +331,7 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         if( node != NULL ) {
             removeNode( node );
         }
-
+        qDebug().noquote() << this->toString();
 
         //reset flag
         nodeRemovalRequested = false;
@@ -371,11 +374,11 @@ QString Graph::toString() {
 
     string += "------------------\n";
     string += "Nodes: " + QString::number(nodes.size()) + "\n";
-    string += "Edges: " + QString::number(nodes.size()) + "\n";
+    string += "Edges: " + QString::number(edges.size()) + "\n";
     string += "Total items: " + QString::number(items().size()) + "\n";
     string += "Nodes dump:\n";
     for( int i = 0; i < nodes.size(); ++i ) {
-        string += "  - " + nodes.at(i)->toString() + "\n";
+        string += "  - " + nodes.at(i)->toString();
     }
     string += "Edges dump:\n";
     for( int i = 0; i < edges.size(); ++i ) {

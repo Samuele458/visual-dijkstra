@@ -55,6 +55,9 @@ public:
     int type() const override { return Type; }
 
     Edge( Node* nodeA, Node* nodeB, int weight, QGraphicsItem* parent = nullptr );
+    ~Edge() {
+        prepareGeometryChange();
+    }
 
     bool operator==( Edge& other );
     bool operator!=( Edge& other );

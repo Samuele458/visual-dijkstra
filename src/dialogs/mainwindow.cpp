@@ -105,7 +105,8 @@ void MainWindow::open_action_slot() {
 }
 
 void MainWindow::exit_action_slot() {
-    this->close();
+    //this->close();
+    qDebug().noquote() << graph->toString();
 }
 
 void MainWindow::save_action_slot() {

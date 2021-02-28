@@ -107,6 +107,10 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
+    void drawItems(QPainter *painter, int numItems, QGraphicsItem **items, const QStyleOptionGraphicsItem *options, QWidget *widget = nullptr) override {
+        qDebug() << "draw";
+    }
+
     QString toString();
 private:
     QVector<Node*> nodes;

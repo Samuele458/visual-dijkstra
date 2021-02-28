@@ -54,6 +54,9 @@ public:
 
 
     Node( QString name, qreal x = 0, qreal y = 0, QGraphicsItem* parent = nullptr );
+    ~Node() {
+        prepareGeometryChange();
+    }
 
     bool operator==( Node& other );
     bool operator!=( Node& other );

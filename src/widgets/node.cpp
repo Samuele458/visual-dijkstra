@@ -145,7 +145,10 @@ QColor Node::getBorderColor() const {
 QString Node::toString() const {
     QString string = 0;
 
-    string += "Node name: " + name;
+    string += "Node name: " + name + "  connected in:\n";
+    for( int i = 0; i < edges.size(); ++i ) {
+        string += "    - " + edges.at(i)->toString() + "\n";
+    }
 
     return string;
 }

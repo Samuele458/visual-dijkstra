@@ -37,6 +37,7 @@
 #include "widgets/edge.h"
 #include "widgets/graph.h"
 #include "widgets/graphview.h"
+#include "dialogs/licensedialog.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -53,6 +54,7 @@ protected slots:
     void remove_node_action_slot();
     void create_node_action_slot();
     void create_edge_action_slot();
+    void license_action_slot();
 
 private:
 
@@ -67,8 +69,7 @@ private:
     QAction* removeNodeAction;
     QAction* createNodeAction;
     QAction* createEdgeAction;
-
-
+    QAction* licenseAction;
 
 
     // ---- widgets ----

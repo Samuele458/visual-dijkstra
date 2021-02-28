@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
         common/error.cpp \
+        dialogs/licensedialog.cpp \
         dialogs/mainwindow.cpp \
         main.cpp \
         widgets/edge.cpp \
@@ -24,8 +25,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     common/error.h \
+    dialogs/licensedialog.h \
     dialogs/mainwindow.h \
     widgets/edge.h \
     widgets/graph.h \
     widgets/graphview.h \
     widgets/node.h
+
+RESOURCES += \
+    data.qrc

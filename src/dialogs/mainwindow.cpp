@@ -37,6 +37,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     toolbar->addAction( createNodeAction );
     toolbar->addAction( removeNodeAction );
     toolbar->addAction( createEdgeAction );
+    toolbar->addAction( licenseAction );
 
     //setup UI
     graphView = new GraphView;
@@ -92,6 +93,9 @@ void MainWindow::createActions() {
     createEdgeAction = new QAction( "Create edge", this );
     connect( createEdgeAction, SIGNAL(triggered()), this, SLOT(create_edge_action_slot()) );
 
+    licenseAction = new QAction( "Show License", this );
+    connect( licenseAction, SIGNAL(triggered()), this, SLOT(license_action_slot()) );
+
 }
 
 
@@ -143,4 +147,12 @@ void MainWindow::create_node_action_slot() {
 
 void MainWindow::create_edge_action_slot() {
     graphView->getGraph()->requestUserAction( Graph::CREATE_EDGE );
+}
+
+void MainWindow::license_action_slot() {
+    LicenseDialog* license_dialog = new LicenseDialog( this );
+
+    license_dialog->exec();
+
+    delete license_dialog;
 }

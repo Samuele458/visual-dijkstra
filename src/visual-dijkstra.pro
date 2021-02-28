@@ -16,6 +16,7 @@ SOURCES += \
         main.cpp \
         widgets/edge.cpp \
         widgets/graph.cpp \
+        widgets/graphpathfinderview.cpp \
         widgets/graphview.cpp \
         widgets/node.cpp
 
@@ -31,6 +32,7 @@ HEADERS += \
     dialogs/mainwindow.h \
     widgets/edge.h \
     widgets/graph.h \
+    widgets/graphpathfinderview.h \
     widgets/graphview.h \
     widgets/node.h
 

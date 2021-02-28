@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
         common/error.cpp \
+        dialogs/aboutdialog.cpp \
         dialogs/licensedialog.cpp \
         dialogs/mainwindow.cpp \
         main.cpp \
@@ -25,6 +26,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     common/error.h \
+    dialogs/aboutdialog.h \
     dialogs/licensedialog.h \
     dialogs/mainwindow.h \
     widgets/edge.h \

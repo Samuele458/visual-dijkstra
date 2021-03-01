@@ -22,23 +22,25 @@
 #include "graphstate.h"
 
 
-const int NodeState::INF = -1;
+const int NodeState::INF = 9999999;
 
 
-NodeState::NodeState( QString name, int distance, QString previous ) {
+NodeState::NodeState( QString name, int distance, QString previous, bool processed ) {
     this->name = name;
     this->distance = distance;
     this->previous = previous;
+    this->processed = processed;
 }
 
 NodeState::NodeState( const NodeState& other ) {
     name = other.name;
     distance = other.distance;
     previous = other.previous;
+    processed = other.processed;
 }
 
-NodeState::NodeState( Node* node, int distance, QString previous ) :
-    NodeState( node->getName(), distance, previous )
+NodeState::NodeState( Node* node, int distance, QString previous, bool processed ) :
+    NodeState( node->getName(), distance, previous, processed )
 {
 
 }
@@ -47,6 +49,7 @@ NodeState& NodeState::operator=( const NodeState& other ) {
     name = other.name;
     distance = other.distance;
     previous = other.previous;
+    processed = other.processed;
 
     return *this;
 }
@@ -83,8 +86,12 @@ int NodeState::getDistance() const {
     return this->distance;
 }
 
-QString NodeState::getPreviousNodeName() {
+QString NodeState::getPreviousNodeName() const {
     return this->previous;
+}
+
+bool NodeState::isProcessed() const {
+    return processed;
 }
 
 void NodeState::setName( QString name ) {
@@ -108,6 +115,10 @@ void NodeState::setDistance( int distance ) {
 
 void NodeState::setPreviousNodeName( QString previous ) {
     this->previous = previous;
+}
+
+void NodeState::setProcessed( bool processed ) {
+    this->processed = processed;
 }
 
 
@@ -181,6 +192,30 @@ void GraphState::setPreviousNodeName( QString nodeName, QString previous ) {
     }
 }
 
+void GraphState::setProcessed( QString nodeName, bool processed ) {
+    QVectorIterator<NodeState> i(nodes);
+    while( i.hasNext() ) {
+        NodeState node = i.next();
+
+        if( node.getName() == nodeName ) {
+            node.setProcessed( processed );
+        }
+    }
+}
+
+bool GraphState::hasInfinity() const {
+    QVectorIterator<NodeState> i(nodes);
+    while( i.hasNext() ) {
+        NodeState node = i.next();
+
+        if( node.getDistance() == NodeState::INF ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 NodeState GraphState::getNode( QString nodeName ) const {
     QVectorIterator<NodeState> i(nodes);
     while( i.hasNext() ) {
@@ -191,6 +226,34 @@ NodeState GraphState::getNode( QString nodeName ) const {
         }
     }
     //todo: return
+}
+
+QStringList GraphState::getNodeNames() const {
+    QStringList names;
+
+    QVectorIterator<NodeState> i(nodes);
+    while( i.hasNext() ) {
+        names.push_back( i.next().getName() );
+    }
+
+    return names;
+}
+
+QString GraphState::minDistance() const {
+
+    if( nodes.size() > 0 ) {
+        int min = 0;
+
+        for( int i = 0; i < nodes.size(); ++i ) {
+            if( nodes.at(i).getDistance() < nodes.at(min).getDistance() ) {
+                min = i;
+            }
+        }
+
+        return nodes.at(min).getName();
+    } else {
+        return "";
+    }
 }
 
 

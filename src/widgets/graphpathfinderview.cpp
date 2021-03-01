@@ -85,6 +85,36 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
 
 void GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
 
+    //initializing graph state
+    GraphState state( this->getGraph() );
+
+    //source node must have 0 distance
+    state.setDistance( source->getName(), 0 );
+
+    //QStringList nodesList = state.getNodeNames();
+    QVectorIterator<Node*> i(this->getGraph()->getNodes());
+
+    //while nodesList is not empty
+    while( i.hasNext() ) {
+        Node* node = i.next();
+
+        Node* u = this->getGraph()->getNode( state.minDistance() );
+
+        //current node set processed
+        state.setProcessed( u->getName(), true );
+
+        QVector<Node*> neighbours( u->getNeighbours() );
+        for( int j = 0; j < neighbours.size(); ++j ) {
+            int alt = state.getNode(u->getName()).getDistance() +
+                      u->getEdgeBetween( neighbours.at(j) )->getWeight();
+            if( alt < state.getNode(neighbours.at(j)->getName()).getDistance() ) {
+                state.setDistance( neighbours.at(j)->getName(), alt );
+                state.setPreviousNodeName( neighbours.at(j)->getName(), u->getName() );
+            }
+        }
+    }
+
+
 }
 
 

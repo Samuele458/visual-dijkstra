@@ -48,9 +48,9 @@ class NodeState {
 public:
     static const int INF;
 
-    NodeState( QString name, int distance = INF, QString previous = "" );
+    NodeState( QString name, int distance = INF, QString previous = "", bool processed = false );
     NodeState( const NodeState& other );
-    NodeState( Node* node, int distance = INF, QString previous = "" );
+    NodeState( Node* node, int distance = INF, QString previous = "", bool processed = false );
     NodeState& operator=( const NodeState& other );
     bool operator==( const NodeState& other );
     bool operator!=( const NodeState& other );
@@ -62,15 +62,18 @@ public:
     QString getName() const;
     int getDistance() const;
     QString getPreviousNodeName() const;
+    bool isProcessed() const;
 
     void setName( QString name );
     void setDistance( int distance );
     void setPreviousNodeName( QString previous );
+    void setProcessed( bool processed );
 
 private:
     QString name;
     int distance;
     QString previous;
+    bool processed;
 };
 
 class GraphState
@@ -86,8 +89,15 @@ public:
 
     void setDistance( QString nodeName, int distance );
     void setPreviousNodeName( QString nodeName, QString previous );
+    void setProcessed( QString nodeName, bool processed );
+
+    bool hasInfinity() const;
 
     NodeState getNode( QString nodeName ) const;
+
+    QStringList getNodeNames() const;
+
+    QString minDistance() const;
 
 private:
     QVector<NodeState> nodes;

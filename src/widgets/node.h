@@ -68,6 +68,9 @@ public:
     void addEdge( Edge* edge );
     void removeEdge( Edge* edge );
     QVector<Edge*> getEdges() const;
+    Edge* getEdgeBetween( Node* otherNode ) const;
+
+    QVector<Node*> getNeighbours() const;
 
     QString getName() const;
     void setName( QString name );

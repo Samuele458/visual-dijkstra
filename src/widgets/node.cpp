@@ -110,6 +110,35 @@ QVector<Edge*> Node::getEdges() const {
     return edges;
 }
 
+Edge* Node::getEdgeBetween( Node* otherNode ) const {
+    QVectorIterator<Edge*> i(edges);
+    while( i.hasNext() ) {
+        Edge* edge = i.next();
+        if( edge->getNodeA() == otherNode ||
+            edge->getNodeB() == otherNode )
+        {
+            return edge;
+        }
+    }
+    return nullptr;
+}
+
+QVector<Node*> Node::getNeighbours() const {
+    QVector<Node*> nodes;
+
+    QVectorIterator<Edge*> i(edges);
+    while( i.hasNext() ) {
+        Edge* edge = i.next();
+        if( edge->getNodeA() == this ) {
+            nodes.push_back( edge->getNodeB() );
+        } else {
+            nodes.push_back( edge->getNodeA() );
+        }
+    }
+
+    return nodes;
+}
+
 QString Node::getName() const {
     return this->name;
 }

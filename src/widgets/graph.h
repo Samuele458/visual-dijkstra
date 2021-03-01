@@ -94,6 +94,7 @@ public:
     void removeNode( Node* node );
 
     Node* getNode( QString name ) const;
+    QVector<Node*> getNodes() const;
 
     bool load( QString filepath );
     bool save( QString filepath );

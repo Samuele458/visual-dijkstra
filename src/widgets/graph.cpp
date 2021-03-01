@@ -116,6 +116,10 @@ Node* Graph::getNode( QString name ) const {
     return nullptr;
 }
 
+QVector<Node*> Graph::getNodes() const {
+    return nodes;
+}
+
 
 void Graph::removeEdge( QString nameA, QString nameB ) {
     QVectorIterator<Edge*> i(edges);

@@ -37,6 +37,12 @@ NodeState::NodeState( const NodeState& other ) {
     previous = other.previous;
 }
 
+NodeState::NodeState( Node* node, int distance, QString previous ) :
+    NodeState( node->getName(), distance, previous )
+{
+
+}
+
 NodeState& NodeState::operator=( const NodeState& other ) {
     name = other.name;
     distance = other.distance;
@@ -103,3 +109,89 @@ void NodeState::setDistance( int distance ) {
 void NodeState::setPreviousNodeName( QString previous ) {
     this->previous = previous;
 }
+
+
+
+// -----
+
+GraphState::GraphState( Graph* graph ) {
+    QVector<Node*> nodes = graph->getNodes();
+    QVectorIterator<Node*> i(nodes);
+
+    while( i.hasNext() ) {
+        Node* hold = i.next();
+
+        this->nodes.push_back( NodeState( hold->getName() ) );
+    }
+}
+
+GraphState::GraphState( QVector<NodeState> nodes ) :
+    nodes( nodes )
+{
+
+}
+
+GraphState::GraphState( const GraphState& other ) {
+    nodes = other.nodes;
+}
+
+GraphState& GraphState::operator=( const GraphState& other ) {
+    nodes = other.nodes;
+
+    return *this;
+}
+
+QVector<NodeState> GraphState::getNodes() const {
+    return nodes;
+}
+
+void GraphState::setNodes( QVector<NodeState> nodes ) {
+    QStringList hold_names;
+
+    QVectorIterator<NodeState> i(nodes);
+    while( i.hasNext() ) {
+        QString name = i.next().getName();
+        if( hold_names.indexOf( name ) != -1 ) {
+            throw GraphStateError( GraphStateError::DUPLICATE_NODE_NAME, "Name duplicate" );
+        } else {
+            hold_names.push_back( name );
+        }
+    }
+}
+
+void GraphState::setDistance( QString nodeName, int distance ) {
+    QVectorIterator<NodeState> i(nodes);
+    while( i.hasNext() ) {
+        NodeState node = i.next();
+
+        if( node.getName() == nodeName ) {
+            node.setDistance( distance );
+        }
+    }
+}
+
+void GraphState::setPreviousNodeName( QString nodeName, QString previous ) {
+    QVectorIterator<NodeState> i(nodes);
+    while( i.hasNext() ) {
+        NodeState node = i.next();
+
+        if( node.getName() == nodeName ) {
+            node.setPreviousNodeName( previous );
+        }
+    }
+}
+
+NodeState GraphState::getNode( QString nodeName ) const {
+    QVectorIterator<NodeState> i(nodes);
+    while( i.hasNext() ) {
+        NodeState node = i.next();
+
+        if( node.getName() == nodeName ) {
+            return node;
+        }
+    }
+    //todo: return
+}
+
+
+

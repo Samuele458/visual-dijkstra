@@ -26,7 +26,7 @@
 #include <QString>
 
 #include "common/error.h"
-
+#include "widgets/graph.h"
 
 class GraphStateError : public Error {
 public:
@@ -35,7 +35,8 @@ public:
         INVALID_ARGUMENT,
 
         INVALID_NODE_NAME,
-        INVALID_NODE_DISTANCE
+        INVALID_NODE_DISTANCE,
+        DUPLICATE_NODE_NAME
     };
 
     GraphStateError( id error_id = GENERIC, QString message = "" ) :
@@ -49,6 +50,7 @@ public:
 
     NodeState( QString name, int distance = INF, QString previous = "" );
     NodeState( const NodeState& other );
+    NodeState( Node* node, int distance = INF, QString previous = "" );
     NodeState& operator=( const NodeState& other );
     bool operator==( const NodeState& other );
     bool operator!=( const NodeState& other );
@@ -59,7 +61,7 @@ public:
 
     QString getName() const;
     int getDistance() const;
-    QString getPreviousNodeName();
+    QString getPreviousNodeName() const;
 
     void setName( QString name );
     void setDistance( int distance );
@@ -74,7 +76,21 @@ private:
 class GraphState
 {
 public:
-    GraphState();
+    GraphState( Graph* graph );
+    GraphState( QVector<NodeState> nodes );
+    GraphState( const GraphState& other );
+    GraphState& operator=( const GraphState& other );
+
+    QVector<NodeState> getNodes() const;
+    void setNodes( QVector<NodeState> nodes );
+
+    void setDistance( QString nodeName, int distance );
+    void setPreviousNodeName( QString nodeName, QString previous );
+
+    NodeState getNode( QString nodeName ) const;
+
+private:
+    QVector<NodeState> nodes;
 };
 
 #endif // GRAPHSTATE_H

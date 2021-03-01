@@ -51,27 +51,26 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
     GraphView::mousePressEvent( event );
 
     //getting mouse coordinates
-    int x = event->pos().x();
-    int y = event->pos().y();
+    //int x = event->pos().x();
+    //int y = event->pos().y();
 
     //checking for Path Calculation request
     if( pathCalculationRequested ) {
-        //Edge Creation request allows user to create
-        //edges between two nodes by clicking them
-
+        //Path Calculation request allows user to calculate
+        //path between two nodes
         QGraphicsItem *item = itemAt(event->pos());
         Node* node = qgraphicsitem_cast<Node*>(item);
         if( node != NULL ) {
 
             //because of the nodes to be linked are two, the first one will
-            //be stored into edgeCreationHold. If it is equal to nullptr, it
+            //be stored into pathCalculationHold. If it is equal to nullptr, it
             //means that the first node has not been selected yet.
             if( pathCalculationHold == nullptr ) {
                 //storing first node
                 pathCalculationHold = node;
             } else {
-                //if edgeCreationHold != nullptr means that first node has already
-                //stored, so edge can be created
+                //if pathCalculationHold != nullptr means that first node has already
+                //stored, so the calculation will be done
                 qDebug() << pathCalculationHold->getName() << "->" << node->getName();
                 pathCalculationHold = nullptr;
                 pathCalculationRequested = false;

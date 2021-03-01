@@ -37,6 +37,7 @@
 #include "widgets/edge.h"
 #include "widgets/graph.h"
 #include "widgets/graphview.h"
+#include "widgets/graphpathfinderview.h"
 #include "dialogs/licensedialog.h"
 #include "dialogs/aboutdialog.h"
 
@@ -57,6 +58,7 @@ protected slots:
     void create_edge_action_slot();
     void license_action_slot();
     void about_action_slot();
+    void calculate_path_action_slot();
 
 private:
 
@@ -73,14 +75,14 @@ private:
     QAction* createEdgeAction;
     QAction* licenseAction;
     QAction* aboutAction;
-    QAction* calculatePath;//here
+    QAction* calculatePathAction;
 
 
 
     // ---- widgets ----
     QToolBar* toolbar;
 
-    GraphView* graphView;
+    GraphPathfinderView* graphView;
 
 
     QTableWidget* table;

@@ -46,7 +46,7 @@ bool Node::operator!=( Node& other ) {
 
 QRectF Node::boundingRect() const
 {
-    return QRectF(0,0,30,30);
+    return QRectF(0,0,40,40);
 }
 
 
@@ -74,8 +74,8 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
 
     //painter->drawRect(rect);
-    painter->drawEllipse(0,0,bound.width(),bound.height());
-    painter->drawText(0,0,bound.width(),bound.height(),Qt::AlignCenter,name);
+    painter->drawEllipse(5,5,bound.width()-10,bound.height()-10);
+    painter->drawText(5,5,bound.width()-10,bound.height()-10,Qt::AlignCenter,name);
 }
 
 void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event)

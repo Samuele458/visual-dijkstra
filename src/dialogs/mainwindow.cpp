@@ -39,9 +39,10 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     toolbar->addAction( createEdgeAction );
     toolbar->addAction( licenseAction );
     toolbar->addAction( aboutAction );
+    toolbar->addAction( calculatePathAction );
 
     //setup UI
-    graphView = new GraphView;
+    graphView = new GraphPathfinderView;
     table = new QTableWidget;
     tableSplitter =  new QSplitter(Qt::Orientation::Horizontal);
 
@@ -65,6 +66,8 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     //maximize window
     this->showMaximized();
     this->setMinimumSize( 900, 600 );
+
+
 
     // ----
     saved = false;
@@ -99,6 +102,10 @@ void MainWindow::createActions() {
 
     aboutAction = new QAction( "About", this );
     connect( aboutAction, SIGNAL(triggered()), this, SLOT(about_action_slot()) );
+
+    calculatePathAction = new QAction( "Calculate Path", this );
+    connect( calculatePathAction, SIGNAL(triggered()), this, SLOT(calculate_path_action_slot()) );
+
 
 }
 
@@ -167,4 +174,8 @@ void MainWindow::about_action_slot() {
     about_dialog->exec();
 
     delete about_dialog;
+}
+
+void MainWindow::calculate_path_action_slot() {
+    graphView->requestUserAction( GraphPathfinderView::CALCULATE_PATH );
 }

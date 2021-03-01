@@ -82,3 +82,7 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
         }
     }
 }
+
+void GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
+
+}

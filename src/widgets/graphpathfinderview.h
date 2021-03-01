@@ -40,6 +40,7 @@ public:
 
     void mousePressEvent(QMouseEvent *event) override;
 
+    void dijkstraAlgorithm( Node* source );
 
 private:
 

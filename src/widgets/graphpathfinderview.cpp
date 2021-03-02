@@ -72,6 +72,7 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
                 //if pathCalculationHold != nullptr means that first node has already
                 //stored, so the calculation will be done
                 qDebug() << pathCalculationHold->getName() << "->" << node->getName();
+                dijkstraAlgorithm( pathCalculationHold );
                 pathCalculationHold = nullptr;
                 pathCalculationRequested = false;
             }
@@ -94,11 +95,17 @@ void GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
     //QStringList nodesList = state.getNodeNames();
     QVectorIterator<Node*> i(this->getGraph()->getNodes());
 
+    qDebug().noquote() << state.toString();
+
     //while nodesList is not empty
     while( i.hasNext() ) {
         Node* node = i.next();
 
+
         Node* u = this->getGraph()->getNode( state.minDistance() );
+
+        qDebug() << "New node: " + u->getName();
+        qDebug().noquote() << state.toString();
 
         //current node set processed
         state.setProcessed( u->getName(), true );
@@ -107,12 +114,19 @@ void GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
         for( int j = 0; j < neighbours.size(); ++j ) {
             int alt = state.getNode(u->getName()).getDistance() +
                       u->getEdgeBetween( neighbours.at(j) )->getWeight();
+            qDebug() << "neighbour:  " +neighbours.at(j)->getName() + "  - " + QString::number(alt) + " - " + QString::number(state.getNode(neighbours.at(j)->getName()).getDistance() );
             if( alt < state.getNode(neighbours.at(j)->getName()).getDistance() ) {
                 state.setDistance( neighbours.at(j)->getName(), alt );
                 state.setPreviousNodeName( neighbours.at(j)->getName(), u->getName() );
             }
         }
     }
+
+    qDebug() << "Final:";
+
+    qDebug().noquote() << state.toString();
+
+
 
 
 }

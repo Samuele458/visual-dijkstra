@@ -121,6 +121,15 @@ void NodeState::setProcessed( bool processed ) {
     this->processed = processed;
 }
 
+QString NodeState::toString() const {
+
+    return "Node name: " + name +
+           "  Distance:" + QString::number( distance ) +
+           "  Previous: " + previous +
+           "  Processed: " + ( processed ? "True" : "False") + "\n";
+
+}
+
 
 
 // -----
@@ -171,36 +180,42 @@ void GraphState::setNodes( QVector<NodeState> nodes ) {
 }
 
 void GraphState::setDistance( QString nodeName, int distance ) {
-    QVectorIterator<NodeState> i(nodes);
-    while( i.hasNext() ) {
-        NodeState node = i.next();
 
-        if( node.getName() == nodeName ) {
+    for( int i = 0; i < nodes.size(); ++i ) {
+
+        if( nodes.at(i).getName() == nodeName ) {
+            NodeState node = nodes.at(i);
             node.setDistance( distance );
+            nodes.replace( i, node );
         }
     }
+
 }
 
 void GraphState::setPreviousNodeName( QString nodeName, QString previous ) {
-    QVectorIterator<NodeState> i(nodes);
-    while( i.hasNext() ) {
-        NodeState node = i.next();
 
-        if( node.getName() == nodeName ) {
+    for( int i = 0; i < nodes.size(); ++i ) {
+
+        if( nodes.at(i).getName() == nodeName ) {
+            NodeState node = nodes.at(i);
             node.setPreviousNodeName( previous );
+            nodes.replace( i, node );
         }
     }
+
 }
 
 void GraphState::setProcessed( QString nodeName, bool processed ) {
-    QVectorIterator<NodeState> i(nodes);
-    while( i.hasNext() ) {
-        NodeState node = i.next();
 
-        if( node.getName() == nodeName ) {
+    for( int i = 0; i < nodes.size(); ++i ) {
+
+        if( nodes.at(i).getName() == nodeName ) {
+            NodeState node = nodes.at(i);
             node.setProcessed( processed );
+            nodes.replace( i, node );
         }
     }
+
 }
 
 bool GraphState::hasInfinity() const {
@@ -241,19 +256,43 @@ QStringList GraphState::getNodeNames() const {
 
 QString GraphState::minDistance() const {
 
-    if( nodes.size() > 0 ) {
+    QVectorIterator<NodeState> i(nodes);
+    QVector<NodeState> notProcessed;
+
+    while( i.hasNext() ) {
+        NodeState node = i.next();
+
+        if( !node.isProcessed() )
+            notProcessed.push_back( node );
+    }
+
+    if( notProcessed.size() > 0 ) {
         int min = 0;
 
-        for( int i = 0; i < nodes.size(); ++i ) {
-            if( nodes.at(i).getDistance() < nodes.at(min).getDistance() ) {
+        for( int i = 0; i < notProcessed.size(); ++i ) {
+            if( notProcessed.at(i).getDistance() < notProcessed.at(min).getDistance() ) {
                 min = i;
             }
         }
 
-        return nodes.at(min).getName();
+        return notProcessed.at(min).getName();
     } else {
         return "";
     }
+}
+
+QString GraphState::toString() const {
+    QString string = "";
+
+    string += "------------------\n";
+    string += "Nodes: " + QString::number( nodes.size() ) + "\n";
+
+    QVectorIterator<NodeState> i(nodes);
+    while( i.hasNext() ) {
+        string += i.next().toString();
+    }
+
+    return string;
 }
 
 

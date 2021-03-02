@@ -69,6 +69,7 @@ public:
     void setPreviousNodeName( QString previous );
     void setProcessed( bool processed );
 
+    QString toString() const;
 private:
     QString name;
     int distance;
@@ -98,6 +99,8 @@ public:
     QStringList getNodeNames() const;
 
     QString minDistance() const;
+
+    QString toString() const;
 
 private:
     QVector<NodeState> nodes;

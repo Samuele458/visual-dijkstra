@@ -108,6 +108,7 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
+    void resetRequest();
 
     QString toString();
 private:

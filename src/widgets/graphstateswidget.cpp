@@ -126,6 +126,8 @@ void GraphStatesWidget::refresh() {
     }}
 
 void GraphStatesWidget::resizeEvent(QResizeEvent *event) {
+    Q_UNUSED( event );
+
     refresh();
 }
 

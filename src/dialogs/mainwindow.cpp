@@ -152,6 +152,9 @@ void MainWindow::create_edge_action_slot() {
 }
 
 void MainWindow::license_action_slot() {
+    //reset any pending request
+    graphView->getGraph()->resetRequest();
+
     LicenseDialog* license_dialog = new LicenseDialog( this );
 
     license_dialog->exec();
@@ -160,6 +163,9 @@ void MainWindow::license_action_slot() {
 }
 
 void MainWindow::about_action_slot() {
+    //reset any pending request
+    graphView->getGraph()->resetRequest();
+
     AboutDialog* about_dialog = new AboutDialog( this );
 
     about_dialog->exec();
@@ -168,5 +174,8 @@ void MainWindow::about_action_slot() {
 }
 
 void MainWindow::calculate_path_action_slot() {
+    //reset any pending request
+    graphView->getGraph()->resetRequest();
+
     graphView->requestUserAction( GraphPathfinderView::CALCULATE_PATH );
 }

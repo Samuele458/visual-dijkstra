@@ -51,6 +51,11 @@ void GraphPathfinderView::requestUserAction( Action action ) {
     }
 }
 
+void GraphPathfinderView::resetRequest() {
+    pathCalculationRequested = false;
+    pathCalculationHold = nullptr;
+}
+
 void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
     GraphView::mousePressEvent( event );
 

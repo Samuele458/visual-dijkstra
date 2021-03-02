@@ -40,6 +40,8 @@ public:
 
     void requestUserAction( Action action );
 
+    void resetRequest();
+
     void mousePressEvent(QMouseEvent *event) override;
 
     QVector<GraphState> dijkstraAlgorithm( Node* source );

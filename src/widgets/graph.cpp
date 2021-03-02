@@ -196,6 +196,9 @@ void Graph::removeNode( Node* node ) {
 
 
 bool Graph::load( QString filepath ) {
+    //reset any pending request
+    resetRequest();
+
     QSettings load( filepath, QSettings::IniFormat );
 
     //checking if file exists or not
@@ -240,6 +243,9 @@ bool Graph::load( QString filepath ) {
 }
 
 bool Graph::save( QString filepath ) {
+
+    //reset any pending request
+    resetRequest();
 
     QFile file(filepath);
     if(!file.open(QIODevice::ReadWrite|QIODevice::Truncate)) {
@@ -372,6 +378,13 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             edgeCreationRequested = false;
         }
     }
+}
+
+void Graph::resetRequest() {
+    nodeRemovalRequested = false;
+    nodeCreationRequested = false;
+    edgeCreationRequested = false;
+    edgeCreationHold = nullptr;
 }
 
 QString Graph::toString() {

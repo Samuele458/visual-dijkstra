@@ -23,7 +23,7 @@
 #define GRAPHPATHFINDERVIEW_H
 
 #include "graphview.h"
-
+#include "widgets/graphstateswidget.h"
 #include "common/graphstate.h"
 
 class GraphPathfinderView : public GraphView
@@ -42,9 +42,14 @@ public:
 
     void mousePressEvent(QMouseEvent *event) override;
 
-    void dijkstraAlgorithm( Node* source );
+    QVector<GraphState> dijkstraAlgorithm( Node* source );
+
+    void setStatesWidget( GraphStatesWidget* widget );
+    GraphStatesWidget* getStatesWidget() const;
 
 private:
+
+    GraphStatesWidget* statesWidget;
 
     // user actions flags
     bool pathCalculationRequested;

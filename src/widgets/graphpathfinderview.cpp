@@ -26,6 +26,8 @@ GraphPathfinderView::GraphPathfinderView( Graph* graph, QWidget* parent ) :
 {
     pathCalculationRequested = false;
     pathCalculationHold = nullptr;
+
+    statesWidget = nullptr;
 }
 
 
@@ -34,6 +36,8 @@ GraphPathfinderView::GraphPathfinderView( QWidget* parent ) :
 {
     pathCalculationRequested = false;
     pathCalculationHold = nullptr;
+
+    statesWidget = nullptr;
 }
 
 void GraphPathfinderView::requestUserAction( Action action ) {
@@ -72,7 +76,11 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
                 //if pathCalculationHold != nullptr means that first node has already
                 //stored, so the calculation will be done
                 qDebug() << pathCalculationHold->getName() << "->" << node->getName();
-                dijkstraAlgorithm( pathCalculationHold );
+                QVector<GraphState> states = dijkstraAlgorithm( pathCalculationHold );
+                if( statesWidget != nullptr ) {
+                    statesWidget->setStates( states );
+                }
+
                 pathCalculationHold = nullptr;
                 pathCalculationRequested = false;
             }
@@ -84,7 +92,9 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-void GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
+QVector<GraphState> GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
+
+    QVector<GraphState> states;
 
     //initializing graph state
     GraphState state( this->getGraph() );
@@ -95,6 +105,8 @@ void GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
     //QStringList nodesList = state.getNodeNames();
     QVectorIterator<Node*> i(this->getGraph()->getNodes());
 
+
+    states.push_back( state );
     qDebug().noquote() << state.toString();
 
     //while nodesList is not empty
@@ -122,13 +134,19 @@ void GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
         }
     }
 
-    qDebug() << "Final:";
-
     qDebug().noquote() << state.toString();
+    states.push_back( state );
 
+    return states;
 
+}
 
+void GraphPathfinderView::setStatesWidget( GraphStatesWidget* widget ) {
+    this->statesWidget = widget;
+}
 
+GraphStatesWidget* GraphPathfinderView::getStatesWidget() const {
+    return statesWidget;
 }
 
 

@@ -31,31 +31,8 @@ public:
 
     void refresh();
 
-    void resizeEvent(QResizeEvent *event) override {
-        qDebug() << event->size().width();
-        int colCount = event->size().width()/50;
-        qDebug() << "colcount:" << colCount;
+    void resizeEvent(QResizeEvent *event) override;
 
-
-        for( int i = 0; i < statesButtons.size(); ++i ) {
-            statesGrid->removeWidget( statesButtons.at(i) );
-        }
-
-        int current = 0;
-        for( int i = 0; current < statesButtons.size()  ; ++i ) {
-            qDebug() << colCount;
-            for( int j = 0; j < colCount; ++j ) {
-
-                if( !(current < statesButtons.size() )) {
-                    break;
-                }
-                statesGrid->addWidget( statesButtons.at(current),i,j);
-                qDebug() << "here";
-                ++current;
-            }
-
-        }
-    }
 private:
 
     QVector<GraphState> states;

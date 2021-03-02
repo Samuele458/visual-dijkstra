@@ -48,7 +48,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
     tableSplitter->addWidget(graphView);
     tableSplitter->addWidget( table );
-    tableSplitter->setSizes( QList<int>() << 600 << 400 );
+    tableSplitter->setSizes( QList<int>() << 600 << 200 );
     tableSplitter->setCollapsible( 1, false );
 
     this->setCentralWidget( tableSplitter );
@@ -58,6 +58,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     this->showMaximized();
     //this->setMinimumSize( 900, 600 );
 
+    graphView->setStatesWidget( table );
 
     // ----
     saved = false;

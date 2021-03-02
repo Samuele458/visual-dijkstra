@@ -18,6 +18,7 @@ SOURCES += \
         widgets/edge.cpp \
         widgets/graph.cpp \
         widgets/graphpathfinderview.cpp \
+        widgets/graphstatestable.cpp \
         widgets/graphview.cpp \
         widgets/node.cpp
 
@@ -35,6 +36,7 @@ HEADERS += \
     widgets/edge.h \
     widgets/graph.h \
     widgets/graphpathfinderview.h \
+    widgets/graphstatestable.h \
     widgets/graphview.h \
     widgets/node.h
 

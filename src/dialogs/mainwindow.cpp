@@ -43,30 +43,19 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
     //setup UI
     graphView = new GraphPathfinderView;
-    table = new QTableWidget;
+    table = new GraphStatesTable( nullptr );
     tableSplitter =  new QSplitter(Qt::Orientation::Horizontal);
 
     tableSplitter->addWidget(graphView);
     tableSplitter->addWidget( table );
+    tableSplitter->setSizes( QList<int>() << 600 << 300 );
+
 
     this->setCentralWidget( tableSplitter );
 
-    //creating test graph
-    //graph = new Graph( this );
-    //editorView->setScene( graph );
-    //graph->setSceneRect( editorView->sceneRect() );
-    //editorView->setSceneRect( graph->sceneRect() );
-    //editorView->setRenderHint(QPainter::Antialiasing, true );
-    //editorView->setMouseTracking( true );
-    //editorView->viewport()->setCursor(Qt::CrossCursor);
-    //editorView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //editorView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //editorView->ensureVisible()
-
     //maximize window
     this->showMaximized();
-    this->setMinimumSize( 900, 600 );
-
+    //this->setMinimumSize( 900, 600 );
 
 
     // ----

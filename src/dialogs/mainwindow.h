@@ -40,6 +40,7 @@
 #include "widgets/graphpathfinderview.h"
 #include "dialogs/licensedialog.h"
 #include "dialogs/aboutdialog.h"
+#include "widgets/graphstatestable.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -85,7 +86,7 @@ private:
     GraphPathfinderView* graphView;
 
 
-    QTableWidget* table;
+    GraphStatesTable* table;
     QSplitter* tableSplitter;
 
 

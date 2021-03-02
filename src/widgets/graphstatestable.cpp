@@ -31,13 +31,26 @@ GraphStatesTable::GraphStatesTable( QVector<GraphState> states, QWidget* parent 
     QTableWidget( parent )
 {
 
+    this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    this->setMinimumWidth(200);
+
+    QStringList header;
+    header << "Node" << "Distance" << "Previous";
+    qDebug() << "here";
+
+    this->setColumnCount(3);this->setHorizontalHeaderLabels( header );
+
+
+
 }
 
 void GraphStatesTable::setStates( QVector<GraphState> states ) {
+    this->states = states;
+
 
 }
 
 QVector<GraphState> GraphStatesTable::getStates() const {
-
+    return states;
 }
 

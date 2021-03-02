@@ -25,6 +25,7 @@
 #include <QTableWidget>
 #include <QDebug>
 #include <QVector>
+#include <QSizePolicy>
 
 #include "common/graphstate.h"
 

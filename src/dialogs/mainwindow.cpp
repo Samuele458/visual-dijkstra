@@ -43,7 +43,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
     //setup UI
     graphView = new GraphPathfinderView;
-    table = new GraphStatesTable( nullptr );
+    table = new GraphStatesWidget;
     tableSplitter =  new QSplitter(Qt::Orientation::Horizontal);
 
     tableSplitter->addWidget(graphView);

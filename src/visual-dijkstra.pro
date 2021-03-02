@@ -19,6 +19,7 @@ SOURCES += \
         widgets/graph.cpp \
         widgets/graphpathfinderview.cpp \
         widgets/graphstatestable.cpp \
+        widgets/graphstateswidget.cpp \
         widgets/graphview.cpp \
         widgets/node.cpp
 
@@ -37,6 +38,7 @@ HEADERS += \
     widgets/graph.h \
     widgets/graphpathfinderview.h \
     widgets/graphstatestable.h \
+    widgets/graphstateswidget.h \
     widgets/graphview.h \
     widgets/node.h
 

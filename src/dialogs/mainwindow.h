@@ -41,6 +41,7 @@
 #include "dialogs/licensedialog.h"
 #include "dialogs/aboutdialog.h"
 #include "widgets/graphstatestable.h"
+#include "widgets/graphstateswidget.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -86,7 +87,7 @@ private:
     GraphPathfinderView* graphView;
 
 
-    GraphStatesTable* table;
+    GraphStatesWidget* table;
     QSplitter* tableSplitter;
 
 

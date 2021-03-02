@@ -25,6 +25,7 @@
 #include <QTableWidget>
 #include <QDebug>
 #include <QVector>
+#include <QHeaderView>
 #include <QSizePolicy>
 
 #include "common/graphstate.h"
@@ -36,13 +37,17 @@ class GraphStatesTable : public QTableWidget
 public:
 
     GraphStatesTable( QWidget* parent = nullptr );
-    GraphStatesTable( QVector<GraphState> states = QVector<GraphState>(), QWidget* parent = nullptr );
+    GraphStatesTable( GraphState state, QWidget* parent = nullptr );
 
-    void setStates( QVector<GraphState> states );
-    QVector<GraphState> getStates() const;
+    void setState( GraphState state );
+    GraphState getState() const;
+
+
+    void refresh();
+
 
 private:
-    QVector<GraphState> states;
+    GraphState state;
 
 };
 

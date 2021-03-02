@@ -22,13 +22,13 @@
 #include "graphstatestable.h"
 
 GraphStatesTable::GraphStatesTable( QWidget* parent ) :
-    GraphStatesTable( QVector<GraphState>(), parent )
+    GraphStatesTable( GraphState(QVector<NodeState>()), parent )
 {
 
 }
 
-GraphStatesTable::GraphStatesTable( QVector<GraphState> states, QWidget* parent ) :
-    QTableWidget( parent )
+GraphStatesTable::GraphStatesTable(GraphState state, QWidget* parent ) :
+    QTableWidget( parent ), state( state )
 {
 
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -36,21 +36,40 @@ GraphStatesTable::GraphStatesTable( QVector<GraphState> states, QWidget* parent 
 
     QStringList header;
     header << "Node" << "Distance" << "Previous";
-    qDebug() << "here";
 
     this->setColumnCount(3);this->setHorizontalHeaderLabels( header );
+    this->horizontalHeader()->setStretchLastSection( true );
 
 
 
 }
 
-void GraphStatesTable::setStates( QVector<GraphState> states ) {
-    this->states = states;
+void GraphStatesTable::setState( GraphState state ) {
+    this->state = state;
 
 
 }
 
-QVector<GraphState> GraphStatesTable::getStates() const {
-    return states;
+GraphState GraphStatesTable::getState() const {
+    return state;
 }
 
+
+
+//refresh the table, by picking data from states
+void GraphStatesTable::refresh() {
+    QVectorIterator<NodeState> i(state.getNodes());
+
+    //iterating through states
+    while( i.hasNext() ) {
+        //current state
+        NodeState state = i.next();
+
+        //adding new row
+        this->setRowCount( this->rowCount() + 1 );
+        this->setItem( this->rowCount() - 1, 0, new QTableWidgetItem( state.getName() ) );
+        this->setItem( this->rowCount() - 1, 1, new QTableWidgetItem( state.getDistance() ) );
+        this->setItem( this->rowCount() - 1, 2, new QTableWidgetItem( state.getPreviousNodeName() ) );
+
+    }
+}

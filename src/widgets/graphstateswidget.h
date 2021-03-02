@@ -33,6 +33,9 @@ public:
 
     void resizeEvent(QResizeEvent *event) override;
 
+protected slots:
+    void state_button_clicked();
+
 private:
 
     QVector<GraphState> states;

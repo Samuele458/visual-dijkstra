@@ -78,6 +78,7 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
                 qDebug() << pathCalculationHold->getName() << "->" << node->getName();
                 QVector<GraphState> states = dijkstraAlgorithm( pathCalculationHold );
                 if( statesWidget != nullptr ) {
+                    statesWidget->clearStates();
                     statesWidget->setStates( states );
                 }
 
@@ -131,11 +132,13 @@ QVector<GraphState> GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
                 state.setDistance( neighbours.at(j)->getName(), alt );
                 state.setPreviousNodeName( neighbours.at(j)->getName(), u->getName() );
             }
+
         }
+        states.push_back( state );
     }
 
     qDebug().noquote() << state.toString();
-    states.push_back( state );
+
 
     return states;
 

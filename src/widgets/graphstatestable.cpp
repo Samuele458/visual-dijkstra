@@ -37,17 +37,18 @@ GraphStatesTable::GraphStatesTable(GraphState state, QWidget* parent ) :
     QStringList header;
     header << "Node" << "Distance" << "Previous";
 
-    this->setColumnCount(3);this->setHorizontalHeaderLabels( header );
+    this->setColumnCount(3);
+    this->setHorizontalHeaderLabels( header );
     this->horizontalHeader()->setStretchLastSection( true );
 
-
+    refresh();
 
 }
 
 void GraphStatesTable::setState( GraphState state ) {
     this->state = state;
 
-
+    refresh();
 }
 
 GraphState GraphStatesTable::getState() const {
@@ -60,6 +61,9 @@ GraphState GraphStatesTable::getState() const {
 void GraphStatesTable::refresh() {
     QVectorIterator<NodeState> i(state.getNodes());
 
+    this->clearContents();
+    this->setRowCount( 0 );
+
     //iterating through states
     while( i.hasNext() ) {
         //current state
@@ -68,7 +72,7 @@ void GraphStatesTable::refresh() {
         //adding new row
         this->setRowCount( this->rowCount() + 1 );
         this->setItem( this->rowCount() - 1, 0, new QTableWidgetItem( state.getName() ) );
-        this->setItem( this->rowCount() - 1, 1, new QTableWidgetItem( state.getDistance() ) );
+        this->setItem( this->rowCount() - 1, 1, new QTableWidgetItem( QString::number(state.getDistance()) ) );
         this->setItem( this->rowCount() - 1, 2, new QTableWidgetItem( state.getPreviousNodeName() ) );
 
     }

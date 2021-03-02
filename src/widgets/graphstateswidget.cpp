@@ -54,10 +54,18 @@ void GraphStatesWidget::setStates( QVector<GraphState> states ) {
         delete statesButtons.at(i);
     }
 
+    statesButtons.clear();
+
     //creating new buttons
     for( int i = 0; i < states.size(); ++i ) {
-        statesButtons.push_back( new QPushButton(QString::number(i)));
+
+        //new button
+        QPushButton* button = new QPushButton(QString::number(i));
+
+        statesButtons.push_back( button );
         statesButtons.at(i)->setMinimumWidth(20);
+
+        connect( button, SIGNAL(clicked()), this, SLOT(state_button_clicked()));
     }
 
     refresh();
@@ -71,6 +79,8 @@ void GraphStatesWidget::addState( GraphState state ) {
         statesGrid->removeWidget( statesButtons.at(i) );
         delete statesButtons.at(i);
     }
+
+    statesButtons.clear();
 
     //creating new buttons
     for( int i = 0; i < states.size(); ++i ) {
@@ -89,6 +99,8 @@ void GraphStatesWidget::clearStates() {
         statesGrid->removeWidget( statesButtons.at(i) );
         delete statesButtons.at(i);
     }
+
+    statesButtons.clear();
 
     refresh();
 }
@@ -115,4 +127,14 @@ void GraphStatesWidget::refresh() {
 
 void GraphStatesWidget::resizeEvent(QResizeEvent *event) {
     refresh();
+}
+
+// ----
+
+void GraphStatesWidget::state_button_clicked() {
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    int index = button->text().toInt();
+
+    table->setState( states.at(index) );
+
 }

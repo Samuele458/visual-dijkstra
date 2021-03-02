@@ -32,7 +32,7 @@ GraphStatesTable::GraphStatesTable(GraphState state, QWidget* parent ) :
 {
 
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    this->setMinimumWidth(200);
+    this->setMinimumWidth(150);
 
     QStringList header;
     header << "Node" << "Distance" << "Previous";

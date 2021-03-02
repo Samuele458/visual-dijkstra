@@ -48,10 +48,11 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
     tableSplitter->addWidget(graphView);
     tableSplitter->addWidget( table );
-    tableSplitter->setSizes( QList<int>() << 600 << 300 );
-
+    tableSplitter->setSizes( QList<int>() << 600 << 400 );
+    tableSplitter->setCollapsible( 1, false );
 
     this->setCentralWidget( tableSplitter );
+    this->setContentsMargins(5,0,5,5);
 
     //maximize window
     this->showMaximized();

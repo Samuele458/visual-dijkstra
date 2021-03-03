@@ -33,15 +33,13 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     //window toolbar
     toolbar = new QToolBar("Visual Dijkstra");
     this->addToolBar( toolbar );
-    toolbar->addAction( exitAction );
-    toolbar->addAction( saveAction );
-    toolbar->addAction( saveAsAction );
     toolbar->addAction( openAction );
+    toolbar->addAction( saveAction );
+    toolbar->addSeparator();
     toolbar->addAction( createNodeAction );
     toolbar->addAction( removeNodeAction );
     toolbar->addAction( createEdgeAction );
-    toolbar->addAction( licenseAction );
-    toolbar->addAction( aboutAction );
+    toolbar->addSeparator();
     toolbar->addAction( calculatePathAction );
 
     //setup UI

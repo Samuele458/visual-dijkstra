@@ -82,7 +82,7 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
                 //if pathCalculationHold != nullptr means that first node has already
                 //stored, so the calculation will be done
                 qDebug() << pathCalculationHold->getName() << "->" << node->getName();
-                QVector<GraphState> states = dijkstraAlgorithm( pathCalculationHold );
+                QVector<GraphState> states = dijkstraAlgorithm( pathCalculationHold, node );
                 if( statesWidget != nullptr ) {
                     statesWidget->clearStates();
                     statesWidget->setStates( states );
@@ -99,12 +99,14 @@ void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-QVector<GraphState> GraphPathfinderView::dijkstraAlgorithm( Node* source ) {
+QVector<GraphState> GraphPathfinderView::dijkstraAlgorithm( Node* source, Node* dest ) {
 
     QVector<GraphState> states;
 
     //initializing graph state
     GraphState state( this->getGraph() );
+    state.setSource( source->getName() );
+    state.setDest( dest->getName() );
 
     //source node must have 0 distance
     state.setDistance( source->getName(), 0 );

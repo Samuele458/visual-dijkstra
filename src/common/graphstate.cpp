@@ -143,20 +143,26 @@ GraphState::GraphState( Graph* graph ) {
 
         this->nodes.push_back( NodeState( hold->getName() ) );
     }
+
+    source = "";
+    dest = "";
 }
 
 GraphState::GraphState( QVector<NodeState> nodes ) :
     nodes( nodes )
 {
-
+    source = "";
+    dest = "";
 }
 
 GraphState::GraphState( const GraphState& other ) {
     nodes = other.nodes;
+    source = other.source;
 }
 
 GraphState& GraphState::operator=( const GraphState& other ) {
     nodes = other.nodes;
+    source = other.source;
 
     return *this;
 }
@@ -293,6 +299,22 @@ QString GraphState::toString() const {
     }
 
     return string;
+}
+
+QString GraphState::getSource() const {
+    return source;
+}
+
+QString GraphState::getDest() const {
+    return dest;
+}
+
+void GraphState::setSource( QString source ) {
+    this->source = source;
+}
+
+void GraphState::setDest( QString dest ) {
+    this->dest = dest;
 }
 
 

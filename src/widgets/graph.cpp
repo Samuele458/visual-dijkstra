@@ -121,6 +121,13 @@ QVector<Node*> Graph::getNodes() const {
     return nodes;
 }
 
+void Graph::highlightState( GraphState state ) {
+    QVector<NodeState> states = state.getNodes();
+    for( int i = 0; i < states.size(); ++i ) {
+
+    }
+}
+
 
 void Graph::removeEdge( QString nameA, QString nameB ) {
     QVectorIterator<Edge*> i(edges);

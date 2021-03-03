@@ -28,6 +28,8 @@
 #include "common/error.h"
 #include "widgets/graph.h"
 
+class Graph;
+
 class GraphStateError : public Error {
 public:
     enum id {
@@ -102,8 +104,16 @@ public:
 
     QString toString() const;
 
+    QString getSource() const;
+    QString getDest() const;
+
+    void setSource( QString source );
+    void setDest( QString dest );
+
 private:
     QVector<NodeState> nodes;
+    QString source;
+    QString dest;
 };
 
 #endif // GRAPHSTATE_H

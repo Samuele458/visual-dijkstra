@@ -44,7 +44,7 @@ public:
 
     void mousePressEvent(QMouseEvent *event) override;
 
-    QVector<GraphState> dijkstraAlgorithm( Node* source );
+    QVector<GraphState> dijkstraAlgorithm( Node* source, Node* dest );
 
     void setStatesWidget( GraphStatesWidget* widget );
     GraphStatesWidget* getStatesWidget() const;

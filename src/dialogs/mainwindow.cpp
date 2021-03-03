@@ -68,33 +68,43 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 void MainWindow::createActions() {
     exitAction = new QAction( "Exit", this );
     exitAction->setShortcut( QKeySequence::Quit );
+    exitAction->setIcon( QIcon(":/data/icons/logout.png") );
     connect( exitAction, SIGNAL(triggered()), this, SLOT(exit_action_slot()) );
 
     openAction = new QAction( "Open", this );
+    openAction->setIcon( QIcon(":/data/icons/folder.png") );
     connect( openAction, SIGNAL(triggered()), this, SLOT(open_action_slot()) );
 
     saveAction = new QAction( "Save", this );
+    saveAction->setIcon( QIcon(":/data/icons/save.png") );
     connect( saveAction, SIGNAL(triggered()), this, SLOT(save_action_slot()) );
 
     saveAsAction = new QAction( "Save as...", this );
+    saveAsAction->setIcon( QIcon(":/data/icons/save.png") );
     connect( saveAsAction, SIGNAL(triggered()), this, SLOT(save_as_action_slot()) );
 
     removeNodeAction = new QAction( "Remove node", this );
+    removeNodeAction->setIcon( QIcon(":/data/icons/delete.png") );
     connect( removeNodeAction, SIGNAL(triggered()), this, SLOT(remove_node_action_slot()) );
 
     createNodeAction = new QAction( "Create node", this );
+    createNodeAction->setIcon( QIcon(":/data/icons/add.png") );
     connect( createNodeAction, SIGNAL(triggered()), this, SLOT(create_node_action_slot()) );
 
     createEdgeAction = new QAction( "Create edge", this );
+    createEdgeAction->setIcon( QIcon(":/data/icons/route.png") );
     connect( createEdgeAction, SIGNAL(triggered()), this, SLOT(create_edge_action_slot()) );
 
     licenseAction = new QAction( "Show License", this );
+    licenseAction->setIcon( QIcon(":/data/icons/license.png") );
     connect( licenseAction, SIGNAL(triggered()), this, SLOT(license_action_slot()) );
 
     aboutAction = new QAction( "About", this );
+    aboutAction->setIcon( QIcon(":/data/icons/info.png") );
     connect( aboutAction, SIGNAL(triggered()), this, SLOT(about_action_slot()) );
 
     calculatePathAction = new QAction( "Calculate Path", this );
+    calculatePathAction->setIcon( QIcon(":/data/icons/path.png") );
     connect( calculatePathAction, SIGNAL(triggered()), this, SLOT(calculate_path_action_slot()) );
 
 

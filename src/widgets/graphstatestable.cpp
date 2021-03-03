@@ -72,7 +72,9 @@ void GraphStatesTable::refresh() {
         //adding new row
         this->setRowCount( this->rowCount() + 1 );
         this->setItem( this->rowCount() - 1, 0, new QTableWidgetItem( state.getName() ) );
-        this->setItem( this->rowCount() - 1, 1, new QTableWidgetItem( QString::number(state.getDistance()) ) );
+        this->setItem( this->rowCount() - 1, 1, new QTableWidgetItem(
+                                                      ( state.getDistance() == NodeState::INF ?
+                                                       "Infinity" : QString::number(state.getDistance()) ) ) );
         this->setItem( this->rowCount() - 1, 2, new QTableWidgetItem( state.getPreviousNodeName() ) );
 
     }

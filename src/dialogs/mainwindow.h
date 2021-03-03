@@ -32,6 +32,7 @@
 #include <QSplitter>
 #include <QAction>
 #include <QFileDialog>
+#include <QIcon>
 
 #include "widgets/node.h"
 #include "widgets/edge.h"

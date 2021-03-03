@@ -54,6 +54,7 @@ void GraphPathfinderView::requestUserAction( Action action ) {
 void GraphPathfinderView::resetRequest() {
     pathCalculationRequested = false;
     pathCalculationHold = nullptr;
+    statesWidget->clearStates();
 }
 
 void GraphPathfinderView::mousePressEvent(QMouseEvent *event) {

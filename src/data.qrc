@@ -1,5 +1,14 @@
 <RCC>
     <qresource prefix="/">
         <file>data/LICENSE</file>
+        <file>data/icons/delete.png</file>
+        <file>data/icons/folder.png</file>
+        <file>data/icons/info.png</file>
+        <file>data/icons/license.png</file>
+        <file>data/icons/logout.png</file>
+        <file>data/icons/path.png</file>
+        <file>data/icons/route.png</file>
+        <file>data/icons/save.png</file>
+        <file>data/icons/add.png</file>
     </qresource>
 </RCC>

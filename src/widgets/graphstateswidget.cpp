@@ -64,6 +64,7 @@ void GraphStatesWidget::setStates( QVector<GraphState> states ) {
 
         statesButtons.push_back( button );
         statesButtons.at(i)->setMinimumWidth(20);
+        statesButtons.at(i)->setMinimumHeight(30);
 
         connect( button, SIGNAL(clicked()), this, SLOT(state_button_clicked()));
     }
@@ -101,6 +102,9 @@ void GraphStatesWidget::clearStates() {
         delete statesButtons.at(i);
     }
 
+    table->clearContents();
+    table->setRowCount(0);
+
     statesButtons.clear();
 
     refresh();
@@ -135,9 +139,22 @@ void GraphStatesWidget::resizeEvent(QResizeEvent *event) {
 
 //apply state
 void GraphStatesWidget::applyState( int pos ) {
-    if( pos >= 0 && pos < states.size() )
+    if( pos >= 0 && pos < states.size() ) {
         table->setState( states.at( pos ) );
-    else table->clearContents();
+
+        QVectorIterator<QPushButton*> i(statesButtons);
+        while( i.hasNext() ) {
+            QPushButton* button = i.next();
+            if( button == statesButtons.at(pos) ) {
+                button->setStyleSheet("background-color: rgba(46, 204, 113, 0.4); border:none;");
+            } else {
+                button->setStyleSheet("background-color: rgba(150, 204, 113, 0.4); border:none;");
+            }
+        }
+    }
+    else {
+        table->clearContents();
+    }
 }
 
 // ----

@@ -2,6 +2,8 @@
 
 GraphStatesWidget::GraphStatesWidget(QWidget *parent) : QWidget(parent)
 {
+    graphView = nullptr;
+
     layout = new QVBoxLayout( this );
     statesTitle = new QLabel;
     table = new GraphStatesTable;
@@ -151,10 +153,26 @@ void GraphStatesWidget::applyState( int pos ) {
                 button->setStyleSheet("background-color: rgba(150, 204, 113, 0.4); border:none;");
             }
         }
+
+        //check if graphView is set
+        if( graphView != nullptr ) {
+
+            //setting state to graphView
+            graphView->getGraph()->highlightState( states.at(pos) );
+        }
     }
     else {
         table->clearContents();
     }
+}
+
+
+void GraphStatesWidget::setGraphPathfinderView( GraphPathfinderView* view ) {
+    this->graphView = view;
+}
+
+GraphPathfinderView* GraphStatesWidget::getGraphPathfinderView() const {
+    return graphView;
 }
 
 // ----

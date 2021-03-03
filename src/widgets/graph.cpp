@@ -24,16 +24,16 @@
 
 
 //default color for lines, and nodes borders
-const QColor DEFAULT_LINE_COLOR = Qt::black;
+const QColor Graph::DEFAULT_LINE_COLOR = Qt::black;
 
 //default background color for nodes
-const QColor DEFAULT_ITEM_COLOR = Qt::red;
+const QColor Graph::DEFAULT_ITEM_COLOR = Qt::red;
 
 //highlighted color for lines, and nodes borders
-const QColor HIGHLIGHT_LINE_COLOR = Qt::blue;
+const QColor Graph::HIGHLIGHT_LINE_COLOR = Qt::blue;
 
 //highlighted background color for nodes
-const QColor HIGHLIGHT_ITEM_COLOR = Qt::green;
+const QColor Graph::HIGHLIGHT_ITEM_COLOR = Qt::green;
 
 
 Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
@@ -124,9 +124,25 @@ QVector<Node*> Graph::getNodes() const {
 void Graph::highlightState( GraphState state ) {
     QVector<NodeState> states = state.getNodes();
     for( int i = 0; i < states.size(); ++i ) {
-
+        if( states.at(i).getPreviousNodeName() != "" ) {
+            this->getNode( states.at(i).getName() )->setBorderColor(Graph::HIGHLIGHT_LINE_COLOR);
+        } else {
+            this->getNode( states.at(i).getName() )->setBorderColor(Graph::DEFAULT_LINE_COLOR);
+        }
     }
 }
+
+void Graph::resetState() {
+    QVectorIterator<Node*> i(nodes);
+
+    while( i.hasNext() ) {
+        Node* node = i.next();
+        node->setBackgroundColor( Graph::DEFAULT_ITEM_COLOR );
+        node->setBorderColor( Graph::DEFAULT_LINE_COLOR );
+    }
+}
+
+
 
 
 void Graph::removeEdge( QString nameA, QString nameB ) {

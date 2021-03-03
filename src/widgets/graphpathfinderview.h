@@ -25,6 +25,9 @@
 #include "graphview.h"
 #include "widgets/graphstateswidget.h"
 #include "common/graphstate.h"
+#include "widgets/graphstateswidget.h"
+
+class GraphStatesWidget;
 
 class GraphPathfinderView : public GraphView
 {

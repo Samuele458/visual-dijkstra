@@ -15,6 +15,9 @@
 
 #include "common/graphstate.h"
 #include "widgets/graphstatestable.h"
+#include "widgets/graphpathfinderview.h"
+
+class GraphPathfinderView;
 
 class GraphStatesWidget : public QWidget
 {
@@ -36,6 +39,9 @@ public:
     //apply state
     void applyState( int pos );
 
+    void setGraphPathfinderView( GraphPathfinderView* view );
+    GraphPathfinderView* getGraphPathfinderView() const;
+
 protected slots:
     void state_button_clicked();
 
@@ -53,7 +59,7 @@ private:
     QSplitter* splitter;
     QScrollArea* buttonsArea;
 
-
+    GraphPathfinderView* graphView;
 
 };
 

@@ -37,6 +37,7 @@
 #include "common/error.h"
 #include "common/graphstate.h"
 
+
 class GraphState;
 
 class GraphError : public Error {
@@ -100,6 +101,7 @@ public:
     QVector<Node*> getNodes() const;
 
     void highlightState( GraphState state );
+    void resetState();
 
     bool load( QString filepath );
     bool save( QString filepath );

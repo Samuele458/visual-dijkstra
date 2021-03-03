@@ -33,6 +33,8 @@
 #include <QAction>
 #include <QFileDialog>
 #include <QIcon>
+#include <QMenu>
+#include <QMenuBar>
 
 #include "widgets/node.h"
 #include "widgets/edge.h"
@@ -68,6 +70,9 @@ private:
     //allocating and configuring actions
     void createActions();
 
+    //allocating and configuring menus
+    void createMenus();
+
     // ---- actions ----
     QAction* exitAction;
     QAction* openAction;
@@ -84,18 +89,18 @@ private:
 
     // ---- widgets ----
     QToolBar* toolbar;
-
     GraphPathfinderView* graphView;
-
 
     GraphStatesWidget* table;
     QSplitter* tableSplitter;
 
 
-    //Graph* graph;
+    // -- menus --
+    QMenu* fileMenu;
+    QMenu* editMenu;
+    QMenu* helpMenu;
 
 
-    // ----
 
     bool saved;
     QString saveFile;

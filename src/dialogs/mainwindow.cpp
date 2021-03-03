@@ -27,6 +27,9 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     //creating actions
     createActions();
 
+    //creating menus
+    createMenus();
+
     //window toolbar
     toolbar = new QToolBar("Visual Dijkstra");
     this->addToolBar( toolbar );
@@ -110,6 +113,32 @@ void MainWindow::createActions() {
 
 }
 
+//allocating and configuring menus
+void MainWindow::createMenus() {
+
+    //File menu
+    fileMenu = menuBar()->addMenu( "File" );
+    fileMenu->addAction(openAction);
+    fileMenu->addSeparator();
+    fileMenu->addAction(saveAction);
+    fileMenu->addAction(saveAsAction);
+    fileMenu->addSeparator();
+    fileMenu->addAction(exitAction);
+
+    //Edit menu
+    editMenu = menuBar()->addMenu( "Edit" );
+    editMenu->addAction( createNodeAction );
+    editMenu->addAction( removeNodeAction );
+    editMenu->addSeparator();
+    editMenu->addAction( createEdgeAction );
+    editMenu->addSeparator();
+    editMenu->addAction( calculatePathAction );
+
+    //Help menu
+    helpMenu = menuBar()->addMenu( "Help" );
+    helpMenu->addAction( aboutAction );
+    helpMenu->addAction( licenseAction );
+}
 
 
 // ---- Actions ----

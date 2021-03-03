@@ -105,6 +105,7 @@ void MainWindow::createActions() {
 // ---- Actions ----
 
 void MainWindow::open_action_slot() {
+    graphView->resetRequest();
     QString filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
 
     if( filename != "" ) {
@@ -118,6 +119,7 @@ void MainWindow::exit_action_slot() {
 }
 
 void MainWindow::save_action_slot() {
+    graphView->resetRequest();
     if( saveFile != "" ) {
         if( !graphView->getGraph()->save( saveFile ) ) {
             QMessageBox::critical( nullptr, "Error", "Could not open file" );
@@ -128,6 +130,7 @@ void MainWindow::save_action_slot() {
 }
 
 void MainWindow::save_as_action_slot() {
+    graphView->resetRequest();
     QString filename = QFileDialog::getSaveFileName( this, "Save as...", "", "Config (*.ini);;Others (*.*)" );
 
     if( filename != "" ) {
@@ -140,20 +143,26 @@ void MainWindow::save_as_action_slot() {
 }
 
 void MainWindow::remove_node_action_slot() {
+    graphView->resetRequest();
     graphView->getGraph()->requestUserAction( Graph::REMOVE_NODE );
 }
 
 void MainWindow::create_node_action_slot() {
+    graphView->resetRequest();
     graphView->getGraph()->requestUserAction( Graph::CREATE_NODE );
 }
 
 void MainWindow::create_edge_action_slot() {
+    graphView->resetRequest();
     graphView->getGraph()->requestUserAction( Graph::CREATE_EDGE );
+
 }
 
 void MainWindow::license_action_slot() {
     //reset any pending request
+    graphView->resetRequest();
     graphView->getGraph()->resetRequest();
+
 
     LicenseDialog* license_dialog = new LicenseDialog( this );
 
@@ -164,7 +173,9 @@ void MainWindow::license_action_slot() {
 
 void MainWindow::about_action_slot() {
     //reset any pending request
+    graphView->resetRequest();
     graphView->getGraph()->resetRequest();
+
 
     AboutDialog* about_dialog = new AboutDialog( this );
 

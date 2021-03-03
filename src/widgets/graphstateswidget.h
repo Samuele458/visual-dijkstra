@@ -33,6 +33,9 @@ public:
 
     void resizeEvent(QResizeEvent *event) override;
 
+    //apply state
+    void applyState( int pos );
+
 protected slots:
     void state_button_clicked();
 

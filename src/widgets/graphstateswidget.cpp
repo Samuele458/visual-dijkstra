@@ -68,6 +68,7 @@ void GraphStatesWidget::setStates( QVector<GraphState> states ) {
         connect( button, SIGNAL(clicked()), this, SLOT(state_button_clicked()));
     }
 
+    applyState( states.size() - 1 );
     refresh();
 }
 
@@ -123,12 +124,20 @@ void GraphStatesWidget::refresh() {
             ++current;
         }
 
-    }}
+    }
+}
 
 void GraphStatesWidget::resizeEvent(QResizeEvent *event) {
     Q_UNUSED( event );
 
     refresh();
+}
+
+//apply state
+void GraphStatesWidget::applyState( int pos ) {
+    if( pos >= 0 && pos < states.size() )
+        table->setState( states.at( pos ) );
+    else table->clearContents();
 }
 
 // ----
@@ -137,6 +146,6 @@ void GraphStatesWidget::state_button_clicked() {
     QPushButton* button = qobject_cast<QPushButton*>(sender());
     int index = button->text().toInt();
 
-    table->setState( states.at(index) );
+    applyState( index );
 
 }

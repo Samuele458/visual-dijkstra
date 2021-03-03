@@ -44,6 +44,7 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
     edgeCreationRequested = false;
     edgeCreationHold = nullptr;
 
+
     //item removing causing SIGSEGV bug solved
     this->setItemIndexMethod(QGraphicsScene::ItemIndexMethod::NoIndex);
 
@@ -261,8 +262,8 @@ bool Graph::save( QString filepath ) {
     save.beginGroup( "nodes" );
     while( node.hasNext() ) {
         Node* hold = node.next();
-        save.setValue( hold->getName(), QString::number( hold->x() ) + " " +
-                                        QString::number( hold->y() ) );
+        save.setValue( hold->getName(), QString::number( (int)hold->x() ) + " " +
+                                        QString::number( (int)hold->y() ) );
     }
     save.endGroup();
 

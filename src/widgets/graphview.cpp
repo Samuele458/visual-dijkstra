@@ -7,6 +7,8 @@ GraphView::GraphView(Graph* graph, QWidget* parent ) :
     this->setRenderHint(QPainter::Antialiasing, true );
     this->setMouseTracking( true );
 
+    graph->setSceneRect(-10000,-10000,20000,20000);
+
     //setDragMode(ScrollHandDrag);
     //setDragMode(DragMode::)
     this->viewport()->setCursor(Qt::CrossCursor);

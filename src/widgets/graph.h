@@ -102,7 +102,7 @@ public:
     void requestUserAction( Action action );
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override {
-        //qDebug() << event->scenePos();
+        qDebug() << event->scenePos();
         QGraphicsScene::mouseMoveEvent( event );
     }
 

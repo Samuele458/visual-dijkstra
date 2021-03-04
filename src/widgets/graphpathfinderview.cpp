@@ -160,6 +160,14 @@ GraphStatesWidget* GraphPathfinderView::getStatesWidget() const {
     return statesWidget;
 }
 
+void GraphPathfinderView::mouseDoubleClickEvent(QMouseEvent *event) {
+    if( statesWidget != nullptr ) {
+        statesWidget->clearStates();
+    }
+
+    GraphView::mouseDoubleClickEvent( event );
+}
+
 
 
 

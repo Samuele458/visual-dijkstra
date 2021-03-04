@@ -27,13 +27,19 @@
 const QColor Graph::DEFAULT_LINE_COLOR = Qt::black;
 
 //default background color for nodes
-const QColor Graph::DEFAULT_ITEM_COLOR = Qt::red;
+const QColor Graph::DEFAULT_ITEM_COLOR = Qt::white;
 
 //highlighted color for lines, and nodes borders
 const QColor Graph::HIGHLIGHT_LINE_COLOR = Qt::blue;
 
 //highlighted background color for nodes
 const QColor Graph::HIGHLIGHT_ITEM_COLOR = Qt::green;
+
+//Path color for nodes
+const QColor Graph::PATH_ITEM_COLOR = Qt::red;
+
+//line color for nodes and edges
+const QColor Graph::PATH_LINE_COLOR = Qt::red;
 
 
 Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
@@ -123,13 +129,32 @@ QVector<Node*> Graph::getNodes() const {
 
 void Graph::highlightState( GraphState state ) {
     QVector<NodeState> states = state.getNodes();
+
+    //resetting nodes
+    for( int i = 0; i < nodes.size(); ++i ) {
+        nodes.at(i)->setBorderColor( DEFAULT_LINE_COLOR );
+    }
+
+    //resetting edges
+    for( int i = 0; i < edges.size(); ++i ) {
+        edges.at(i)->setColor( DEFAULT_LINE_COLOR );
+    }
+
+    //apply new styles
     for( int i = 0; i < states.size(); ++i ) {
         if( states.at(i).getPreviousNodeName() != "" ) {
-            this->getNode( states.at(i).getName() )->setBorderColor(Graph::HIGHLIGHT_LINE_COLOR);
-        } else {
-            this->getNode( states.at(i).getName() )->setBorderColor(Graph::DEFAULT_LINE_COLOR);
+            getNode( states.at(i).getName() )->setBorderColor(Graph::HIGHLIGHT_LINE_COLOR);
+            getNode( states.at(i).getName() )->getEdgeBetween( getNode(states.at(i).getPreviousNodeName()))
+                    ->setColor( HIGHLIGHT_LINE_COLOR );
         }
     }
+
+    qDebug() << state.getSource() << state.getDest();
+    getNode( state.getSource() )->setBorderColor(Graph::PATH_LINE_COLOR);
+    getNode( state.getDest() )->setBorderColor(Graph::PATH_LINE_COLOR);
+
+    //updating Scene
+    update(-10000,-10000,20000,20000);
 }
 
 void Graph::resetState() {
@@ -140,6 +165,15 @@ void Graph::resetState() {
         node->setBackgroundColor( Graph::DEFAULT_ITEM_COLOR );
         node->setBorderColor( Graph::DEFAULT_LINE_COLOR );
     }
+
+
+    QVectorIterator<Edge*> j(edges);
+
+    while( j.hasNext() ) {
+        j.next()->setColor( DEFAULT_LINE_COLOR );
+    }
+
+    this->update();
 }
 
 

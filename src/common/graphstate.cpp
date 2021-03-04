@@ -158,11 +158,13 @@ GraphState::GraphState( QVector<NodeState> nodes ) :
 GraphState::GraphState( const GraphState& other ) {
     nodes = other.nodes;
     source = other.source;
+    dest = other.dest;
 }
 
 GraphState& GraphState::operator=( const GraphState& other ) {
     nodes = other.nodes;
     source = other.source;
+    dest = other.dest;
 
     return *this;
 }

@@ -81,6 +81,12 @@ public:
     //highlighted background color for nodes
     static const QColor HIGHLIGHT_ITEM_COLOR;
 
+    //Path color for nodes
+    static const QColor PATH_ITEM_COLOR;
+
+    //line color for nodes and edges
+    static const QColor PATH_LINE_COLOR;
+
     Graph(QObject* parent = nullptr);
 
     void addNode( Node* node );
@@ -112,6 +118,8 @@ public:
         qDebug() << event->scenePos();
         QGraphicsScene::mouseMoveEvent( event );
     }
+
+
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 

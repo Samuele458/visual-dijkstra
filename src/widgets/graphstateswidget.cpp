@@ -109,6 +109,11 @@ void GraphStatesWidget::clearStates() {
 
     statesButtons.clear();
 
+    //reset default graph
+    if( graphView != nullptr ) {
+        graphView->getGraph()->resetState();
+    }
+
     refresh();
 }
 
@@ -159,6 +164,8 @@ void GraphStatesWidget::applyState( int pos ) {
 
             //setting state to graphView
             graphView->getGraph()->highlightState( states.at(pos) );
+
+
         }
     }
     else {

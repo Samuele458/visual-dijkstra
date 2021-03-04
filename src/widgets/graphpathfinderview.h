@@ -25,7 +25,6 @@
 #include "graphview.h"
 #include "widgets/graphstateswidget.h"
 #include "common/graphstate.h"
-#include "widgets/graphstateswidget.h"
 
 class GraphStatesWidget;
 
@@ -51,6 +50,8 @@ public:
 
     void setStatesWidget( GraphStatesWidget* widget );
     GraphStatesWidget* getStatesWidget() const;
+
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 
 private:
 

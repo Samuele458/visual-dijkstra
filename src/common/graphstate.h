@@ -38,7 +38,8 @@ public:
 
         INVALID_NODE_NAME,
         INVALID_NODE_DISTANCE,
-        DUPLICATE_NODE_NAME
+        DUPLICATE_NODE_NAME,
+        NODE_NOT_FOUND
     };
 
     GraphStateError( id error_id = GENERIC, QString message = "" ) :

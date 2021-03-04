@@ -106,7 +106,7 @@ public:
     Node* getNode( QString name ) const;
     QVector<Node*> getNodes() const;
 
-    void highlightState( GraphState state );
+    void highlightState( GraphState state, bool drawPath = false );
     void resetState();
 
     bool load( QString filepath );
@@ -115,7 +115,7 @@ public:
     void requestUserAction( Action action );
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override {
-        qDebug() << event->scenePos();
+        //qDebug() << event->scenePos();
         QGraphicsScene::mouseMoveEvent( event );
     }
 

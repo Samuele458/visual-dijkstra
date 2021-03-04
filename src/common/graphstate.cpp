@@ -248,6 +248,7 @@ NodeState GraphState::getNode( QString nodeName ) const {
             return node;
         }
     }
+    throw GraphStateError( GraphStateError::NODE_NOT_FOUND, "Node not found");
     //todo: return
 }
 

@@ -127,7 +127,7 @@ QVector<Node*> Graph::getNodes() const {
     return nodes;
 }
 
-void Graph::highlightState( GraphState state ) {
+void Graph::highlightState(GraphState state , bool drawPath) {
     QVector<NodeState> states = state.getNodes();
 
     //resetting nodes
@@ -152,6 +152,31 @@ void Graph::highlightState( GraphState state ) {
     qDebug() << state.getSource() << state.getDest();
     getNode( state.getSource() )->setBorderColor(Graph::PATH_LINE_COLOR);
     getNode( state.getDest() )->setBorderColor(Graph::PATH_LINE_COLOR);
+
+    if( drawPath ) {
+        NodeState node = state.getNode(state.getDest());
+        QVector<NodeState> pathNodes;
+        pathNodes.push_back( node );
+        qDebug() << "Added: " << node.getName();
+        while( node.getPreviousNodeName() != "" ) {
+            //qDebug() << node.getName() << node.getPreviousNodeName();
+            node = state.getNode(node.getPreviousNodeName());
+            pathNodes.push_back( node );
+            qDebug() << "Added: " << node.getName();
+        }
+
+        if( pathNodes.size() >= 2 && pathNodes.at(0).getName() == state.getDest() &&
+            pathNodes.at(pathNodes.size()-1).getName() == state.getSource() ) {
+            for( int i = 0; i < pathNodes.size()-1; ++i ) {
+                getNode( pathNodes.at(i).getName() )
+                        ->getEdgeBetween( getNode(pathNodes.at(i+1).getName()) )
+                        ->setColor(PATH_LINE_COLOR);
+                getNode( pathNodes.at(i).getName() )->setBorderColor( PATH_LINE_COLOR );
+
+            }
+        }
+
+    }
 
     //updating Scene
     update(-10000,-10000,20000,20000);

@@ -163,7 +163,7 @@ void GraphStatesWidget::applyState( int pos ) {
         if( graphView != nullptr ) {
 
             //setting state to graphView
-            graphView->getGraph()->highlightState( states.at(pos) );
+            graphView->getGraph()->highlightState( states.at(pos), true );
 
 
         }

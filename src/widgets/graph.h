@@ -126,6 +126,8 @@ public:
     void resetRequest();
 
     QString toString();
+
+    bool isSaved();
 private:
     QVector<Node*> nodes;
     QVector<Edge*> edges;
@@ -135,6 +137,9 @@ private:
     bool nodeCreationRequested;
     bool edgeCreationRequested;
     Node* edgeCreationHold;
+
+    //indicates if file is saved
+    bool saved;
 
 };
 

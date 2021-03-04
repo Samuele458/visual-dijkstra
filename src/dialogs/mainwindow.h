@@ -35,6 +35,7 @@
 #include <QIcon>
 #include <QMenu>
 #include <QMenuBar>
+#include <QCloseEvent>
 
 #include "widgets/node.h"
 #include "widgets/edge.h"
@@ -53,6 +54,9 @@ public:
     MainWindow( QWidget* parent = nullptr );
     ~MainWindow() {};
 
+    //event close
+    void closeEvent( QCloseEvent* event ) override;
+
 protected slots:
     void open_action_slot();
     void exit_action_slot();
@@ -64,6 +68,7 @@ protected slots:
     void license_action_slot();
     void about_action_slot();
     void calculate_path_action_slot();
+    void new_graph_action_slot();
 
 private:
 
@@ -84,7 +89,7 @@ private:
     QAction* licenseAction;
     QAction* aboutAction;
     QAction* calculatePathAction;
-
+    QAction* newGraphAction;
 
 
     // ---- widgets ----
@@ -101,10 +106,8 @@ private:
     QMenu* helpMenu;
 
 
-
     bool saved;
     QString saveFile;
-
 
 
 };

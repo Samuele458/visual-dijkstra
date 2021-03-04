@@ -54,6 +54,9 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
     //item removing causing SIGSEGV bug solved
     this->setItemIndexMethod(QGraphicsScene::ItemIndexMethod::NoIndex);
 
+    //set graph not saved
+    saved = false;
+
 }
 
 void Graph::addNode(Node* node)
@@ -69,6 +72,9 @@ void Graph::addNode(Node* node)
 
     nodes.push_back(node);
     this->addItem( node );
+
+    //set graph not saved
+    saved = false;
 }
 
 void Graph::addNode(QString name, qreal x, qreal y )
@@ -108,6 +114,9 @@ void Graph::addEdge( Edge* edge ) {
 
     edges.push_back( edge );
     this->addItem( edge );
+
+    //set graph not saved
+    saved = false;
 }
 
 Node* Graph::getNode( QString name ) const {
@@ -213,6 +222,9 @@ void Graph::removeEdge( QString nameA, QString nameB ) {
         if( ( hold->getNodeA()->getName() == nameA && hold->getNodeB()->getName() == nameB ) ||
             ( hold->getNodeA()->getName() == nameB && hold->getNodeB()->getName() == nameA ) ) {
             removeEdge( hold );
+
+            //set graph not saved
+            saved = false;
         }
     }
 }
@@ -226,6 +238,9 @@ void Graph::removeEdge( Node* nodeA, Node* nodeB ) {
         if( ( hold->getNodeA() == nodeA && hold->getNodeB() == nodeB ) ||
             ( hold->getNodeA() == nodeB && hold->getNodeB() == nodeA ) ) {
             removeEdge( hold );
+
+            //set graph not saved
+            saved = false;
         }
     }
 }
@@ -239,8 +254,10 @@ void Graph::removeEdge( Edge* edge ) {
             removeItem( edge );
             edges.removeAt( i );
 
-
             delete edge;
+
+            //set graph not saved
+            saved = false;
 
         }
     }
@@ -253,6 +270,10 @@ void Graph::removeNode( QString name ) {
         Node* hold = i.next();
         if( hold->getName() == name ) {
             removeNode( hold );
+
+            //set graph not saved
+            saved = false;
+
             return;
         }
     }
@@ -272,6 +293,10 @@ void Graph::removeNode( Node* node ) {
             removeItem( node );
             nodes.removeAt(i);
             delete node;
+
+
+            //set graph not saved
+            saved = false;
 
         }
     }
@@ -321,6 +346,9 @@ bool Graph::load( QString filepath ) {
                           load.value( current_edges ).toInt() );
         }
         load.endGroup();
+
+        //set graph saved
+        saved = true;
     }
     return true;
 }
@@ -356,6 +384,10 @@ bool Graph::save( QString filepath ) {
                        hold->getWeight() );
     }
     save.endGroup();
+
+    //set graph saved
+    saved = true;
+
     return true;
 }
 
@@ -461,6 +493,9 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             edgeCreationRequested = false;
         }
     }
+
+    //set graph not saved
+    saved = false;
 }
 
 void Graph::resetRequest() {
@@ -489,15 +524,10 @@ QString Graph::toString() {
     return string;
 }
 
-/*
-QDebug operator<<(QDebug dbg, const Graph &c)
-{
-    QDebugStateSaver saver(dbg);
-    dbg.nospace() << c.get
-
-    return dbg;
+bool Graph::isSaved() {
+    return this->saved;
 }
-*/
+
 
 
 

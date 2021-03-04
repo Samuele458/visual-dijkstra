@@ -144,21 +144,54 @@ void MainWindow::createMenus() {
 
 void MainWindow::open_action_slot() {
     graphView->resetRequest();
-    QString filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
+    QString filename = "";
+    //checking that file is saved before opening a new one
+    if( graphView->getGraph()->isSaved() ) {
+        filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
 
-    if( filename != "" ) {
-        graphView->getGraph()->load( filename );
+        if( filename != "" ) {
+            if( graphView->getGraph()->load( filename ) ) {
+                saved = true;
+                saveFile = filename;
+            } else {
+                saved = false;
+                saveFile = "";
+            }
+        }
+    } else {
+        //file unsaved
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Save graph","Want to save current Graph?",
+                    QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
+
+        if( reply == QMessageBox::Yes ) {
+            //YES button clicked
+            save_action_slot();
+        }
+
+        if( reply != QMessageBox::Cancel ) {
+            filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
+
+            if( filename != "" ) {
+                if( graphView->getGraph()->load( filename ) ) {
+                    saved = true;
+                    saveFile = filename;
+                } else {
+                    saved = false;
+                    saveFile = "";
+                }
+            }
+        }
     }
 }
 
 void MainWindow::exit_action_slot() {
-    //this->close();
-    //qDebug().noquote() << graph->toString();
+    this->close();
 }
 
 void MainWindow::save_action_slot() {
     graphView->resetRequest();
-    if( saveFile != "" ) {
+    if( saveFile != ""  ) {
         if( !graphView->getGraph()->save( saveFile ) ) {
             QMessageBox::critical( nullptr, "Error", "Could not open file" );
         }
@@ -172,10 +205,11 @@ void MainWindow::save_as_action_slot() {
     QString filename = QFileDialog::getSaveFileName( this, "Save as...", "", "Config (*.ini);;Others (*.*)" );
 
     if( filename != "" ) {
-        if( !graphView->getGraph()->save( filename ) ) {
-            QMessageBox::critical( nullptr, "Error", "Could not open file" );
+        if( graphView->getGraph()->save( filename ) ) {
             saved = true;
             saveFile = filename;
+        } else {
+            QMessageBox::critical( nullptr, "Error", "Could not open file" );
         }
     }
 }
@@ -227,4 +261,42 @@ void MainWindow::calculate_path_action_slot() {
     graphView->getGraph()->resetRequest();
 
     graphView->requestUserAction( GraphPathfinderView::CALCULATE_PATH );
+}
+
+void MainWindow::new_graph_action_slot() {
+    graphView->resetRequest();
+    graphView->getGraph()->resetRequest();
+
+    //check if graph is saved before creating a new one
+    if( graphView->getGraph()->isSaved() ) {
+        qDebug() << "closed";
+    } else {
+        qDebug() << "not saved";
+    }
+}
+
+//event close
+void MainWindow::closeEvent( QCloseEvent* event ) {
+    Q_UNUSED( event );
+
+    //file unsaved
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Save graph","Want to save current Graph?",
+                QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
+
+    if( reply == QMessageBox::Yes ) {
+        //YES button clicked
+        save_action_slot();
+
+        event->accept();
+    } else if( reply == QMessageBox::No ) {
+        //NO button clicked
+
+        event->accept();
+
+    } else if( reply == QMessageBox::Cancel ) {
+        //Cancel button clicked
+
+        event->ignore();
+    }
 }

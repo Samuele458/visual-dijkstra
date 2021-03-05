@@ -31,7 +31,8 @@ void GraphView::setGraph( Graph* graph ) {
 
 void GraphView::wheelEvent(QWheelEvent *event) {
     if( event->angleDelta().y() > 0 ) {
-        qDebug() << "zoomin";
+    qDebug() << QTime::currentTime().toString() << "Zoomin";
+
         this->scale( 1.1, 1.1 );
     } else {
         qDebug() << "zoomout";

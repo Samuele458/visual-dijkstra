@@ -45,5 +45,7 @@ HEADERS += \
 RESOURCES += \
     data.qrc
 
+CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
+
 #app icon
 RC_ICONS = data/icons/logo.ico

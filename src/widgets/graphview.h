@@ -2,6 +2,7 @@
 #define GRAPHVIEW_H
 
 #include <QGraphicsView>
+#include <QTime>
 #include <QDebug>
 #include <QWheelEvent>
 

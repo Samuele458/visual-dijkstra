@@ -164,7 +164,6 @@ void Graph::highlightState(GraphState state , bool drawPath) {
         }
     }
 
-    qDebug() << state.getSource() << state.getDest();
     getNode( state.getSource() )->setBorderColor(Graph::PATH_LINE_COLOR);
     getNode( state.getDest() )->setBorderColor(Graph::PATH_LINE_COLOR);
 
@@ -172,12 +171,11 @@ void Graph::highlightState(GraphState state , bool drawPath) {
         NodeState node = state.getNode(state.getDest());
         QVector<NodeState> pathNodes;
         pathNodes.push_back( node );
-        qDebug() << "Added: " << node.getName();
+
         while( node.getPreviousNodeName() != "" ) {
-            //qDebug() << node.getName() << node.getPreviousNodeName();
+
             node = state.getNode(node.getPreviousNodeName());
             pathNodes.push_back( node );
-            qDebug() << "Added: " << node.getName();
         }
 
         if( pathNodes.size() >= 2 && pathNodes.at(0).getName() == state.getDest() &&
@@ -288,7 +286,7 @@ void Graph::removeNode( QString name ) {
 void Graph::removeNode( Node* node ) {
     for( int i = 0; i < nodes.size(); ++i ) {
         if( node == nodes.at(i) ) {
-            //qDebug() << "Removing" << nodes.at(i)->getName();
+
             QVectorIterator<Edge*> edge_i( node->getEdges() );
             while( edge_i.hasNext() ) {
                 Edge* hold = edge_i.next();
@@ -465,7 +463,7 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     //checking for Node Remuval request
     if( nodeRemovalRequested ) {
-        qDebug().noquote() << this->toString();
+
         //item selected by mouse
         QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
 
@@ -477,7 +475,7 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         if( node != NULL ) {
             removeNode( node );
         }
-        qDebug().noquote() << this->toString();
+
 
         //reset flag
         nodeRemovalRequested = false;

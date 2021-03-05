@@ -33,6 +33,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     //window toolbar
     toolbar = new QToolBar("Visual Dijkstra");
     this->addToolBar( toolbar );
+    toolbar->addAction( newGraphAction );
     toolbar->addAction( openAction );
     toolbar->addAction( saveAction );
     toolbar->addSeparator();
@@ -109,6 +110,10 @@ void MainWindow::createActions() {
     calculatePathAction->setIcon( QIcon(":/data/icons/path.png") );
     connect( calculatePathAction, SIGNAL(triggered()), this, SLOT(calculate_path_action_slot()) );
 
+    newGraphAction = new QAction( "Create new graph", this );
+    newGraphAction->setIcon( QIcon(":/data/icons/new.png") );
+    connect( newGraphAction, SIGNAL(triggered()), this, SLOT(new_graph_action_slot()) );
+
 
 }
 
@@ -117,6 +122,7 @@ void MainWindow::createMenus() {
 
     //File menu
     fileMenu = menuBar()->addMenu( "File" );
+    fileMenu->addAction(newGraphAction);
     fileMenu->addAction(openAction);
     fileMenu->addSeparator();
     fileMenu->addAction(saveAction);
@@ -268,10 +274,18 @@ void MainWindow::new_graph_action_slot() {
     graphView->getGraph()->resetRequest();
 
     //check if graph is saved before creating a new one
-    if( graphView->getGraph()->isSaved() ) {
-        qDebug() << "closed";
-    } else {
-        qDebug() << "not saved";
+    if( !graphView->getGraph()->isSaved() ) {
+        //file unsaved
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Save graph","Want to save current Graph?",
+                    QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
+        if( reply != QMessageBox::Cancel ) {
+            if( reply == QMessageBox::Yes ) {
+                save_action_slot();
+            }
+            graphView->getGraph()->emptyGraph();
+
+        }
     }
 }
 
@@ -279,24 +293,28 @@ void MainWindow::new_graph_action_slot() {
 void MainWindow::closeEvent( QCloseEvent* event ) {
     Q_UNUSED( event );
 
-    //file unsaved
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Save graph","Want to save current Graph?",
-                QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
+    if( !graphView->getGraph()->isSaved() ) {
 
-    if( reply == QMessageBox::Yes ) {
-        //YES button clicked
-        save_action_slot();
+        //file unsaved
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Save graph","Want to save current Graph?",
+                    QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
 
-        event->accept();
-    } else if( reply == QMessageBox::No ) {
-        //NO button clicked
+        if( reply == QMessageBox::Yes ) {
+            //YES button clicked
+            save_action_slot();
 
-        event->accept();
+            event->accept();
+        } else if( reply == QMessageBox::No ) {
+            //NO button clicked
 
-    } else if( reply == QMessageBox::Cancel ) {
-        //Cancel button clicked
+            event->accept();
 
-        event->ignore();
+        } else if( reply == QMessageBox::Cancel ) {
+            //Cancel button clicked
+
+            event->ignore();
+        }
+
     }
 }

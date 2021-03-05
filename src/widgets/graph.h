@@ -112,6 +112,8 @@ public:
     bool load( QString filepath );
     bool save( QString filepath );
 
+    void emptyGraph();
+
     void requestUserAction( Action action );
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override {

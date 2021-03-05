@@ -391,6 +391,20 @@ bool Graph::save( QString filepath ) {
     return true;
 }
 
+void Graph::emptyGraph() {
+    //todo: completare i controlli sugli item inseriti e rimossi
+    //removing all items
+    edges.clear();
+    nodes.clear();
+    QList<QGraphicsItem*> items = this->items();
+    QListIterator<QGraphicsItem*> items_i(items);
+    while( items_i.hasNext() ) {
+        this->removeItem( items_i.next() );
+    }
+
+    saved = true;
+}
+
 void Graph::requestUserAction( Action action ) {
 
     //resetting all flags

@@ -501,7 +501,12 @@ void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             } else {
                 //if edgeCreationHold != nullptr means that first node has already
                 //stored, so edge can be created
-                this->addEdge( edgeCreationHold, node );
+                try {
+                    this->addEdge( edgeCreationHold, node );
+                } catch( EdgeError e ) {
+                    QMessageBox::critical( nullptr, "Error", "Couldn't create edge with only one node.");
+                }
+
                 edgeCreationHold = nullptr;
                 edgeCreationRequested = false;
             }

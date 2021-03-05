@@ -84,8 +84,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     EmailLeftLabel->setText( tr( "Email:" ) );
     GithubLeftLabel->setText( tr( "Github:" ) );
 
-    VersionRightLabel->setText( "" );
-    DateRightLabel->setText( "" );
+    VersionRightLabel->setText( "1.0" );
+    DateRightLabel->setText( "05 / 03 / 2021" );
 
     LicenseRightLabel->setText( "GNU General Public License v3.0");
     AuthorRightLabel->setText( "Samuele Girgenti" );
@@ -118,7 +118,7 @@ void AboutDialog::ok_button_clicked() {
 
 void AboutDialog::official_page_button_clicked() {
     //todo: change URL
-    QDesktopServices::openUrl ( QUrl( "https://github.com/Samuele458" ) );
+    QDesktopServices::openUrl ( QUrl( "https://github.com/Samuele458/visual-dijkstra" ) );
 }
 
 void AboutDialog::license_button_clicked() {

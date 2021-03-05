@@ -40,6 +40,7 @@ GraphStatesTable::GraphStatesTable(GraphState state, QWidget* parent ) :
     this->setColumnCount(3);
     this->setHorizontalHeaderLabels( header );
     this->horizontalHeader()->setStretchLastSection( true );
+    this->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     refresh();
 

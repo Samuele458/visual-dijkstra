@@ -83,6 +83,8 @@ void Edge::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
             QMessageBox::warning( nullptr, "Warning", "Invalid weight value" );
         }
     }
+
+    update();
 }
 
 QPainterPath Edge::shape() const {

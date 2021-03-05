@@ -153,8 +153,11 @@ void MainWindow::open_action_slot() {
     QString filename = "";
     //checking that file is saved before opening a new one
     if( graphView->getGraph()->isSaved() ) {
-        filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
-
+#ifdef _WIN32
+            filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
+#else
+            filename = QFileDialog::getOpenFileName( this, "Open file", "", "Others (*)", nullptr );
+#endif
         if( filename != "" ) {
             if( graphView->getGraph()->load( filename ) ) {
                 saved = true;
@@ -176,8 +179,11 @@ void MainWindow::open_action_slot() {
         }
 
         if( reply != QMessageBox::Cancel ) {
+#ifdef _WIN32
             filename = QFileDialog::getOpenFileName( this, "Open file", "", "Config (*.ini);;Others (*.*)", nullptr );
-
+#else
+            filename = QFileDialog::getOpenFileName( this, "Open file", "", "Others (*)", nullptr );
+#endif
             if( filename != "" ) {
                 if( graphView->getGraph()->load( filename ) ) {
                     saved = true;

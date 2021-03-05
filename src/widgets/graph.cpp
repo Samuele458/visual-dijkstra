@@ -75,6 +75,8 @@ void Graph::addNode(Node* node)
 
     //set graph not saved
     saved = false;
+
+    update();
 }
 
 void Graph::addNode(QString name, qreal x, qreal y )
@@ -82,6 +84,8 @@ void Graph::addNode(QString name, qreal x, qreal y )
     Node* node = new Node( name, x, y );
 
     this->addNode( node );
+
+
 
 }
 
@@ -117,6 +121,8 @@ void Graph::addEdge( Edge* edge ) {
 
     //set graph not saved
     saved = false;
+
+    update();
 }
 
 Node* Graph::getNode( QString name ) const {

@@ -4,3 +4,10 @@
 
 
 **Visual Dijkstra** is a free and open-source tool, designed for creating and manipulating graphs. It allows you to find the shortest pth between two nodes, by applying **Dijkstra's Shortest Path First algorithm**. 
+
+![Visual Dijkstra Screenshot](https://raw.githubusercontent.com/Samuele458/visual-dijkstra/main/img/screen-001.png)
+![Visual Dijkstra Screenshot](https://raw.githubusercontent.com/Samuele458/visual-dijkstra/main/img/screen-002.png)
+
+## Download
+
+Click [here](https://github.com/Samuele458/visual-dijkstra/releases) to get the latest release.

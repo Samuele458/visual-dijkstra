@@ -88,6 +88,7 @@ void MainWindow::createActions() {
 
     removeNodeAction = new QAction( "Remove node", this );
     removeNodeAction->setIcon( QIcon(":/data/icons/delete.png") );
+    removeNodeAction->setToolTip( "Remove node. Click on a node to remove it.");
     connect( removeNodeAction, SIGNAL(triggered()), this, SLOT(remove_node_action_slot()) );
 
     createNodeAction = new QAction( "Create node", this );
@@ -96,6 +97,7 @@ void MainWindow::createActions() {
 
     createEdgeAction = new QAction( "Create edge", this );
     createEdgeAction->setIcon( QIcon(":/data/icons/route.png") );
+    createEdgeAction->setToolTip( "Create new edge. Click on two nodes to link them.");
     connect( createEdgeAction, SIGNAL(triggered()), this, SLOT(create_edge_action_slot()) );
 
     licenseAction = new QAction( "Show License", this );
@@ -108,12 +110,12 @@ void MainWindow::createActions() {
 
     calculatePathAction = new QAction( "Calculate Path", this );
     calculatePathAction->setIcon( QIcon(":/data/icons/path.png") );
+    calculatePathAction->setToolTip( "Calculate path between two nodes. Click on two nodes to calculate the path.");
     connect( calculatePathAction, SIGNAL(triggered()), this, SLOT(calculate_path_action_slot()) );
 
     newGraphAction = new QAction( "Create new graph", this );
     newGraphAction->setIcon( QIcon(":/data/icons/new.png") );
     connect( newGraphAction, SIGNAL(triggered()), this, SLOT(new_graph_action_slot()) );
-
 
 }
 

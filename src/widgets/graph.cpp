@@ -55,7 +55,7 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
     this->setItemIndexMethod(QGraphicsScene::ItemIndexMethod::NoIndex);
 
     //set graph not saved
-    saved = false;
+    saved = true;
 
 }
 

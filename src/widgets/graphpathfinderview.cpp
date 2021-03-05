@@ -120,6 +120,7 @@ QVector<GraphState> GraphPathfinderView::dijkstraAlgorithm( Node* source, Node* 
 
     //while nodesList is not empty
     while( i.hasNext() ) {
+        Node* node = i.next();
 
 
         Node* u = this->getGraph()->getNode( state.minDistance() );

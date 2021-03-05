@@ -44,3 +44,6 @@ HEADERS += \
 
 RESOURCES += \
     data.qrc
+
+#app icon
+RC_ICONS = data/icons/logo.ico

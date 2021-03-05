@@ -1,4 +1,4 @@
-<img width="150" height="150" align="left" style="float: left; margin: 0 10px 0 0;" alt="Visual Dijkstra logo" src="https://raw.githubusercontent.com/Samuele458/visual-dijkstra/main/img/visual-dijkstra-logo.png">
+<img width="120" height="120" align="left" style="float: left; margin: 0 10px 0 0;" alt="Visual Dijkstra logo" src="https://raw.githubusercontent.com/Samuele458/visual-dijkstra/main/img/visual-dijkstra-logo.png">
 
 # Visual Dijkstra - Simple visual graph editor, with built-in step-by-step Dijkstra's algorithm
 

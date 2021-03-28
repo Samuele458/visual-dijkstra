@@ -121,9 +121,12 @@ public:
         QGraphicsScene::mouseMoveEvent( event );
     }
 
-
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override {
+        qDebug() << event->scenePos();
+    }
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+
 
     void resetRequest();
 

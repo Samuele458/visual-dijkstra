@@ -57,6 +57,9 @@ public:
     //event close
     void closeEvent( QCloseEvent* event ) override;
 
+    //context menu
+    void contextMenuEvent(QContextMenuEvent *event) override;
+
 protected slots:
     void open_action_slot();
     void exit_action_slot();

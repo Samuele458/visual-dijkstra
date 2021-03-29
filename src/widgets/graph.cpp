@@ -50,12 +50,18 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
     edgeCreationRequested = false;
     edgeCreationHold = nullptr;
 
+    contextMenuItemHold = nullptr;
+
 
     //item removing causing SIGSEGV bug solved
     this->setItemIndexMethod(QGraphicsScene::ItemIndexMethod::NoIndex);
 
     //set graph not saved
     saved = true;
+
+
+    //creating actions for contextual menus
+    this->createActions();
 
 }
 
@@ -430,6 +436,35 @@ void Graph::requestUserAction( Action action ) {
     }
 }
 
+void Graph::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+
+    //context menu handling, on Graph background
+    QGraphicsItem *target = itemAt(event->scenePos(), QTransform());
+    if(target==nullptr) {
+        contextMenuItemHold = nullptr;
+
+
+    } else {
+        //context menu on items (Nodes and Edges)
+
+        contextMenuItemHold = target;
+
+        Node* node = qgraphicsitem_cast<Node*>(target);
+        if(node != nullptr) {
+            QMenu* menu = new QMenu;
+            menu->addAction(removeNodeAction);
+            menu->addAction(editNodeAction);
+            menu->exec(event->screenPos());
+        }
+
+        Edge* edge = qgraphicsitem_cast<Edge*>(target);
+        if(edge != nullptr) qDebug() << "E' un edge";
+    }
+
+
+    QGraphicsScene::contextMenuEvent(event);
+}
+
 void Graph::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsScene::mousePressEvent( event );
 
@@ -549,6 +584,37 @@ QString Graph::toString() {
 
 bool Graph::isSaved() {
     return this->saved;
+}
+
+void Graph::createActions() {
+    removeNodeAction = new QAction( "Remove", this );
+    connect( removeNodeAction, SIGNAL(triggered()), this, SLOT(remove_node_action_slot()) );
+
+    editNodeAction = new QAction( "Rename", this );
+    connect( editNodeAction, SIGNAL(triggered()), this, SLOT(edit_node_action_slot()) );
+
+    removeEdgeAction = new QAction( "Remove", this );
+    connect( removeEdgeAction, SIGNAL(triggered()), this, SLOT(remove_edge_action_slot()) );
+
+    editEdgeAction = new QAction( "Edit", this );
+    connect( editEdgeAction, SIGNAL(triggered()), this, SLOT(remove_edge_action_slot()) );
+}
+
+void Graph::remove_node_action_slot() {
+    qDebug() << "rimozione nodo";
+    this->removeNode((Node*)contextMenuItemHold);
+}
+
+void Graph::remove_edge_action_slot() {
+
+}
+
+void Graph::edit_node_action_slot() {
+
+}
+
+void Graph::edit_edge_action_slot() {
+
 }
 
 

@@ -32,6 +32,8 @@
 #include <QEvent>
 #include <QColor>
 #include <QMessageBox>
+#include <QAction>
+#include <QMenu>
 
 #include "widgets/node.h"
 #include "common/error.h"
@@ -59,6 +61,8 @@ public:
 
 class Graph : public QGraphicsScene
 {
+    Q_OBJECT
+
 
 public:
 
@@ -121,9 +125,7 @@ public:
         QGraphicsScene::mouseMoveEvent( event );
     }
 
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override {
-        qDebug() << event->scenePos();
-    }
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
@@ -133,7 +135,22 @@ public:
     QString toString();
 
     bool isSaved();
+
+protected slots:
+    void remove_node_action_slot();
+    void remove_edge_action_slot();
+    void edit_node_action_slot();
+    void edit_edge_action_slot();
+
+
 private:
+    void createActions();
+
+    QAction* removeNodeAction;
+    QAction* editNodeAction;
+    QAction* removeEdgeAction;
+    QAction* editEdgeAction;
+
     QVector<Node*> nodes;
     QVector<Edge*> edges;
 
@@ -142,6 +159,8 @@ private:
     bool nodeCreationRequested;
     bool edgeCreationRequested;
     Node* edgeCreationHold;
+
+    QGraphicsItem* contextMenuItemHold;
 
     //indicates if file is saved
     bool saved;

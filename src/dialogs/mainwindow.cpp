@@ -326,3 +326,11 @@ void MainWindow::closeEvent( QCloseEvent* event ) {
 
     }
 }
+
+void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
+    //reset any pending request
+    graphView->resetRequest();
+    graphView->getGraph()->resetRequest();
+
+    QMainWindow::contextMenuEvent( event );
+}

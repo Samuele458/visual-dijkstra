@@ -62,6 +62,12 @@ Node* Edge::getNodeB() const {
     return nodeB;
 }
 
+void Edge::setWeight( int val ) {
+    if( val >= 0 ) {
+        this->weight = val;
+    }
+}
+
 int Edge::getWeight() const {
     return weight;
 }

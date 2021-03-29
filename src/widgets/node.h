@@ -84,9 +84,6 @@ public:
 
     QString toString() const;
 
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override {
-        qDebug() << "Nodo premuto";
-    }
 private:
     QString name;
     QVector<Edge*> edges;

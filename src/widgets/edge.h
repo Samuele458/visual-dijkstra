@@ -64,6 +64,8 @@ public:
 
     Node* getNodeA() const;
     Node* getNodeB() const;
+
+    void setWeight( int val );
     int getWeight() const;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 

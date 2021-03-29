@@ -458,7 +458,12 @@ void Graph::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
         }
 
         Edge* edge = qgraphicsitem_cast<Edge*>(target);
-        if(edge != nullptr) qDebug() << "E' un edge";
+        if(edge != nullptr) {
+            QMenu* menu = new QMenu;
+            menu->addAction(removeEdgeAction);
+            menu->addAction(editEdgeAction);
+            menu->exec(event->screenPos());
+        }
     }
 
 
@@ -597,24 +602,68 @@ void Graph::createActions() {
     connect( removeEdgeAction, SIGNAL(triggered()), this, SLOT(remove_edge_action_slot()) );
 
     editEdgeAction = new QAction( "Edit", this );
-    connect( editEdgeAction, SIGNAL(triggered()), this, SLOT(remove_edge_action_slot()) );
+    connect( editEdgeAction, SIGNAL(triggered()), this, SLOT(edit_edge_action_slot()) );
 }
 
 void Graph::remove_node_action_slot() {
-    qDebug() << "rimozione nodo";
     this->removeNode((Node*)contextMenuItemHold);
 }
 
 void Graph::remove_edge_action_slot() {
-
+    this->removeEdge((Edge*)contextMenuItemHold);
 }
 
 void Graph::edit_node_action_slot() {
+    Node* node = (Node*) contextMenuItemHold;
+
+    bool ok;
+    QRegularExpression regex("^[a-zA-Z]+$");
+
+    QString text = QInputDialog::getText(nullptr, "Set weight",
+                                             "Weight:", QLineEdit::Normal,
+                                             "", &ok, Qt::MSWindowsFixedSizeDialogHint );
+    if( ok ) {
+        if( text != "" && regex.match(text).hasMatch() ) {
+
+            try {
+                QVectorIterator<Node*> i(nodes);
+                while( i.hasNext() ) {
+                    Node* hold = i.next();
+                    if( hold != node && hold->getName() == text  ) {
+                        throw GraphError( GraphError::DUPLICATED_NODE, "node duplicated" );
+                    }
+                }
+
+                node->setName(text);
+            } catch( GraphError e ) {
+                QMessageBox::warning( nullptr, "Warning", "Node duplicated" );
+            }
+        } else {
+            QMessageBox::warning( nullptr, "Warning", "Invalid node value" );
+        }
+    }
+
+
+
 
 }
 
 void Graph::edit_edge_action_slot() {
+    Edge* edge = (Edge*)contextMenuItemHold;
 
+    bool ok;
+    QRegularExpression regex("^[0-9]*$");
+
+    QString text = QInputDialog::getText(nullptr, "Set weight",
+                                             "Weight:", QLineEdit::Normal,
+                                             "", &ok, Qt::MSWindowsFixedSizeDialogHint );
+    if( ok ) {
+        if( text != "" && regex.match(text).hasMatch() ) {
+            edge->setWeight(text.toInt());
+        } else {
+            QMessageBox::warning( nullptr, "Warning", "Invalid weight value" );
+        }
+    }
 }
 
 

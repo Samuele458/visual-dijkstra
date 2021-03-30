@@ -24,6 +24,9 @@
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
+    //TODO: apply styles
+    //((QApplication*)QApplication::instance())->setStyleSheet("QMainWindow { background-color: red }");
+
     //creating actions
     createActions();
 
@@ -333,4 +336,5 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
     graphView->getGraph()->resetRequest();
 
     QMainWindow::contextMenuEvent( event );
+
 }

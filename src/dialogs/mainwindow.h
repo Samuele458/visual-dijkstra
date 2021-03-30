@@ -36,6 +36,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QCloseEvent>
+#include <QApplication>
 
 #include "widgets/node.h"
 #include "widgets/edge.h"

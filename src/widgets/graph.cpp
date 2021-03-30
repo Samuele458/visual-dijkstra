@@ -438,11 +438,46 @@ void Graph::requestUserAction( Action action ) {
 
 void Graph::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 
+    //newNodeAction is connected to a lambda function because it needs
+    //to read the QGraphicsSceneContextMenuEvent.
+
+    //disconnecting from previous context menu requests
+    QObject::disconnect(newNodeAction, &QAction::triggered, this, nullptr);
+
+    //connecting to new lambda function
+    connect(newNodeAction, &QAction::triggered, this, [=]{
+
+        bool ok;
+        QRegularExpression regex("^[a-zA-Z]+$");
+
+        QString text = QInputDialog::getText(nullptr, "New Node",
+                                                 "Node name:", QLineEdit::Normal,
+                                                 "", &ok, Qt::MSWindowsFixedSizeDialogHint );
+        if( ok ) {
+            if( text != "" && regex.match(text).hasMatch() ) {
+
+                try {
+                    qDebug() << text;
+                    this->addNode(text,event->scenePos().x(),event->scenePos().y());
+                } catch( GraphError e ) {
+                    QMessageBox::warning( nullptr, "Warning", "Node duplicated" );
+                }
+            } else {
+                QMessageBox::warning( nullptr, "Warning", "Invalid node value" );
+            }
+        }
+    });
+
+
     //context menu handling, on Graph background
     QGraphicsItem *target = itemAt(event->scenePos(), QTransform());
     if(target==nullptr) {
-        contextMenuItemHold = nullptr;
 
+        //context menu on graph background
+        contextMenuItemHold = nullptr;
+        QMenu* menu = new QMenu;
+        menu->addAction(newNodeAction);
+        menu->exec(event->screenPos());
 
     } else {
         //context menu on items (Nodes and Edges)
@@ -603,6 +638,10 @@ void Graph::createActions() {
 
     editEdgeAction = new QAction( "Edit", this );
     connect( editEdgeAction, SIGNAL(triggered()), this, SLOT(edit_edge_action_slot()) );
+
+    newNodeAction = new QAction( "New node", this );
+    //newnode connection will be dynamically connected to a lambda function
+    //when ContexMenu is triggered.
 }
 
 void Graph::remove_node_action_slot() {
@@ -619,8 +658,8 @@ void Graph::edit_node_action_slot() {
     bool ok;
     QRegularExpression regex("^[a-zA-Z]+$");
 
-    QString text = QInputDialog::getText(nullptr, "Set weight",
-                                             "Weight:", QLineEdit::Normal,
+    QString text = QInputDialog::getText(nullptr, "Edit Node",
+                                             "Node name:", QLineEdit::Normal,
                                              "", &ok, Qt::MSWindowsFixedSizeDialogHint );
     if( ok ) {
         if( text != "" && regex.match(text).hasMatch() ) {
@@ -643,9 +682,6 @@ void Graph::edit_node_action_slot() {
         }
     }
 
-
-
-
 }
 
 void Graph::edit_edge_action_slot() {
@@ -665,10 +701,4 @@ void Graph::edit_edge_action_slot() {
         }
     }
 }
-
-
-
-
-
-
 

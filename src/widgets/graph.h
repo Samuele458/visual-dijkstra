@@ -142,7 +142,6 @@ protected slots:
     void edit_node_action_slot();
     void edit_edge_action_slot();
 
-
 private:
     void createActions();
 
@@ -150,6 +149,7 @@ private:
     QAction* editNodeAction;
     QAction* removeEdgeAction;
     QAction* editEdgeAction;
+    QAction* newNodeAction;
 
     QVector<Node*> nodes;
     QVector<Edge*> edges;

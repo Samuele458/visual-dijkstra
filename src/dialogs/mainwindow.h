@@ -47,6 +47,7 @@
 #include "dialogs/aboutdialog.h"
 #include "widgets/graphstatestable.h"
 #include "widgets/graphstateswidget.h"
+#include "common/settingsmanager.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

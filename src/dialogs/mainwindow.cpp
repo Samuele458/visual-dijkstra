@@ -24,6 +24,10 @@
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
+    SettingsManager man("config.ini");
+    man.setValue("gui1","color","red");
+
+
     //TODO: apply styles
     //((QApplication*)QApplication::instance())->setStyleSheet("QMainWindow { background-color: red }");
 

@@ -76,6 +76,9 @@ public:
     bool hasScope( QString scope );
     bool hasKey( QString scope, QString key );
 
+    QStringList getScopes();
+    QStringList getKeys( QString scope );
+
 private:
     QSettings* settings;
     QSettings* defaultSettings;

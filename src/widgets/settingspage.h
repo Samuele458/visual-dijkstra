@@ -31,6 +31,7 @@ class SettingsPage : public QWidget
 public:
     SettingsPage(SettingsManager* settings,
                  QString scope,
+
                  QWidget *parent = nullptr);
 
     //read settings from SettingsPage to currentState

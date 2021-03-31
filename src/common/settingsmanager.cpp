@@ -146,3 +146,20 @@ bool SettingsManager::hasKey( QString scope, QString key ) {
 }
 
 
+QStringList SettingsManager::getScopes() {
+    return defaultSettings->childGroups();
+}
+
+QStringList SettingsManager::getKeys( QString scope ) {
+    QStringList returnList;
+
+    if( this->hasScope(scope)) {
+        defaultSettings->beginGroup( scope );
+        returnList = defaultSettings->childKeys();
+        defaultSettings->endGroup();
+    }
+
+    return returnList;
+}
+
+

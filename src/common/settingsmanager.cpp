@@ -21,11 +21,33 @@
 
 #include "settingsmanager.h"
 
+//default settings file
+const QString SettingsManager::DEFAULT_SETTINGS_FILENAME = ":/data/default_settings.ini";
 
-SettingsManager::SettingsManager(QString filename) :
-    settings( filename, QSettings::IniFormat ),
-    filename( filename )
+SettingsManager::SettingsManager(QString filename)
 {
+
+    if( QFile::exists( SettingsManager::DEFAULT_SETTINGS_FILENAME ) )
+    {
+        if( QFile::exists( filename ) ) {
+            this->settings = new QSettings( filename, QSettings::IniFormat );
+            this->defaultSettings =
+               new QSettings( DEFAULT_SETTINGS_FILENAME, QSettings::IniFormat );
+
+        } else {
+            throw SettingsManagerError(
+                        SettingsManagerError::FILE_DOES_NOT_EXIST,
+                        "File does not exist"
+                  );
+        }
+    } else {
+        //exception: default config file does not exist
+        throw SettingsManagerError(
+                    SettingsManagerError::DEFAULT_CONFIG_FILE_DOES_NOT_EXIST,
+                    "Default file does not exist"
+              );
+    }
+
 
 }
 
@@ -35,16 +57,37 @@ QString SettingsManager::getFilename() const {
     return filename;
 }
 
-void SettingsManager::setValue( const QString& scope, const QString& name, const QVariant& data ) {
-    settings.beginGroup( scope );
-    settings.setValue( name, data );
-    settings.endGroup();
+void SettingsManager::setValue( const QString& scope, const QString& key, const QVariant& data ) {
+
+    //checking if scope exists in settings, or in defaultSettings
+    if( defaultSettings->childGroups().indexOf(scope) == -1 ) {
+        throw SettingsManagerError(
+                    SettingsManagerError::UNKNOWN_SCOPE,
+                    "Unknown scope"
+              );
+    }
+
+    //checking if key exists
+    defaultSettings->beginGroup( scope );
+    if( defaultSettings->childKeys().indexOf(key) == -1 ) {
+        defaultSettings->endGroup();
+        throw SettingsManagerError(
+                    SettingsManagerError::UNKNOWN_KEY,
+                    "Unknown key"
+              );
+    }
+    defaultSettings->endGroup();
+
+    //open selected group
+    settings->beginGroup( scope );
+    settings->setValue( key, data );
+    settings->endGroup();
 }
 
-QVariant SettingsManager::getValue( QString& scope, QString& name ) {
-    settings.beginGroup( scope );
-    QVariant data = settings.value( name );
-    settings.endGroup();
+QVariant SettingsManager::getValue( QString& scope, QString& key ) {
+    settings->beginGroup( scope );
+    QVariant data = settings->value( key );
+    settings->endGroup();
 
     return data;
 }

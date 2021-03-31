@@ -25,6 +25,28 @@
 #include <QString>
 #include <QSettings>
 #include <QColor>
+#include <QFile>
+#include <QDebug>
+
+
+#include "common/error.h"
+
+class SettingsManagerError : public Error {
+public:
+    enum id {
+        GENERIC,
+        INVALID_ARGUMENT,
+
+        FILE_DOES_NOT_EXIST,
+        DEFAULT_CONFIG_FILE_DOES_NOT_EXIST,
+        UNKNOWN_SCOPE,
+        UNKNOWN_KEY
+    };
+
+    SettingsManagerError( id error_id = GENERIC, QString message = "" ) :
+        Error( (Error::id)error_id, message ) { }
+};
+
 
 /*
  *  Handle settings for the entire application, every read / write
@@ -34,20 +56,27 @@ class SettingsManager
 {
 
 public:
+
+    //default settings file
+    static const QString DEFAULT_SETTINGS_FILENAME;
+
     SettingsManager( QString filename );
 
     //return filename string
     QString getFilename() const;
 
+    void setFileName( QString filename );
+
     // write value to QSettings
-    void setValue( const QString& scope, const QString& name, const QVariant& data );
+    void setValue( const QString& scope, const QString& key, const QVariant& data );
 
     //read value from QSettings
-    QVariant getValue( QString& scope, QString& name );
+    QVariant getValue( QString& scope, QString& key );
 
 
 private:
-    QSettings settings;
+    QSettings* settings;
+    QSettings* defaultSettings;
     QString filename;
 };
 

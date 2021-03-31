@@ -25,9 +25,13 @@
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
     SettingsManager man("config.ini");
-    man.setValue("styler",
+    man.setValue("style",
                  "widgets-background-color",
                  "red");
+
+    qDebug() << man.getValue("style",
+                 "widget-text-color"
+                 );
 
 
     //TODO: apply styles

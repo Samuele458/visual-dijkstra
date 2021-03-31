@@ -71,8 +71,10 @@ public:
     void setValue( const QString& scope, const QString& key, const QVariant& data );
 
     //read value from QSettings
-    QVariant getValue( QString& scope, QString& key );
+    QVariant getValue( const QString& scope, const QString& key );
 
+    bool hasScope( QString scope );
+    bool hasKey( QString scope, QString key );
 
 private:
     QSettings* settings;

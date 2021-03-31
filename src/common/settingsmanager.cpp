@@ -84,12 +84,65 @@ void SettingsManager::setValue( const QString& scope, const QString& key, const 
     settings->endGroup();
 }
 
-QVariant SettingsManager::getValue( QString& scope, QString& key ) {
-    settings->beginGroup( scope );
-    QVariant data = settings->value( key );
-    settings->endGroup();
+QVariant SettingsManager::getValue( const QString& scope, const QString& key ) {
+
+    QVariant data;
+    QSettings* settingsToRead = nullptr;
+
+    //checking if scope exists in settings, or in defaultSettings
+    if( settings->childGroups().indexOf(scope) == -1 ) {
+        if( defaultSettings->childGroups().indexOf(scope) == -1 ) {
+            throw SettingsManagerError(
+                        SettingsManagerError::UNKNOWN_SCOPE,
+                        "Unknown scope"
+                  );
+        } else {
+            settingsToRead = defaultSettings;
+        }
+    } else {
+        settingsToRead = settings;
+    }
+
+    //checking if key exists
+    settingsToRead->beginGroup( scope );
+    if( settingsToRead->childKeys().indexOf(key) == -1 ) {
+
+        defaultSettings->beginGroup( scope );
+        if( defaultSettings->childKeys().indexOf(key) == -1 ) {
+            settingsToRead->endGroup();
+            defaultSettings->endGroup();
+            throw SettingsManagerError(
+                        SettingsManagerError::UNKNOWN_KEY,
+                        "Unknown key"
+                  );
+        } else {
+            data = defaultSettings->value( key );
+            defaultSettings->endGroup();
+            settingsToRead->endGroup();
+
+        }
+    } else {
+        data = settingsToRead->value( key );
+        settingsToRead->endGroup();
+    }
 
     return data;
+}
+
+bool SettingsManager::hasScope( QString scope ) {
+    return defaultSettings->childGroups().indexOf(scope) == -1;
+}
+
+bool SettingsManager::hasKey( QString scope, QString key ) {
+    if( this->hasScope(scope) ) {
+        defaultSettings->beginGroup(scope);
+
+        bool returnValue;
+        returnValue = defaultSettings->childKeys().indexOf(key) == -1;
+        defaultSettings->endGroup();
+
+        return returnValue;
+    } else return false;
 }
 
 

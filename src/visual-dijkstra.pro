@@ -22,7 +22,8 @@ SOURCES += \
         widgets/graphstatestable.cpp \
         widgets/graphstateswidget.cpp \
         widgets/graphview.cpp \
-        widgets/node.cpp
+        widgets/node.cpp \
+        widgets/settingspage.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -42,7 +43,8 @@ HEADERS += \
     widgets/graphstatestable.h \
     widgets/graphstateswidget.h \
     widgets/graphview.h \
-    widgets/node.h
+    widgets/node.h \
+    widgets/settingspage.h
 
 RESOURCES += \
     data.qrc

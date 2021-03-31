@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
         common/error.cpp \
         common/graphstate.cpp \
+        common/settingsmanager.cpp \
         dialogs/aboutdialog.cpp \
         dialogs/licensedialog.cpp \
         dialogs/mainwindow.cpp \
@@ -31,6 +32,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     common/error.h \
     common/graphstate.h \
+    common/settingsmanager.h \
     dialogs/aboutdialog.h \
     dialogs/licensedialog.h \
     dialogs/mainwindow.h \

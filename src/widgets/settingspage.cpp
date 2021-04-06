@@ -1,10 +1,14 @@
 #include "settingspage.h"
 
+// ---- class SettingsPage ----
+
 SettingsPage::SettingsPage( SettingsManager* settings,
                             QString scope,
                             QWidget *parent ) :
     QWidget(parent)
 {
+
+    qDebug() << scope;
     if( settings != nullptr &&
         settings->hasScope( scope )) {
 
@@ -46,6 +50,28 @@ void SettingsPage::saveState() {
         settings->setValue( scope, key, currentState.value(key) );
     }
 }
+
+
+// ---- class StylePage ----
+
+
+
+
+StylePage::StylePage(SettingsManager *settings, QString scope, QWidget *parent) :
+    SettingsPage( settings, scope, parent )
+{
+
+    QPushButton* button = new QPushButton("TEST");
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    mainLayout->addWidget( button );
+
+    this->setLayout( mainLayout );
+
+}
+
+
+
 
 
 

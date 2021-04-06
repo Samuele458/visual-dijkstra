@@ -130,7 +130,8 @@ QVariant SettingsManager::getValue( const QString& scope, const QString& key ) {
 }
 
 bool SettingsManager::hasScope( QString scope ) {
-    return defaultSettings->childGroups().indexOf(scope) == -1;
+    qDebug()  << defaultSettings->childGroups();
+    return defaultSettings->childGroups().indexOf(scope) != -1;
 }
 
 bool SettingsManager::hasKey( QString scope, QString key ) {

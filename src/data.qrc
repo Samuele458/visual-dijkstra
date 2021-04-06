@@ -13,5 +13,6 @@
         <file>data/icons/new.png</file>
         <file>data/style/default_style.qss</file>
         <file>data/default_settings.ini</file>
+        <file>data/icons/paintbrush.png</file>
     </qresource>
 </RCC>

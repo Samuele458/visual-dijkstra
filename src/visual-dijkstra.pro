@@ -15,6 +15,7 @@ SOURCES += \
         dialogs/aboutdialog.cpp \
         dialogs/licensedialog.cpp \
         dialogs/mainwindow.cpp \
+        dialogs/settingsdialog.cpp \
         main.cpp \
         widgets/edge.cpp \
         widgets/graph.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
     dialogs/aboutdialog.h \
     dialogs/licensedialog.h \
     dialogs/mainwindow.h \
+    dialogs/settingsdialog.h \
     widgets/edge.h \
     widgets/graph.h \
     widgets/graphpathfinderview.h \
@@ -53,3 +55,5 @@ CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
 #app icon
 RC_ICONS = data/icons/logo.ico
+
+DISTFILES +=

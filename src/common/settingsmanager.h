@@ -62,6 +62,8 @@ public:
 
     SettingsManager( QString filename );
 
+    //TODO: add destructor. QSettings are dinamically allocated
+
     //return filename string
     QString getFilename() const;
 

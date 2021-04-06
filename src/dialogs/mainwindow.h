@@ -48,6 +48,7 @@
 #include "widgets/graphstatestable.h"
 #include "widgets/graphstateswidget.h"
 #include "common/settingsmanager.h"
+#include "dialogs/settingsdialog.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -74,6 +75,7 @@ protected slots:
     void about_action_slot();
     void calculate_path_action_slot();
     void new_graph_action_slot();
+    void settings_action_slot();
 
 private:
 
@@ -95,6 +97,7 @@ private:
     QAction* aboutAction;
     QAction* calculatePathAction;
     QAction* newGraphAction;
+    QAction* settingsAction;
 
 
     // ---- widgets ----

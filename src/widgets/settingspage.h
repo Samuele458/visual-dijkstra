@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QDebug>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include "common/settingsmanager.h"
 
@@ -31,7 +33,6 @@ class SettingsPage : public QWidget
 public:
     SettingsPage(SettingsManager* settings,
                  QString scope,
-
                  QWidget *parent = nullptr);
 
     //read settings from SettingsPage to currentState
@@ -48,4 +49,24 @@ private:
 
 };
 
+
+class StylePage : public SettingsPage
+{
+    Q_OBJECT
+
+public:
+    StylePage(SettingsManager* settings,
+              QString scope,
+              QWidget *parent = nullptr);
+
+};
+
 #endif // SETTINGSPAGE_H
+
+
+
+
+
+
+
+

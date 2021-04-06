@@ -24,6 +24,7 @@
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
+    /*
     SettingsManager man("config.ini");
     man.setValue("style",
                  "widgets-background-color",
@@ -32,7 +33,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     qDebug() << man.getValue("style",
                  "widget-text-color"
                  );
-
+    */
 
     //TODO: apply styles
     //((QApplication*)QApplication::instance())->setStyleSheet("QMainWindow { background-color: red }");
@@ -130,6 +131,9 @@ void MainWindow::createActions() {
     newGraphAction->setIcon( QIcon(":/data/icons/new.png") );
     connect( newGraphAction, SIGNAL(triggered()), this, SLOT(new_graph_action_slot()) );
 
+
+    settingsAction = new QAction( "Open settings dialog", this );
+    connect( settingsAction, SIGNAL(triggered()), this, SLOT(settings_action_slot()));
 }
 
 //allocating and configuring menus
@@ -153,6 +157,7 @@ void MainWindow::createMenus() {
     editMenu->addAction( createEdgeAction );
     editMenu->addSeparator();
     editMenu->addAction( calculatePathAction );
+    editMenu->addAction( settingsAction );
 
     //Help menu
     helpMenu = menuBar()->addMenu( "Help" );
@@ -308,6 +313,16 @@ void MainWindow::new_graph_action_slot() {
 
         }
     }
+}
+
+void MainWindow::settings_action_slot() {
+    qDebug() << "Open settings...";
+
+    SettingsManager* man = new SettingsManager("config.ini");
+
+    SettingsDialog* dialog = new SettingsDialog(man);
+
+    dialog->exec();
 }
 
 //event close

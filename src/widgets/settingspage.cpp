@@ -73,19 +73,86 @@ void SettingsPage::saveState() {
 }
 
 
+// ---- class ColorHandler ----
+
+ColorHandler::ColorHandler( QString text, QWidget* parent ) :
+    ColorHandler( text, QColor(), parent )
+{ }
+
+ColorHandler::ColorHandler( QString text, QColor color, QWidget* parent ) :
+    QWidget( parent ),
+    color( color )
+{
+    textLabel = new QLabel;
+    textLabel->setText(text);
+
+    //DEBUG - remove later
+    qDebug() << color.name(QColor::NameFormat::HexRgb);
+
+    labelColor = new QLabel;
+    labelColor->setText( color.name(QColor::NameFormat::HexRgb) );
+
+    colorPickerButton = new QPushButton;
+    colorPickerButton->setText("Placeholder");
+
+    mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(textLabel);
+    mainLayout->addStretch();
+    mainLayout->addWidget(labelColor);
+    mainLayout->addStretch();
+    mainLayout->addWidget(colorPickerButton);
+
+    this->setLayout(mainLayout);
+}
+
+void ColorHandler::setColor( QColor color ) {
+    this->color = color;
+}
+
+QColor ColorHandler::getColor() const {
+    return this->color;
+}
+
+void ColorHandler::setText( QString text ) {
+    this->textLabel->setText(text);
+}
+
+QString ColorHandler::getText() const {
+    return this->textLabel->text();
+}
+
+
 // ---- class StylePage ----
 
 
-
-
-StylePage::StylePage(SettingsManager *settings, QString scope, QWidget *parent) :
-    SettingsPage( settings, scope, parent )
+StylePage::StylePage(SettingsManager *settings, QWidget *parent) :
+    SettingsPage( settings, "style" , parent )
 {
 
     QPushButton* button = new QPushButton("TEST");
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget( button );
+    mainLayout->addWidget( new ColorHandler("Colore sfondo:", Qt::red ) );
+
+    this->setLayout( mainLayout );
+
+}
+
+
+// ---- class DefaultPage ----
+
+//TODO: UI Background color
+
+DefaultPage::DefaultPage(SettingsManager *settings, QWidget *parent) :
+    SettingsPage( settings, "style" , parent )
+{
+
+    QPushButton* button = new QPushButton("TEST");
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    mainLayout->addWidget( button );
+    mainLayout->addWidget(new QPushButton("TEST"));
 
     this->setLayout( mainLayout );
 

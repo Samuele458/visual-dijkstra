@@ -26,6 +26,8 @@
 #include <QDebug>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QColorDialog>
+#include <QLabel>
 
 #include "common/settingsmanager.h"
 
@@ -70,6 +72,28 @@ private:
 
 };
 
+class ColorHandler : public QWidget {
+    Q_OBJECT
+
+public:
+    ColorHandler( QString text, QWidget* parent = nullptr );
+    ColorHandler( QString text, QColor color, QWidget* parent = nullptr );
+
+    void setColor( QColor color );
+    QColor getColor() const;
+
+    void setText( QString text );
+    QString getText() const;
+
+private:
+    QColor color;
+
+    QHBoxLayout* mainLayout;
+    QPushButton* colorPickerButton;
+    QLabel* textLabel;
+    QLabel* labelColor;
+};
+
 
 class StylePage : public SettingsPage
 {
@@ -77,7 +101,17 @@ class StylePage : public SettingsPage
 
 public:
     StylePage(SettingsManager* settings,
-              QString scope,
+              QWidget *parent = nullptr);
+
+};
+
+
+class DefaultPage : public SettingsPage
+{
+    Q_OBJECT
+
+public:
+    DefaultPage(SettingsManager* settings,
               QWidget *parent = nullptr);
 
 };

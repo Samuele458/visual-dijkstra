@@ -14,5 +14,6 @@
         <file>data/style/default_style.qss</file>
         <file>data/default_settings.ini</file>
         <file>data/icons/paintbrush.png</file>
+        <file>data/icons/gear.png</file>
     </qresource>
 </RCC>

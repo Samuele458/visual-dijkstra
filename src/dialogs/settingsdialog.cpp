@@ -34,11 +34,25 @@ SettingsDialog::SettingsDialog( SettingsManager* settings, QWidget* parent ) :
     contentsList->setSpacing(12);
 
     pagesWidget = new QStackedWidget;
-    pagesWidget->addWidget( new StylePage(this->settings,"style") );
+    pagesWidget->addWidget( new StylePage(this->settings) );
+    pagesWidget->addWidget( new DefaultPage(this->settings) );
+
+    saveButton = new QPushButton("Save");
+    cancelButton = new QPushButton("Cancel");
+
+    buttonsBar = new QHBoxLayout;
+    buttonsBar->addStretch();
+    buttonsBar->addWidget(cancelButton);
+    buttonsBar->addWidget(saveButton);
+
+    rightSideLayout = new QVBoxLayout;
+    rightSideLayout->addWidget(pagesWidget);
+    rightSideLayout->addStretch();
+    rightSideLayout->addLayout(buttonsBar);
 
     mainLayout = new QHBoxLayout;
     mainLayout->addWidget(contentsList);
-    mainLayout->addWidget(pagesWidget);
+    mainLayout->addLayout(rightSideLayout);
 
     createIcons();
     contentsList->setCurrentRow(0);
@@ -59,6 +73,15 @@ void SettingsDialog::createIcons()
     styleButton->setText("Style");
     styleButton->setTextAlignment(Qt::AlignHCenter);
     styleButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+
+    QListWidgetItem* defaultButton = new QListWidgetItem(contentsList);
+    defaultButton->setIcon(QIcon(":/data/icons/gear.png"));
+    defaultButton->setText("General");
+    defaultButton->setTextAlignment(Qt::AlignHCenter);
+    defaultButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+    connect(contentsList, &QListWidget::currentItemChanged, this, &SettingsDialog::changePage);
 }
 
 void SettingsDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous)

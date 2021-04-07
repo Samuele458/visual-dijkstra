@@ -28,6 +28,8 @@
 #include <QVBoxLayout>
 #include <QColorDialog>
 #include <QLabel>
+#include <QPainter>
+#include <QPaintEvent>
 
 #include "common/settingsmanager.h"
 
@@ -72,6 +74,27 @@ private:
 
 };
 
+class ColorButton : public QPushButton {
+    Q_OBJECT
+
+public:
+    ColorButton( QColor color, QWidget* parent = nullptr );
+
+    QColor getColor() const;
+
+signals:
+    void colorChanged(QColor);
+
+public slots:
+    void changeColor(const QColor &);
+    void chooseColor();
+    void paintEvent(QPaintEvent *event);
+
+private:
+    QColor color;
+
+};
+
 class ColorHandler : public QWidget {
     Q_OBJECT
 
@@ -85,11 +108,16 @@ public:
     void setText( QString text );
     QString getText() const;
 
+
+private slots:
+    void color_changed( QColor color );
+
+
 private:
     QColor color;
 
     QHBoxLayout* mainLayout;
-    QPushButton* colorPickerButton;
+    ColorButton* colorPickerButton;
     QLabel* textLabel;
     QLabel* labelColor;
 };
@@ -102,6 +130,8 @@ class StylePage : public SettingsPage
 public:
     StylePage(SettingsManager* settings,
               QWidget *parent = nullptr);
+
+    ~StylePage() { qDebug() <<"Destructed";}
 
 };
 

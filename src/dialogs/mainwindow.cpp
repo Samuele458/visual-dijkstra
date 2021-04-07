@@ -323,6 +323,8 @@ void MainWindow::settings_action_slot() {
     SettingsDialog* dialog = new SettingsDialog(man);
 
     dialog->exec();
+
+    delete dialog;
 }
 
 //event close

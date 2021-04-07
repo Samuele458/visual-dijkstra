@@ -72,6 +72,47 @@ void SettingsPage::saveState() {
     }
 }
 
+// ---- class ColorButton ----
+
+ColorButton::ColorButton( QColor color, QWidget *parent) :
+    QPushButton(parent)
+{
+    this->setMinimumWidth(50);
+    this->color = color;
+    connect(this, SIGNAL(clicked()), this, SLOT(chooseColor()));
+}
+
+QColor ColorButton::getColor() const
+{
+    return this->color;
+}
+
+void ColorButton::changeColor(const QColor & color)
+{
+    this->color = color;
+    colorChanged(color);
+}
+
+void ColorButton::chooseColor()
+{
+    QColor color = QColorDialog::getColor(this->color, this, "Choose a color");
+    if (color.isValid())
+        changeColor(color);
+}
+
+void ColorButton::paintEvent(QPaintEvent *event)
+{
+    QPushButton::paintEvent(event);
+
+    int colorPadding = 5;
+
+    QRect rect = event->rect();
+    QPainter painter( this );
+    painter.setBrush( QBrush( color ) );
+    painter.setPen("#CECECE");
+    rect.adjust(colorPadding, colorPadding, -1-colorPadding, -1-colorPadding);
+    painter.drawRect(rect);
+}
 
 // ---- class ColorHandler ----
 
@@ -92,8 +133,9 @@ ColorHandler::ColorHandler( QString text, QColor color, QWidget* parent ) :
     labelColor = new QLabel;
     labelColor->setText( color.name(QColor::NameFormat::HexRgb) );
 
-    colorPickerButton = new QPushButton;
+    colorPickerButton = new ColorButton(this->color);
     colorPickerButton->setText("Placeholder");
+    connect( colorPickerButton, SIGNAL(colorChanged(QColor)), this, SLOT(color_changed(QColor)));
 
     mainLayout = new QHBoxLayout;
     mainLayout->addWidget(textLabel);
@@ -119,6 +161,11 @@ void ColorHandler::setText( QString text ) {
 
 QString ColorHandler::getText() const {
     return this->textLabel->text();
+}
+
+void ColorHandler::color_changed( QColor color ) {
+    this->color = color;
+    this->labelColor->setText( this->color.name(QColor::NameFormat::HexRgb));
 }
 
 

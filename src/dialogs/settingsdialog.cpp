@@ -38,7 +38,10 @@ SettingsDialog::SettingsDialog( SettingsManager* settings, QWidget* parent ) :
     pagesWidget->addWidget( new DefaultPage(this->settings) );
 
     saveButton = new QPushButton("Save");
+    connect( saveButton, SIGNAL(clicked()), this, SLOT(saveButtonClicked()));
+
     cancelButton = new QPushButton("Cancel");
+    connect( cancelButton, SIGNAL(clicked()), this, SLOT(cancelButtonClicked()));
 
     buttonsBar = new QHBoxLayout;
     buttonsBar->addStretch();
@@ -90,4 +93,15 @@ void SettingsDialog::changePage(QListWidgetItem *current, QListWidgetItem *previ
         current = previous;
 
     pagesWidget->setCurrentIndex(contentsList->row(current));
+}
+
+void SettingsDialog::saveButtonClicked() {
+    for( int i = 0; this->pagesWidget->widget(i) != nullptr; ++i ) {
+        ((SettingsPage*)pagesWidget->widget(i))->saveState();
+    }
+    this->close();
+}
+
+void SettingsDialog::cancelButtonClicked() {
+    this->close();
 }

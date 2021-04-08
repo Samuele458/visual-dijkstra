@@ -67,8 +67,11 @@ public:
     //read settings from SettingsPage to currentState
     void loadState();
 
-    //store settings from cerrentState to SettingsPage
-    void saveState();
+    //apply state to widget
+    virtual void applyState() { }
+
+    //store settings from currentState to SettingsPage
+    virtual void saveState();
 
 private:
     SettingsManager* settings;
@@ -138,16 +141,17 @@ public:
     StylePage(SettingsManager* settings,
               QWidget *parent = nullptr);
 
+    void applyState() override;
 
-
-    ~StylePage() { qDebug() <<"Destructed";}
-
-    //void applyPreset()
-
+    void saveState() override;
 private slots:
     void colors_preset_state_changed( int state );
 
 private:
+    QLabel* colorsPresetLabel;
+
+    QHBoxLayout* colorsPresetWrap;
+
     QComboBox* colorsPresetCombo;
     QCheckBox* customColorsCheckbox;
 

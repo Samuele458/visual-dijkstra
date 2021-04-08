@@ -21,7 +21,7 @@
 
 
 QWidget {
-    background-color: #4D5869;
+    /*background-color: #4D5869;*/
 }
 
 

@@ -78,6 +78,8 @@ void SettingsManager::setValue( const QString& scope, const QString& key, const 
     }
     defaultSettings->endGroup();
 
+    qDebug() << "Saving data:" << key << data;
+
     //open selected group
     settings->beginGroup( scope );
     settings->setValue( key, data );

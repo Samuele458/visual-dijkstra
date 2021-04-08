@@ -61,6 +61,7 @@ void SettingsPage::loadState() {
     }
 }
 
+
 //store settings from currentState to SettingsPage
 void SettingsPage::saveState() {
     QStringList keys = settings->getKeys( scope );
@@ -153,10 +154,7 @@ ColorHandler::ColorHandler( QString text, QColor color, QWidget* parent ) :
 }
 
 void ColorHandler::setColor( QColor color ) {
-    qDebug() << color;
-
-    //this->colorPickerButton->getColor();
-    //this->color = QColor(Qt::red);
+    this->colorPickerButton->setColor(color);
 }
 
 QColor ColorHandler::getColor() const {
@@ -184,12 +182,12 @@ StylePage::StylePage(SettingsManager *settings, QWidget *parent) :
     SettingsPage( settings, "style" , parent )
 {   
 
-    QLabel* colorsPresetLabel = new QLabel("Preset:");
+    colorsPresetLabel = new QLabel("Preset:");
 
     colorsPresetCombo = new QComboBox;
     colorsPresetCombo->addItems( QStringList() << "Light mode" << "Dark mode" );
 
-    QHBoxLayout* colorsPresetWrap = new QHBoxLayout;
+    colorsPresetWrap = new QHBoxLayout;
     colorsPresetWrap->addWidget(colorsPresetLabel);
     colorsPresetWrap->addWidget(colorsPresetCombo);
 
@@ -197,10 +195,10 @@ StylePage::StylePage(SettingsManager *settings, QWidget *parent) :
     connect( customColorsCheckbox, SIGNAL(stateChanged(int)), this, SLOT(colors_preset_state_changed(int)));
     customColorsCheckbox->setCheckState(Qt::CheckState::Unchecked);
 
-    bgColorHandler = new ColorHandler( "Background color:", QColor(this->currentState["widgets-background-color"].toString()) );
-    textColorHandler = new ColorHandler( "Text color:", QColor(this->currentState["widgets-text-color"].toString()) );
-    nodesColorHandler = new ColorHandler( "Nodes color:", QColor(this->currentState["nodes-color"].toString()) );
-    edgesColorHandler = new ColorHandler( "Edges color:", QColor(this->currentState["edges-color"].toString()) );
+    bgColorHandler = new ColorHandler( "Background color:" );
+    textColorHandler = new ColorHandler( "Text color:" );
+    nodesColorHandler = new ColorHandler( "Nodes color:" );
+    edgesColorHandler = new ColorHandler( "Edges color:" );
 
     this->bgColorHandler->getColor();
 
@@ -223,12 +221,63 @@ StylePage::StylePage(SettingsManager *settings, QWidget *parent) :
 
     qDebug() << "Current state:" << this->currentState;
 
-    QString d = this->currentState["widgets-background-color"].toString();
+
+
+    applyState();
 
 }
 
+void StylePage::applyState() {
+    bgColorHandler->setColor( QColor(this->currentState["widgets-background-color"].toString()));
+    textColorHandler->setColor( QColor(this->currentState["widgets-text-color"].toString()));
+    nodesColorHandler->setColor( QColor(this->currentState["nodes-color"].toString()));
+    edgesColorHandler->setColor( QColor(this->currentState["edges-color"].toString()));
+
+    QString preset = this->currentState["preset"].toString();
+    qDebug() << preset;
+    if(preset == "none") {
+        customColorsCheckbox->setCheckState(Qt::CheckState::Checked);
+    } else {
+        this->colors_preset_state_changed( Qt::CheckState::Unchecked );
+        if( preset == "dark-mode" ) {
+            colorsPresetCombo->setCurrentIndex(1);
+        } else if( preset == "light-mode" ) {
+            colorsPresetCombo->setCurrentIndex(0);
+        }
+    }
+}
+
+void StylePage::saveState() {
+    this->currentState["widgets-background-color"] = bgColorHandler->getColor().name(QColor::NameFormat::HexRgb);
+    this->currentState["widgets-text-color"] = textColorHandler->getColor().name(QColor::NameFormat::HexRgb);
+    this->currentState["nodes-color"] = nodesColorHandler->getColor().name(QColor::NameFormat::HexRgb);
+    this->currentState["edges-color"] = edgesColorHandler->getColor().name(QColor::NameFormat::HexRgb);
+
+    if( customColorsCheckbox->isChecked() ) {
+        this->currentState["preset"] = "none";
+    } else {
+        this->currentState["preset"] = colorsPresetCombo->currentText();
+    }
+
+    SettingsPage::saveState();
+}
+
 void StylePage::colors_preset_state_changed( int state ) {
-    qDebug() << "STATE:" << state;
+    if( state == Qt::CheckState::Checked ) {
+        colorsPresetCombo->setEnabled(false);
+        colorsPresetLabel->setEnabled(false);
+        bgColorHandler->setEnabled(true);
+        textColorHandler->setEnabled(true);
+        nodesColorHandler->setEnabled(true);
+        edgesColorHandler->setEnabled(true);
+    } else if( state == Qt::CheckState::Unchecked ) {
+        colorsPresetCombo->setEnabled(true);
+        colorsPresetLabel->setEnabled(true);
+        bgColorHandler->setEnabled(false);
+        textColorHandler->setEnabled(false);
+        nodesColorHandler->setEnabled(false);
+        edgesColorHandler->setEnabled(false);
+    }
 }
 
 

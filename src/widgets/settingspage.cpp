@@ -87,6 +87,11 @@ QColor ColorButton::getColor() const
     return this->color;
 }
 
+void ColorButton::setColor( QColor color ) {
+    this->color = color;
+    colorChanged(color);
+}
+
 void ColorButton::changeColor(const QColor & color)
 {
     this->color = color;
@@ -121,20 +126,17 @@ ColorHandler::ColorHandler( QString text, QWidget* parent ) :
 { }
 
 ColorHandler::ColorHandler( QString text, QColor color, QWidget* parent ) :
-    QWidget( parent ),
-    color( color )
+    QWidget( parent )
 {
+    this->color = color;
+
     textLabel = new QLabel;
     textLabel->setText(text);
-
-    //DEBUG - remove later
-    qDebug() << color.name(QColor::NameFormat::HexRgb);
 
     labelColor = new QLabel;
     labelColor->setText( color.name(QColor::NameFormat::HexRgb) );
 
     colorPickerButton = new ColorButton(this->color);
-    colorPickerButton->setText("Placeholder");
     connect( colorPickerButton, SIGNAL(colorChanged(QColor)), this, SLOT(color_changed(QColor)));
 
     mainLayout = new QHBoxLayout;
@@ -145,10 +147,16 @@ ColorHandler::ColorHandler( QString text, QColor color, QWidget* parent ) :
     mainLayout->addWidget(colorPickerButton);
 
     this->setLayout(mainLayout);
+
+    // -----
+
 }
 
 void ColorHandler::setColor( QColor color ) {
-    this->color = color;
+    qDebug() << color;
+
+    //this->colorPickerButton->getColor();
+    //this->color = QColor(Qt::red);
 }
 
 QColor ColorHandler::getColor() const {
@@ -174,16 +182,53 @@ void ColorHandler::color_changed( QColor color ) {
 
 StylePage::StylePage(SettingsManager *settings, QWidget *parent) :
     SettingsPage( settings, "style" , parent )
-{
+{   
 
-    QPushButton* button = new QPushButton("TEST");
+    QLabel* colorsPresetLabel = new QLabel("Preset:");
+
+    colorsPresetCombo = new QComboBox;
+    colorsPresetCombo->addItems( QStringList() << "Light mode" << "Dark mode" );
+
+    QHBoxLayout* colorsPresetWrap = new QHBoxLayout;
+    colorsPresetWrap->addWidget(colorsPresetLabel);
+    colorsPresetWrap->addWidget(colorsPresetCombo);
+
+    customColorsCheckbox = new QCheckBox("Custom");
+    connect( customColorsCheckbox, SIGNAL(stateChanged(int)), this, SLOT(colors_preset_state_changed(int)));
+    customColorsCheckbox->setCheckState(Qt::CheckState::Unchecked);
+
+    bgColorHandler = new ColorHandler( "Background color:", QColor(this->currentState["widgets-background-color"].toString()) );
+    textColorHandler = new ColorHandler( "Text color:", QColor(this->currentState["widgets-text-color"].toString()) );
+    nodesColorHandler = new ColorHandler( "Nodes color:", QColor(this->currentState["nodes-color"].toString()) );
+    edgesColorHandler = new ColorHandler( "Edges color:", QColor(this->currentState["edges-color"].toString()) );
+
+    this->bgColorHandler->getColor();
+
+
+    QVBoxLayout* colorsGroupLayout = new QVBoxLayout;
+    colorsGroupLayout->addLayout(colorsPresetWrap);
+    colorsGroupLayout->addWidget(customColorsCheckbox);
+    colorsGroupLayout->addWidget(bgColorHandler);
+    colorsGroupLayout->addWidget(textColorHandler);
+    colorsGroupLayout->addWidget(nodesColorHandler);
+    colorsGroupLayout->addWidget(edgesColorHandler);
+
+    QGroupBox* colorsGroup = new QGroupBox("Colors");
+    colorsGroup->setLayout( colorsGroupLayout );
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
-    mainLayout->addWidget( button );
-    mainLayout->addWidget( new ColorHandler("Colore sfondo:", Qt::red ) );
+    mainLayout->addWidget( colorsGroup );
 
     this->setLayout( mainLayout );
 
+    qDebug() << "Current state:" << this->currentState;
+
+    QString d = this->currentState["widgets-background-color"].toString();
+
+}
+
+void StylePage::colors_preset_state_changed( int state ) {
+    qDebug() << "STATE:" << state;
 }
 
 

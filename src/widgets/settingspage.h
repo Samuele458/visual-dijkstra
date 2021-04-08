@@ -30,6 +30,10 @@
 #include <QLabel>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QGroupBox>
+#include <QGridLayout>
+#include <QComboBox>
+#include <QCheckBox>
 
 #include "common/settingsmanager.h"
 
@@ -69,6 +73,8 @@ public:
 private:
     SettingsManager* settings;
     QString scope;
+
+protected:
     QHash<QString,QVariant> currentState;
 
 
@@ -81,6 +87,7 @@ public:
     ColorButton( QColor color, QWidget* parent = nullptr );
 
     QColor getColor() const;
+    void setColor( QColor color );
 
 signals:
     void colorChanged(QColor);
@@ -131,7 +138,23 @@ public:
     StylePage(SettingsManager* settings,
               QWidget *parent = nullptr);
 
+
+
     ~StylePage() { qDebug() <<"Destructed";}
+
+    //void applyPreset()
+
+private slots:
+    void colors_preset_state_changed( int state );
+
+private:
+    QComboBox* colorsPresetCombo;
+    QCheckBox* customColorsCheckbox;
+
+    ColorHandler* bgColorHandler;
+    ColorHandler* textColorHandler;
+    ColorHandler* nodesColorHandler;
+    ColorHandler* edgesColorHandler;
 
 };
 

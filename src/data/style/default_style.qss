@@ -20,8 +20,78 @@
  */
 
 
+QScrollBar:vertical {
+     border: 1px solid grey;
+     width: 10px;
+     margin: 22px 0 22px 0;
+}
+
+QScrollBar::handle:vertical {
+     border-radius: 5px;
+     min-height: 20px;
+}
+
+QScrollBar::add-line:vertical {
+    height: 20px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+    border: 1px solid grey;
+}
+
+QScrollBar::sub-line:vertical {
+    height: 20px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+    border: 1px solid grey;
+}
+
+QScrollBar:horizontal {
+    border: 1px solid grey;
+    height: 10px;
+    margin: 0px 20px 0 20px;
+}
+QScrollBar::handle:horizontal {
+    min-width: 20px;
+}
+QScrollBar::add-line:horizontal {
+    border: 1px solid grey;
+    width: 20px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    border: 1px solid grey;
+    width: 20px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical,
+QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
+    border: 1px solid grey;
+    width: 3px;
+    height: 3px;
+}
 
 
 
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical,
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal  {
+    background: none;
+}
 
+QHeaderView::section {
+    border: 1px solid gray;
+    height: 32px;
+}
 
+QTableCornerButton::section {
+    background: red;
+}
+
+QHBoxLayout {
+    background-color: green;
+}

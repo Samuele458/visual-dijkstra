@@ -69,7 +69,7 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     tableSplitter->setCollapsible( 1, false );
 
     this->setCentralWidget( tableSplitter );
-    this->setContentsMargins(5,0,5,5);
+    this->setContentsMargins(0,0,0,0);
 
     //maximize window
     this->showMaximized();
@@ -371,7 +371,41 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
 
 void MainWindow::applySettings()
 {
-    qDebug() << "QWidget { background-color: "+settings->getValue("style","widgets-background-color").toString()+" }";
-    ((QApplication*)QApplication::instance())
-            ->setStyleSheet("QWidget { background-color: "+settings->getValue("style","widgets-background-color").toString()+" }");
+    QApplication* app = ((QApplication*)QApplication::instance());
+
+    QFile File(":/data/style/default_style.qss");
+    File.open(QFile::ReadOnly);
+
+    QString baseStyle = QLatin1String(File.readAll());
+
+    QStringList styles;
+
+    QColor widgetsBackgroundColor(settings->getValue("style","widgets-background-color").toString());
+    QColor widgetsTextColor(settings->getValue("style","widgets-text-color").toString());
+    QColor nodesColor(settings->getValue("style","nodes-color").toString());
+    QColor edgesColor(settings->getValue("style","edges-color").toString());
+
+    styles << "QWidget { background-color: "+widgetsBackgroundColor.name()+" }";
+    styles << "QWidget { color: "+widgetsTextColor.name()+" }";
+    styles << "QScrollBar:vertical { background: "+widgetsBackgroundColor.lighter(120).name()+" }";
+    styles << "QScrollBar::handle:vertical { background: "+widgetsBackgroundColor.darker(115).name()+" }";
+    styles << "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { background: "+widgetsBackgroundColor.darker(115).name()+" }";
+    styles << "QScrollBar:horizontal { background: "+widgetsBackgroundColor.lighter(120).name()+" }";
+    styles << "QScrollBar::handle:horizontal { background: "+widgetsBackgroundColor.darker(115).name()+" }";
+    styles << "QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { background: "+widgetsBackgroundColor.darker(115).name()+" }";
+    styles << "QHeaderView::section { background:"+widgetsBackgroundColor.darker(115).name()+"; }";
+    styles << "QTableCornerButton::section { background:"+widgetsBackgroundColor.name()+"; }";
+    styles << "QToolBar * { background-color: "+widgetsBackgroundColor.lighter(190).name()+";}";
+    styles << "QToolBar { background-color: "+widgetsBackgroundColor.lighter(190).name()+";}";
+    styles << "QMenu { background-color: "+widgetsBackgroundColor.lighter().name()+";}";
+    styles << "QPushButton { background-color: "+widgetsBackgroundColor.lighter().name()+";}";
+    styles << "QLayout { background-color: green;}";
+
+    Graph::DEFAULT_ITEM_COLOR = nodesColor;
+    Graph::DEFAULT_LINE_COLOR = edgesColor;
+
+    this->graphView->getGraph()->resetState();
+
+    app->setStyleSheet( baseStyle + styles.join(" ") );
+
 }

@@ -23,6 +23,7 @@
 
 LicenseDialog::LicenseDialog(QWidget *parent) : QDialog(parent)
 {
+    this->setMinimumWidth(650);
 
     //creating widgets
     MainLayout = new QVBoxLayout;
@@ -58,6 +59,11 @@ LicenseDialog::LicenseDialog(QWidget *parent) : QDialog(parent)
     TitleLabel->setFont( title_font );
 
     LicenseEdit->setReadOnly( true );
+
+    QFont licenseFont = LicenseEdit->font();
+    licenseFont.setFamily( "Courier" );
+    licenseFont.setPointSize(6);
+    LicenseEdit->setFont(licenseFont);
 
 
     //OK button

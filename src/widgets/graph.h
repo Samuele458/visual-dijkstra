@@ -74,22 +74,22 @@ public:
     };
 
     //default color for lines, and nodes borders
-    static const QColor DEFAULT_LINE_COLOR;
+    static QColor DEFAULT_LINE_COLOR;
 
     //default background color for nodes
-    static const QColor DEFAULT_ITEM_COLOR;
+    static QColor DEFAULT_ITEM_COLOR;
 
     //highlighted color for lines, and nodes borders
-    static const QColor HIGHLIGHT_LINE_COLOR;
+    static QColor HIGHLIGHT_LINE_COLOR;
 
     //highlighted background color for nodes
-    static const QColor HIGHLIGHT_ITEM_COLOR;
+    static QColor HIGHLIGHT_ITEM_COLOR;
 
     //Path color for nodes
-    static const QColor PATH_ITEM_COLOR;
+    static QColor PATH_ITEM_COLOR;
 
     //line color for nodes and edges
-    static const QColor PATH_LINE_COLOR;
+    static QColor PATH_LINE_COLOR;
 
     Graph(QObject* parent = nullptr);
 

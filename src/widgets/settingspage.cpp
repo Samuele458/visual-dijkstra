@@ -147,6 +147,7 @@ ColorHandler::ColorHandler( QString text, QColor color, QWidget* parent ) :
     mainLayout->addStretch();
     mainLayout->addWidget(colorPickerButton);
 
+
     this->setLayout(mainLayout);
 
     // -----

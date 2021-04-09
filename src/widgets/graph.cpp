@@ -24,22 +24,22 @@
 
 
 //default color for lines, and nodes borders
-const QColor Graph::DEFAULT_LINE_COLOR = Qt::black;
+QColor Graph::DEFAULT_LINE_COLOR = Qt::black;
 
 //default background color for nodes
-const QColor Graph::DEFAULT_ITEM_COLOR = Qt::white;
+QColor Graph::DEFAULT_ITEM_COLOR = Qt::white;
 
 //highlighted color for lines, and nodes borders
-const QColor Graph::HIGHLIGHT_LINE_COLOR = Qt::blue;
+QColor Graph::HIGHLIGHT_LINE_COLOR = Qt::blue;
 
 //highlighted background color for nodes
-const QColor Graph::HIGHLIGHT_ITEM_COLOR = Qt::green;
+QColor Graph::HIGHLIGHT_ITEM_COLOR = Qt::green;
 
 //Path color for nodes
-const QColor Graph::PATH_ITEM_COLOR = Qt::red;
+QColor Graph::PATH_ITEM_COLOR = Qt::red;
 
 //line color for nodes and edges
-const QColor Graph::PATH_LINE_COLOR = Qt::red;
+QColor Graph::PATH_LINE_COLOR = Qt::red;
 
 
 Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
@@ -78,6 +78,9 @@ void Graph::addNode(Node* node)
 
     nodes.push_back(node);
     this->addItem( node );
+
+    node->setBackgroundColor( this->DEFAULT_ITEM_COLOR );
+    node->setBorderColor( this->DEFAULT_LINE_COLOR );
 
     //set graph not saved
     saved = false;

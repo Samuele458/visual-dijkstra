@@ -29,6 +29,7 @@
 #include <QListWidgetItem>
 #include <QStackedWidget>
 #include <QHBoxLayout>
+#include <QApplication>
 
 #include "common/settingsmanager.h"
 #include "widgets/settingspage.h"

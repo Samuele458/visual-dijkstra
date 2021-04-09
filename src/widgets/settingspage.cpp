@@ -256,7 +256,8 @@ void StylePage::saveState() {
     if( customColorsCheckbox->isChecked() ) {
         this->currentState["preset"] = "none";
     } else {
-        this->currentState["preset"] = colorsPresetCombo->currentText();
+
+        this->currentState["preset"] = colorsPresetCombo->currentText().replace(' ', '-').toLower();
     }
 
     SettingsPage::saveState();
@@ -286,7 +287,7 @@ void StylePage::colors_preset_state_changed( int state ) {
 //TODO: UI Background color
 
 DefaultPage::DefaultPage(SettingsManager *settings, QWidget *parent) :
-    SettingsPage( settings, "style" , parent )
+    SettingsPage( settings, "general-settings" , parent )
 {
 
     QPushButton* button = new QPushButton("TEST");

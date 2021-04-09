@@ -24,6 +24,7 @@
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
+
     /*
     SettingsManager man("config.ini");
     man.setValue("style",
@@ -80,6 +81,9 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     // ----
     saved = false;
     saveFile = "";
+
+    settings = new SettingsManager("config.ini");
+    applySettings();
 }
 
 void MainWindow::createActions() {
@@ -316,15 +320,14 @@ void MainWindow::new_graph_action_slot() {
 }
 
 void MainWindow::settings_action_slot() {
-    qDebug() << "Open settings...";
 
-    SettingsManager* man = new SettingsManager("config.ini");
-
-    SettingsDialog* dialog = new SettingsDialog(man);
+    SettingsDialog* dialog = new SettingsDialog(settings);
 
     dialog->exec();
 
     delete dialog;
+
+    applySettings();
 }
 
 //event close
@@ -364,4 +367,11 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
 
     QMainWindow::contextMenuEvent( event );
 
+}
+
+void MainWindow::applySettings()
+{
+    qDebug() << "QWidget { background-color: "+settings->getValue("style","widgets-background-color").toString()+" }";
+    ((QApplication*)QApplication::instance())
+            ->setStyleSheet("QWidget { background-color: "+settings->getValue("style","widgets-background-color").toString()+" }");
 }

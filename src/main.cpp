@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
       File.open(QFile::ReadOnly);
       QString StyleSheet = QLatin1String(File.readAll());
 
-      a.setStyleSheet(StyleSheet);
+      //a.setStyleSheet(StyleSheet);
 
     dijkstraWindow.show();
     return a.exec();

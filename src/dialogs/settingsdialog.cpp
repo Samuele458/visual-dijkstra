@@ -99,6 +99,7 @@ void SettingsDialog::saveButtonClicked() {
     for( int i = 0; this->pagesWidget->widget(i) != nullptr; ++i ) {
         ((SettingsPage*)pagesWidget->widget(i))->saveState();
     }
+
     this->close();
 }
 

@@ -63,6 +63,8 @@ public:
     //context menu
     void contextMenuEvent(QContextMenuEvent *event) override;
 
+    void applySettings();
+
 protected slots:
     void open_action_slot();
     void exit_action_slot();
@@ -117,6 +119,7 @@ private:
     bool saved;
     QString saveFile;
 
+    SettingsManager* settings;
 
 };
 

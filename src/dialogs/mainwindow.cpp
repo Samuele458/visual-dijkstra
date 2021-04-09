@@ -384,6 +384,41 @@ void MainWindow::applySettings()
     QColor widgetsTextColor(settings->getValue("style","widgets-text-color").toString());
     QColor nodesColor(settings->getValue("style","nodes-color").toString());
     QColor edgesColor(settings->getValue("style","edges-color").toString());
+    QColor pathColor(settings->getValue("style","path-color").toString());
+    QColor highlightColor(settings->getValue("style","highlight-color").toString());
+
+
+    QString preset = settings->getValue("style","preset").toString();
+    if( preset == "none" ) {
+
+        widgetsBackgroundColor = QColor(settings->getValue("style","widgets-background-color").toString());
+        widgetsTextColor = QColor(settings->getValue("style","widgets-text-color").toString());
+        nodesColor = QColor(settings->getValue("style","nodes-color").toString());
+        edgesColor = QColor(settings->getValue("style","edges-color").toString());
+        pathColor = QColor(settings->getValue("style","path-color").toString());
+        highlightColor = QColor(settings->getValue("style","highlight-color").toString());
+
+    } else {
+        if( preset == "light-mode" ) {
+
+            widgetsBackgroundColor = QColor("#FFFFFF");
+            widgetsTextColor = QColor("#000000");
+            nodesColor = QColor("#FFFFFF");
+            edgesColor = QColor("#000000");
+            pathColor = QColor("#FF0000");
+            highlightColor = QColor("#0000FF");
+
+        } else if( preset == "dark-mode" ) {
+
+            widgetsBackgroundColor = QColor("#000000");
+            widgetsTextColor = QColor("#FFFFFF");
+            nodesColor = QColor("#FFFFFF");
+            edgesColor = QColor("#000000");
+            pathColor = QColor("#FF0000");
+            highlightColor = QColor("#0000FF");
+
+        }
+    }
 
     styles << "QWidget { background-color: "+widgetsBackgroundColor.name()+" }";
     styles << "QWidget { color: "+widgetsTextColor.name()+" }";
@@ -403,6 +438,8 @@ void MainWindow::applySettings()
 
     Graph::DEFAULT_ITEM_COLOR = nodesColor;
     Graph::DEFAULT_LINE_COLOR = edgesColor;
+    Graph::PATH_LINE_COLOR = pathColor;
+    Graph::HIGHLIGHT_LINE_COLOR = highlightColor;
 
     this->graphView->getGraph()->resetState();
 

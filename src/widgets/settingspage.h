@@ -159,6 +159,8 @@ private:
     ColorHandler* textColorHandler;
     ColorHandler* nodesColorHandler;
     ColorHandler* edgesColorHandler;
+    ColorHandler* pathColorHandler;
+    ColorHandler* highlightColorHandler;
 
 };
 

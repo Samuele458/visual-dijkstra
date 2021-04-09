@@ -147,6 +147,7 @@ ColorHandler::ColorHandler( QString text, QColor color, QWidget* parent ) :
     mainLayout->addStretch();
     mainLayout->addWidget(colorPickerButton);
 
+    mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     this->setLayout(mainLayout);
 
@@ -200,6 +201,8 @@ StylePage::StylePage(SettingsManager *settings, QWidget *parent) :
     textColorHandler = new ColorHandler( "Text color:" );
     nodesColorHandler = new ColorHandler( "Nodes color:" );
     edgesColorHandler = new ColorHandler( "Edges color:" );
+    pathColorHandler = new ColorHandler( "Path color:" );
+    highlightColorHandler = new ColorHandler( "Highlight color:" );
 
     this->bgColorHandler->getColor();
 
@@ -211,6 +214,8 @@ StylePage::StylePage(SettingsManager *settings, QWidget *parent) :
     colorsGroupLayout->addWidget(textColorHandler);
     colorsGroupLayout->addWidget(nodesColorHandler);
     colorsGroupLayout->addWidget(edgesColorHandler);
+    colorsGroupLayout->addWidget(pathColorHandler);
+    colorsGroupLayout->addWidget(highlightColorHandler);
 
     QGroupBox* colorsGroup = new QGroupBox("Colors");
     colorsGroup->setLayout( colorsGroupLayout );
@@ -233,6 +238,8 @@ void StylePage::applyState() {
     textColorHandler->setColor( QColor(this->currentState["widgets-text-color"].toString()));
     nodesColorHandler->setColor( QColor(this->currentState["nodes-color"].toString()));
     edgesColorHandler->setColor( QColor(this->currentState["edges-color"].toString()));
+    pathColorHandler->setColor( QColor(this->currentState["path-color"].toString()));
+    highlightColorHandler->setColor( QColor(this->currentState["highlight-color"].toString()));
 
     QString preset = this->currentState["preset"].toString();
     qDebug() << preset;
@@ -253,6 +260,8 @@ void StylePage::saveState() {
     this->currentState["widgets-text-color"] = textColorHandler->getColor().name(QColor::NameFormat::HexRgb);
     this->currentState["nodes-color"] = nodesColorHandler->getColor().name(QColor::NameFormat::HexRgb);
     this->currentState["edges-color"] = edgesColorHandler->getColor().name(QColor::NameFormat::HexRgb);
+    this->currentState["path-color"] = pathColorHandler->getColor().name(QColor::NameFormat::HexRgb);
+    this->currentState["highlight-color"] = highlightColorHandler->getColor().name(QColor::NameFormat::HexRgb);
 
     if( customColorsCheckbox->isChecked() ) {
         this->currentState["preset"] = "none";

@@ -30,6 +30,8 @@ GraphView::GraphView(Graph* graph, QWidget* parent ) :
 
     graph->setSceneRect(-10000,-10000,20000,20000);
 
+    this->setBackgroundBrush(QBrush(QPixmap(":/data/grid/grid100_w4_28o.png")));
+
     //setDragMode(ScrollHandDrag);
     //setDragMode(DragMode::)
     this->viewport()->setCursor(Qt::CrossCursor);

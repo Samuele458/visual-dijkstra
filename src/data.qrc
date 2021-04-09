@@ -15,5 +15,9 @@
         <file>data/default_settings.ini</file>
         <file>data/icons/paintbrush.png</file>
         <file>data/icons/gear.png</file>
+        <file>data/grid/grid15.png</file>
+        <file>data/grid/grid100.png</file>
+        <file>data/grid/grid100_w4_64o.png</file>
+        <file>data/grid/grid100_w4_28o.png</file>
     </qresource>
 </RCC>

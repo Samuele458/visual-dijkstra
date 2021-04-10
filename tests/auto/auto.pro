@@ -2,4 +2,6 @@ CONFIG += c++11
 
 TEMPLATE = subdirs
 
-SUBDIRS = GraphStateTest
+SUBDIRS = \
+    GraphStateTest \
+    NodeStateTest

@@ -176,13 +176,17 @@ QVector<NodeState> GraphState::getNodes() const {
 void GraphState::setNodes( QVector<NodeState> nodes ) {
     QStringList hold_names;
 
+    this->nodes.clear();
+
     QVectorIterator<NodeState> i(nodes);
     while( i.hasNext() ) {
-        QString name = i.next().getName();
+        NodeState node = i.next();
+        QString name = node.getName();
         if( hold_names.indexOf( name ) != -1 ) {
             throw GraphStateError( GraphStateError::DUPLICATE_NODE_NAME, "Name duplicate" );
         } else {
             hold_names.push_back( name );
+            this->nodes.push_back(node);
         }
     }
 }

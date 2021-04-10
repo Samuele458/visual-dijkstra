@@ -31,4 +31,4 @@ RESOURCES += \
         $$INCDIR/data.qrc
 
 SOURCES += \
-        tst_graphstate.cpp
+        tst_nodestate.cpp

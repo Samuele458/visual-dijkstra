@@ -16,6 +16,8 @@ class NodeStateTest : public QObject {
 private slots:
     void testGettersSetters();
     void testOperators();
+    void invalidName_ExceptionThrown();
+    void invalidDistance_ExceptionThrown();
 };
 
 
@@ -77,6 +79,15 @@ void NodeStateTest::testOperators() {
     QVERIFY( !(nodeC >= nodeD) );
 }
 
+
+void NodeStateTest::invalidName_ExceptionThrown() {
+    QVERIFY_EXCEPTION_THROWN( NodeState(""), GraphStateError );
+}
+
+
+void NodeStateTest::invalidDistance_ExceptionThrown() {
+    QVERIFY_EXCEPTION_THROWN( NodeState("A",-4), GraphStateError );
+}
 
 
 QTEST_MAIN(NodeStateTest)

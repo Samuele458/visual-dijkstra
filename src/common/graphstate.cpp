@@ -26,8 +26,8 @@ const int NodeState::INF = 9999999;
 
 
 NodeState::NodeState( QString name, int distance, QString previous, bool processed ) {
-    this->name = name;
-    this->distance = distance;
+    this->setName( name );
+    this->setDistance( distance );
     this->previous = previous;
     this->processed = processed;
 }
@@ -148,9 +148,9 @@ GraphState::GraphState( Graph* graph ) {
     dest = "";
 }
 
-GraphState::GraphState( QVector<NodeState> nodes ) :
-    nodes( nodes )
+GraphState::GraphState( QVector<NodeState> nodes )
 {
+    setNodes( nodes );
     source = "";
     dest = "";
 }

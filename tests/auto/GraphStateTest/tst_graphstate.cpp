@@ -15,6 +15,9 @@ class GraphStateTest : public QObject {
 
 private slots:
     void stateCreatedByNodesVector_NodesEntered();
+    void stateCreatedByGraph_NodesEntered();
+    void duplicateNodes_ExceptionThrown();
+    void nodeNotFound_ExceptionThrown();
 };
 
 void GraphStateTest::stateCreatedByNodesVector_NodesEntered() {
@@ -50,11 +53,40 @@ void GraphStateTest::stateCreatedByNodesVector_NodesEntered() {
     hold = graph.getNodes().at(0);
     QVERIFY( hold == NodeState("E") );
 
-    Graph g;
 }
 
+void GraphStateTest::stateCreatedByGraph_NodesEntered() {
+    Graph graphObj;
+    graphObj.addNode("A", 0, 0);
+    graphObj.addNode("B", 50, 50);
+    graphObj.addNode("C", 100, 100);
+
+    GraphState graph(&graphObj);
+
+    QVERIFY( graph.getNodes().size() == 3 );
+
+    NodeState hold = graph.getNodes().at(0);
+    QVERIFY( hold.getName() == NodeState("A").getName() );
+
+    hold = graph.getNodes().at(1);
+    QVERIFY( hold.getName() == NodeState("B").getName() );
+
+    hold = graph.getNodes().at(2);
+    QVERIFY( hold.getName() == NodeState("C").getName() );
+}
+
+void GraphStateTest::duplicateNodes_ExceptionThrown() {
+    QVERIFY_EXCEPTION_THROWN( GraphState(QVector<NodeState>() << NodeState("A") << NodeState("A") ), GraphStateError );
+}
+
+void GraphStateTest::nodeNotFound_ExceptionThrown() {
+    QVector<NodeState> nodes;
+    nodes.push_back( NodeState("A") );
+    nodes.push_back( NodeState("B") );
+    GraphState graph( nodes );
+
+    QVERIFY_EXCEPTION_THROWN( graph.getNode("C"), GraphStateError );
+}
 
 QTEST_MAIN(GraphStateTest)
-
-
-#include "tst_nodestate.moc"
+#include "tst_graphstate.moc"

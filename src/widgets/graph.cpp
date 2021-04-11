@@ -128,6 +128,8 @@ void Graph::addEdge( Edge* edge ) {
     edges.push_back( edge );
     this->addItem( edge );
 
+    edge->setColor( this->DEFAULT_LINE_COLOR );
+
     //set graph not saved
     saved = false;
 

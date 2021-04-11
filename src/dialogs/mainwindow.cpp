@@ -39,6 +39,8 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     //TODO: apply styles
     //((QApplication*)QApplication::instance())->setStyleSheet("QMainWindow { background-color: red }");
 
+    this->setWindowTitle( "Visual Dijkstra" );
+
     //creating actions
     createActions();
 
@@ -169,6 +171,7 @@ void MainWindow::createMenus() {
     editMenu->addAction( createEdgeAction );
     editMenu->addSeparator();
     editMenu->addAction( calculatePathAction );
+    editMenu->addSeparator();
     editMenu->addAction( settingsAction );
 
     //Help menu
@@ -409,21 +412,21 @@ void MainWindow::applySettings()
     } else {
         if( preset == "light-mode" ) {
 
-            widgetsBackgroundColor = QColor("#FFFFFF");
-            widgetsTextColor = QColor("#000000");
+            widgetsBackgroundColor = QColor("#f6f8fa");
+            widgetsTextColor = QColor("#161616");
             nodesColor = QColor("#FFFFFF");
             edgesColor = QColor("#000000");
             pathColor = QColor("#FF0000");
-            highlightColor = QColor("#0000FF");
+            highlightColor = QColor("#a9adff");
 
         } else if( preset == "dark-mode" ) {
 
-            widgetsBackgroundColor = QColor("#000000");
-            widgetsTextColor = QColor("#FFFFFF");
-            nodesColor = QColor("#FFFFFF");
-            edgesColor = QColor("#000000");
+            widgetsBackgroundColor = QColor("#1d2125");
+            widgetsTextColor = QColor("#ebebeb");
+            nodesColor = QColor("#232323");
+            edgesColor = QColor("#ffffff");
             pathColor = QColor("#FF0000");
-            highlightColor = QColor("#0000FF");
+            highlightColor = QColor("#a9adff");
 
         }
     }

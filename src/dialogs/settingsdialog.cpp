@@ -24,18 +24,22 @@
 SettingsDialog::SettingsDialog( SettingsManager* settings, QWidget* parent ) :
     QDialog( parent)
 {
+
+    this->setWindowTitle( "Settings" );
+
     this->settings = settings;
 
     contentsList = new QListWidget;
     contentsList->setViewMode(QListView::IconMode);
-    contentsList->setIconSize(QSize(80,80));
+    contentsList->setIconSize(QSize(50,50));
     contentsList->setMovement(QListView::Static);
-    contentsList->setMaximumWidth(128);
+    contentsList->setMaximumWidth(80);
+    contentsList->setMinimumWidth(80);
     contentsList->setSpacing(12);
 
     pagesWidget = new QStackedWidget;
     pagesWidget->addWidget( new StylePage(this->settings) );
-    pagesWidget->addWidget( new DefaultPage(this->settings) );
+    //pagesWidget->addWidget( new DefaultPage(this->settings) );
 
     saveButton = new QPushButton("Save");
     connect( saveButton, SIGNAL(clicked()), this, SLOT(saveButtonClicked()));
@@ -77,12 +81,13 @@ void SettingsDialog::createIcons()
     styleButton->setTextAlignment(Qt::AlignHCenter);
     styleButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-
+    /*
     QListWidgetItem* defaultButton = new QListWidgetItem(contentsList);
     defaultButton->setIcon(QIcon(":/data/icons/gear.png"));
     defaultButton->setText("General");
     defaultButton->setTextAlignment(Qt::AlignHCenter);
     defaultButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    */
 
     connect(contentsList, &QListWidget::currentItemChanged, this, &SettingsDialog::changePage);
 }

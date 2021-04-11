@@ -27,8 +27,6 @@ SOURCES += \
         $$INCDIR/widgets/graph.cpp \
         $$INCDIR/widgets/graphview.cpp
 
-RESOURCES += \
-        $$INCDIR/data.qrc
 
 SOURCES += \
         tst_graphstate.cpp

@@ -4,4 +4,5 @@ TEMPLATE = subdirs
 
 SUBDIRS = \
     GraphStateTest \
-    NodeStateTest
+    NodeStateTest \
+    SettingsManagerTest

@@ -141,7 +141,7 @@ bool SettingsManager::hasKey( QString scope, QString key ) {
         defaultSettings->beginGroup(scope);
 
         bool returnValue;
-        returnValue = defaultSettings->childKeys().indexOf(key) == -1;
+        returnValue = defaultSettings->childKeys().indexOf(key) != -1;
         defaultSettings->endGroup();
 
         return returnValue;

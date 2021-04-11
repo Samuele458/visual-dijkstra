@@ -82,6 +82,14 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     saved = false;
     saveFile = "";
 
+
+    //crating config.ini file if not exists
+    if( !QFile::exists("config.ini") ) {
+        QFile file("config.ini");
+        file.open((QIODevice::ReadWrite));
+        file.close();
+    }
+
     settings = new SettingsManager("config.ini");
     applySettings();
 }

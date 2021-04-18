@@ -6,4 +6,5 @@ SUBDIRS = \
     GraphStateTest \
     NodeStateTest \
     SettingsManagerTest \
-    NodeTest
+    NodeTest \
+    EdgeTest

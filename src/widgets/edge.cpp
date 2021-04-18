@@ -31,7 +31,7 @@ Edge::Edge( Node* nodeA, Node* nodeB, int weight, QGraphicsItem* parent) :
 
     this->nodeA = nodeA;
     this->nodeB = nodeB;
-    this->weight = weight;
+    this->setWeight(weight);
 
     //each node must have a reference to this edge
     nodeA->addEdge( this );
@@ -65,6 +65,8 @@ Node* Edge::getNodeB() const {
 void Edge::setWeight( int val ) {
     if( val >= 0 ) {
         this->weight = val;
+    } else {
+        throw EdgeError( EdgeError::INVALID_WEIGHT, "Invalid weight");
     }
 }
 

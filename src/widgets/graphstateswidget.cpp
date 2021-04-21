@@ -55,7 +55,7 @@ GraphStatesWidget::GraphStatesWidget(QWidget *parent) : QWidget(parent)
     splitter->addWidget( table );
     splitter->setSizes( QList<int>() << 200 << 400 );
 
-    statesTitle->setText("States");
+    statesTitle->setText("Steps");
     layout->addWidget( statesTitle );
     layout->addWidget(splitter);
 

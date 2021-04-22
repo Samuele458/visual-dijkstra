@@ -85,6 +85,11 @@ void GraphStatesWidget::setStates( QVector<GraphState> states ) {
         //new button
         QPushButton* button = new QPushButton(QString::number(i));
 
+        if( states.at(i).getMessage() != "" ) {
+            button->setToolTip(states.at(i).getMessage());
+        }
+
+
         statesButtons.push_back( button );
         statesButtons.at(i)->setMinimumWidth(20);
         statesButtons.at(i)->setMinimumHeight(30);

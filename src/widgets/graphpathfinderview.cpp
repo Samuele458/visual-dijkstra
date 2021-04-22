@@ -114,7 +114,7 @@ QVector<GraphState> GraphPathfinderView::dijkstraAlgorithm( Node* source, Node* 
     //QStringList nodesList = state.getNodeNames();
     QVectorIterator<Node*> i(this->getGraph()->getNodes());
 
-
+    state.setMessage( "Initial state");
     states.push_back( state );
     qDebug().noquote() << "Initial state:" << state.toString();
 
@@ -126,7 +126,6 @@ QVector<GraphState> GraphPathfinderView::dijkstraAlgorithm( Node* source, Node* 
         Node* u = this->getGraph()->getNode( state.minDistance() );
 
 
-
         qDebug() << "Processed: " + u->getName();
 
         //current node set processed
@@ -136,13 +135,14 @@ QVector<GraphState> GraphPathfinderView::dijkstraAlgorithm( Node* source, Node* 
         for( int j = 0; j < neighbours.size(); ++j ) {
             int alt = state.getNode(u->getName()).getDistance() +
                       u->getEdgeBetween( neighbours.at(j) )->getWeight();
-            //qDebug() << "neighbour:  " +neighbours.at(j)->getName() + "  - " + QString::number(alt) + " - " + QString::number(state.getNode(neighbours.at(j)->getName()).getDistance() );
+
             if( alt < state.getNode(neighbours.at(j)->getName()).getDistance() ) {
 
                 qDebug() << "The distance " + QString::number(alt) + " is less than " + QString::number(state.getNode(neighbours.at(j)->getName()).getDistance() );
 
                 state.setDistance( neighbours.at(j)->getName(), alt );
                 state.setPreviousNodeName( neighbours.at(j)->getName(), u->getName() );
+                state.setMessage( "Visiting node \"" + neighbours.at(j)->getName() + "\"" );
                 states.push_back( state );
 
             }

@@ -107,14 +107,17 @@ public:
 
     QString getSource() const;
     QString getDest() const;
+    QString getMessage() const;
 
     void setSource( QString source );
     void setDest( QString dest );
+    void setMessage( QString message );
 
 private:
     QVector<NodeState> nodes;
     QString source;
     QString dest;
+    QString message;
 };
 
 #endif // GRAPHSTATE_H

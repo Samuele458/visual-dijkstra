@@ -159,12 +159,14 @@ GraphState::GraphState( const GraphState& other ) {
     nodes = other.nodes;
     source = other.source;
     dest = other.dest;
+    message = other.message;
 }
 
 GraphState& GraphState::operator=( const GraphState& other ) {
     nodes = other.nodes;
     source = other.source;
     dest = other.dest;
+    message = other.message;
 
     return *this;
 }
@@ -322,6 +324,14 @@ void GraphState::setSource( QString source ) {
 
 void GraphState::setDest( QString dest ) {
     this->dest = dest;
+}
+
+QString GraphState::getMessage() const {
+    return this->message;
+}
+
+void GraphState::setMessage( QString message ) {
+    this->message = message;
 }
 
 

@@ -179,9 +179,9 @@ void GraphStatesWidget::applyState( int pos ) {
         while( i.hasNext() ) {
             QPushButton* button = i.next();
             if( button == statesButtons.at(pos) ) {
-                button->setStyleSheet("background-color: rgba(46, 204, 113, 0.4); border:none;");
+                button->setStyleSheet("QPushButton { background-color: rgba(46, 204, 113, 0.4); border:none; }");
             } else {
-                button->setStyleSheet("background-color: rgba(150, 204, 113, 0.4); border:none;");
+                button->setStyleSheet("QPushButton { background-color: rgba(150, 204, 113, 0.4); border:none; }");
             }
         }
 

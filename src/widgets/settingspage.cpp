@@ -147,7 +147,7 @@ ColorHandler::ColorHandler( QString text, QColor color, QWidget* parent ) :
     mainLayout->addStretch();
     mainLayout->addWidget(colorPickerButton);
 
-    mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+    //mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     this->setLayout(mainLayout);
 

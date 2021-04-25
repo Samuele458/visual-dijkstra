@@ -24,21 +24,6 @@
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
 
-
-    /*
-    SettingsManager man("config.ini");
-    man.setValue("style",
-                 "widgets-background-color",
-                 "red");
-
-    qDebug() << man.getValue("style",
-                 "widget-text-color"
-                 );
-    */
-
-    //TODO: apply styles
-    //((QApplication*)QApplication::instance())->setStyleSheet("QMainWindow { background-color: red }");
-
     this->setWindowTitle( "Visual Dijkstra" );
 
     //creating actions

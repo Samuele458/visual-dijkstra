@@ -44,6 +44,8 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow(parent) {
     toolbar->addAction( createEdgeAction );
     toolbar->addSeparator();
     toolbar->addAction( calculatePathAction );
+    toolbar->addSeparator();
+    toolbar->addAction( showMatrixAction );
 
     //setup UI
     graphView = new GraphPathfinderView;
@@ -133,6 +135,11 @@ void MainWindow::createActions() {
 
     settingsAction = new QAction( "Open settings dialog", this );
     connect( settingsAction, SIGNAL(triggered()), this, SLOT(settings_action_slot()));
+
+    showMatrixAction = new QAction( "Show adjacency matrix", this );
+    connect( showMatrixAction, SIGNAL(triggered()), this, SLOT(show_matrix_action_slot()));
+
+
 }
 
 //allocating and configuring menus
@@ -324,6 +331,15 @@ void MainWindow::settings_action_slot() {
     delete dialog;
 
     applySettings();
+}
+
+void MainWindow::show_matrix_action_slot() {
+    qDebug() << "test";
+
+    AdjacencyMatrix a(graphView->getGraph());
+
+    qDebug() << a.getNodes();
+    qDebug() << a.getMatrix();
 }
 
 //event close

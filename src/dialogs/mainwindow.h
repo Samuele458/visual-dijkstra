@@ -49,6 +49,7 @@
 #include "widgets/graphstateswidget.h"
 #include "common/settingsmanager.h"
 #include "dialogs/settingsdialog.h"
+#include "common/adjacencymatrix.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -78,6 +79,7 @@ protected slots:
     void calculate_path_action_slot();
     void new_graph_action_slot();
     void settings_action_slot();
+    void show_matrix_action_slot();
 
 private:
 
@@ -100,6 +102,7 @@ private:
     QAction* calculatePathAction;
     QAction* newGraphAction;
     QAction* settingsAction;
+    QAction* showMatrixAction;
 
 
     // ---- widgets ----

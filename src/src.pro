@@ -12,6 +12,7 @@ SOURCES += \
         common/error.cpp \
         common/graphstate.cpp \
         common/settingsmanager.cpp \
+        common/adjacencymatrix.cpp \
         dialogs/aboutdialog.cpp \
         dialogs/licensedialog.cpp \
         dialogs/mainwindow.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     common/error.h \
     common/graphstate.h \
     common/settingsmanager.h \
+    common/adjacencymatrix.h \
     dialogs/aboutdialog.h \
     dialogs/licensedialog.h \
     dialogs/mainwindow.h \

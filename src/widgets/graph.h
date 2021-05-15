@@ -167,6 +167,5 @@ private:
 
 };
 
-//QDebug operator<<(QDebug dbg, const Graph &c);
 
 #endif // GRAPH_H

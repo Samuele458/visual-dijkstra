@@ -7,4 +7,5 @@ SUBDIRS = \
     NodeStateTest \
     SettingsManagerTest \
     NodeTest \
-    EdgeTest
+    EdgeTest \
+    AdjacencyMatrixTest

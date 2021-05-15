@@ -63,6 +63,7 @@ Graph::Graph(QObject* parent ) : QGraphicsScene( parent )
     //creating actions for contextual menus
     this->createActions();
 
+
 }
 
 void Graph::addNode(Node* node)

@@ -105,7 +105,9 @@ void SettingsManagerTest::getCorrectValue_ValueSet() {
     //if no exception is thrown means that filename is correct
     SettingsManager settings("config.ini");
 
-    QRegExp hexColorRegex("^\\#[0-9ABCDEF]{6}$");
+    QRegExp hexColorRegex("^\\#[0-9ABCDEFabcdef]{6}$");
+
+    qDebug() << settings.getValue("style","nodes-color").toString();
 
     QVERIFY( hexColorRegex.exactMatch( settings.getValue("style","nodes-color").toString() ) );
 }

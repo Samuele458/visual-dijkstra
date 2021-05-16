@@ -79,9 +79,6 @@ MatrixDialog::MatrixDialog( Graph* graph, QWidget* parent ) :
     connect( closeButton, SIGNAL(clicked()), this, SLOT(closeButtonClicked()));
     connect( csvExportButton, SIGNAL(clicked()), this, SLOT(csvExportButtonClicked()));
 
-    //---
-
-    setupTable();
 
 }
 
@@ -90,11 +87,30 @@ void MatrixDialog::closeButtonClicked() {
 }
 
 void MatrixDialog::csvExportButtonClicked() {
+    QString filename = QFileDialog::getSaveFileName( this, "Save as...", "", "Csv (*.csv);;Others (*.*)" );
 
+    if( filename != "" ) {
+        QFile file(filename);
+
+        if(file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
+            QTextStream stream(&file);
+
+            QVector<QVector<int>> matrixVector = matrixTable->getMatrix();
+
+            for( int i = 0; i < matrixVector.length(); ++i ) {
+                for( int j = 0; j < matrixVector.length(); ++j ) {
+                    stream << matrixVector[i][j];
+                    if( j != matrixVector.length() - 1 ) stream << ", ";
+                }
+                stream << "\n";
+            }
+
+
+            file.close();
+        }
+    }
 }
 
-void MatrixDialog::setupTable() {
 
-}
 
 

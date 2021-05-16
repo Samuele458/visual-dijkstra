@@ -9,6 +9,9 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QFont>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QCheckBox>
 
 #include "common/adjacencymatrix.h"
 #include "widgets/graph.h"
@@ -29,9 +32,6 @@ class MatrixDialog : public QDialog {
 public:
     MatrixDialog( Graph* graph, QWidget* parent = nullptr );
 
-    void setupTable();
-
-
 
 
 private slots:
@@ -48,6 +48,7 @@ private:
 
     QPushButton* closeButton;
     QPushButton* csvExportButton;
+    //QCheckBox* enableWeight;
 
 
 

@@ -19,5 +19,6 @@
         <file>data/grid/grid100.png</file>
         <file>data/grid/grid100_w4_64o.png</file>
         <file>data/grid/grid100_w4_28o.png</file>
+        <file>data/icons/matrix.png</file>
     </qresource>
 </RCC>

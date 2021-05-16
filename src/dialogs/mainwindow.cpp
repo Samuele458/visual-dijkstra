@@ -137,6 +137,7 @@ void MainWindow::createActions() {
     connect( settingsAction, SIGNAL(triggered()), this, SLOT(settings_action_slot()));
 
     showMatrixAction = new QAction( "Show adjacency matrix", this );
+    showMatrixAction->setIcon( QIcon(":/data/icons/matrix.png") );
     connect( showMatrixAction, SIGNAL(triggered()), this, SLOT(show_matrix_action_slot()));
 
 

@@ -59,6 +59,7 @@ MatrixDialog::MatrixDialog( Graph* graph, QWidget* parent ) :
     QDialog( parent )
 {
     this->setWindowTitle("Adjacency Matrix");
+    this->setMinimumSize( 400, 400 );
 
     closeButton = new QPushButton("Close");
     csvExportButton = new QPushButton("Export CSV");

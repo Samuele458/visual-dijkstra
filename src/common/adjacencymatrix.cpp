@@ -38,7 +38,7 @@ void AdjacencyMatrix::setGraph( Graph* graph ) {
 }
 
 //generates a matrix
-void AdjacencyMatrix::generate() {
+void AdjacencyMatrix::generate( ) {
     if( graph != nullptr ) {
 
 

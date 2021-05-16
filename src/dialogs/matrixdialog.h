@@ -11,7 +11,6 @@
 #include <QFont>
 #include <QFileDialog>
 #include <QTextStream>
-#include <QCheckBox>
 
 #include "common/adjacencymatrix.h"
 #include "widgets/graph.h"
@@ -40,7 +39,6 @@ private slots:
 
 private:
 
-    QWidget* mainWidget;
     QVBoxLayout* mainLayout;
 
     MatrixTableWidget* matrixTable;
@@ -48,7 +46,6 @@ private:
 
     QPushButton* closeButton;
     QPushButton* csvExportButton;
-    //QCheckBox* enableWeight;
 
 
 

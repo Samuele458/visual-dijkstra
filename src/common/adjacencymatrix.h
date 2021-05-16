@@ -43,7 +43,7 @@ public:
     void setGraph( Graph* graph );
 
     //generates a matrix
-    void generate();
+    void generate( );
 
     QStringList getNodes() const;
     QVector<QVector<int>> getMatrix() const;

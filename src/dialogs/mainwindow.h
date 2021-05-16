@@ -49,6 +49,7 @@
 #include "widgets/graphstateswidget.h"
 #include "common/settingsmanager.h"
 #include "dialogs/settingsdialog.h"
+#include "dialogs/matrixdialog.h"
 #include "common/adjacencymatrix.h"
 
 class MainWindow : public QMainWindow {

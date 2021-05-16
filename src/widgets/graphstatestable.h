@@ -43,11 +43,15 @@ public:
     GraphState getState() const;
 
 
+
+
     void refresh();
 
 
 private:
     GraphState state;
+
+
 
 };
 

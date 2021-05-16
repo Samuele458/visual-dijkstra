@@ -334,12 +334,12 @@ void MainWindow::settings_action_slot() {
 }
 
 void MainWindow::show_matrix_action_slot() {
-    qDebug() << "test";
+    MatrixDialog* dialog = new MatrixDialog(graphView->getGraph());
 
-    AdjacencyMatrix a(graphView->getGraph());
+    dialog->exec();
 
-    qDebug() << a.getNodes();
-    qDebug() << a.getMatrix();
+    delete dialog;
+
 }
 
 //event close

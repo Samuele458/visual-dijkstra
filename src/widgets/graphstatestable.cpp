@@ -44,6 +44,7 @@ GraphStatesTable::GraphStatesTable(GraphState state, QWidget* parent ) :
 
     refresh();
 
+
 }
 
 void GraphStatesTable::setState( GraphState state ) {

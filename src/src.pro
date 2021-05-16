@@ -17,6 +17,7 @@ SOURCES += \
         dialogs/licensedialog.cpp \
         dialogs/mainwindow.cpp \
         dialogs/settingsdialog.cpp \
+        dialogs/matrixdialog.cpp \
         main.cpp \
         widgets/edge.cpp \
         widgets/graph.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     dialogs/licensedialog.h \
     dialogs/mainwindow.h \
     dialogs/settingsdialog.h \
+    dialogs/matrixdialog.h \
     widgets/edge.h \
     widgets/graph.h \
     widgets/graphpathfinderview.h \

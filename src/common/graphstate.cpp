@@ -24,6 +24,11 @@
 
 const int NodeState::INF = 9999999;
 
+NodeState::NodeState() :
+    NodeState( "DEFAULT_NODE", 3, "DEFAULT_PREVIOUS_NODE" )
+{
+
+}
 
 NodeState::NodeState( QString name, int distance, QString previous, bool processed ) {
     this->setName( name );
@@ -135,17 +140,21 @@ QString NodeState::toString() const {
 // -----
 
 GraphState::GraphState( Graph* graph ) {
-    QVector<Node*> nodes = graph->getNodes();
-    QVectorIterator<Node*> i(nodes);
+    if( graph != nullptr ) {
+        QVector<Node*> nodes = graph->getNodes();
+        QVectorIterator<Node*> i(nodes);
 
-    while( i.hasNext() ) {
-        Node* hold = i.next();
+        while( i.hasNext() ) {
+            Node* hold = i.next();
 
-        this->nodes.push_back( NodeState( hold->getName() ) );
+            this->nodes.push_back( NodeState( hold->getName() ) );
+        }
+
+        source = "";
+        dest = "";
+    } else {
+        throw GraphStateError( GraphStateError::NULL_GRAPH, "Invalid Address" );
     }
-
-    source = "";
-    dest = "";
 }
 
 GraphState::GraphState( QVector<NodeState> nodes )

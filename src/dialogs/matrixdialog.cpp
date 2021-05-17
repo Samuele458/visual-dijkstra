@@ -6,8 +6,11 @@ MatrixTableWidget::MatrixTableWidget( Graph* graph, QWidget* parent ) :
     QVector<QVector<int>> matrixVector = getMatrix();
     int side = matrixVector.length();
 
+
     setRowCount(side);
     setColumnCount(side);
+
+
 
     setHorizontalHeaderLabels( getNodes() );
     setVerticalHeaderLabels( getNodes() );
@@ -30,6 +33,9 @@ MatrixTableWidget::MatrixTableWidget( Graph* graph, QWidget* parent ) :
 
         }
     }
+
+    verticalHeader()->setVisible(true);
+    horizontalHeader()->setVisible(true);
 }
 
 
@@ -51,6 +57,9 @@ void MatrixTableWidget::paintEvent(QPaintEvent* event)
                          Qt::AlignCenter,
                          "Empty graph");
     }
+
+    verticalHeader()->setVisible(true);
+    horizontalHeader()->setVisible(true);
 
 
 }

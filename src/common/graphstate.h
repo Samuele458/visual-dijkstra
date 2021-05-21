@@ -39,7 +39,8 @@ public:
         INVALID_NODE_NAME,
         INVALID_NODE_DISTANCE,
         DUPLICATE_NODE_NAME,
-        NODE_NOT_FOUND
+        NODE_NOT_FOUND,
+        NULL_GRAPH
     };
 
     GraphStateError( id error_id = GENERIC, QString message = "" ) :
@@ -51,6 +52,7 @@ class NodeState {
 public:
     static const int INF;
 
+    NodeState();
     NodeState( QString name, int distance = INF, QString previous = "", bool processed = false );
     NodeState( const NodeState& other );
     NodeState( Node* node, int distance = INF, QString previous = "", bool processed = false );
@@ -83,7 +85,7 @@ private:
 class GraphState
 {
 public:
-    GraphState( Graph* graph );
+    GraphState( Graph* graph = nullptr );
     GraphState( QVector<NodeState> nodes );
     GraphState( const GraphState& other );
     GraphState& operator=( const GraphState& other );

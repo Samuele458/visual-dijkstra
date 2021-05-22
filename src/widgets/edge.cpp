@@ -170,16 +170,20 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     //creating pen, in order to draw line.
     painter->setPen(QPen(color, 3));
 
+
+    QLineF line(nodeA->x()+nodeA->boundingRect().width()/2,
+                nodeA->y()+nodeA->boundingRect().height()/2,
+                nodeB->x()+nodeB->boundingRect().width()/2,
+                nodeB->y()+nodeB->boundingRect().height()/2 );
+
     //drawing line. The center of each nodes is calculated
-    painter->drawLine(nodeA->x()+nodeA->boundingRect().width()/2,
-                      nodeA->y()+nodeA->boundingRect().height()/2,
-                      nodeB->x()+nodeB->boundingRect().width()/2,
-                      nodeB->y()+nodeB->boundingRect().height()/2 );
+    painter->drawLine(line);
 
     QPointF textPoint;
     QRectF bound = boundingRect();
     textPoint.setX( bound.x() + bound.width()/2 + 10 );
     textPoint.setY( bound.y() + bound.height()/2 + 10 );
+
 
     QFont font = painter->font();
     font.setPixelSize(15);

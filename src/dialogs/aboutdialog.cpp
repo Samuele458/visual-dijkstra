@@ -23,6 +23,7 @@
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
+    this->setWindowTitle("About Visual Dijkstra");
 
     //creating widgets
     MainLayout = new QVBoxLayout;
@@ -84,7 +85,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     EmailLeftLabel->setText( tr( "Email:" ) );
     GithubLeftLabel->setText( tr( "Github:" ) );
 
-    VersionRightLabel->setText( "1.1.0" );
+    VersionRightLabel->setText( "1.3.0" );
     DateRightLabel->setText( "11 / 04 / 2021" );
 
     LicenseRightLabel->setText( "GNU General Public License v3.0");

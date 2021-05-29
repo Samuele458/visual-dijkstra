@@ -86,7 +86,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     GithubLeftLabel->setText( tr( "Github:" ) );
 
     VersionRightLabel->setText( "1.3.0" );
-    DateRightLabel->setText( "11 / 04 / 2021" );
+    DateRightLabel->setText( "30 / 05 / 2021" );
 
     LicenseRightLabel->setText( "GNU General Public License v3.0");
     AuthorRightLabel->setText( "Samuele Girgenti" );

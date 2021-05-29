@@ -42,6 +42,11 @@ GraphStatesTable::GraphStatesTable(GraphState state, QWidget* parent ) :
     this->horizontalHeader()->setStretchLastSection( true );
     this->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    QHeaderView* headerObj = horizontalHeader();
+    headerObj->setSectionResizeMode(QHeaderView::Stretch);
+    headerObj = verticalHeader();
+    headerObj->setDefaultAlignment(Qt::AlignCenter);
+
     refresh();
 
 
